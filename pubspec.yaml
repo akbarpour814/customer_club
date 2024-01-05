@@ -1,0 +1,54 @@
+name: customer_club
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons:
+  flutter_secure_storage:
+  top_snackbar_flutter:
+  flutter_bloc:
+  get_it:
+  injectable: 
+  flutter_svg:
+  persian_number_utility:
+  dio:
+  flutter_launcher_icons:
+  flutter_gen_runner:
+  build_runner: 
+  injectable_generator:
+
+flutter_gen:
+  output: lib/configs/gen
+  integrations:
+    flutter_svg: true
+  
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/resources/app_logo.png"
+  remove_alpha_ios: true
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  
+  assets:
+    - assets/resources/
+
+  fonts:
+    - family: Dana
+      fonts:
+        - asset: assets/fonts/Dana-Medium.ttf
