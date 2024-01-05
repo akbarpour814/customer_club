@@ -49,6 +49,6 @@ flutter:
     - assets/resources/
 
   fonts:
-    - family: Dana
+    - family: Estedad
       fonts:
-        - asset: assets/fonts/Dana-Medium.ttf
+        - asset: assets/fonts/Estedad-Regular.ttf

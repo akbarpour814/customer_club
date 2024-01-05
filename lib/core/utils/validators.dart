@@ -47,7 +47,6 @@ String? mobileNumberValidator(String? value) {
   }
 }
 
-
 String? phoneNumberValidator(String? value, {bool isRequired = false}) {
   if (isRequired) {
     if (value == null ||

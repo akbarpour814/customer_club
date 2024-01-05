@@ -29,7 +29,7 @@ Future<void> configureDependencies() async {
 
 Dio createApiClient() {
   Dio dio = Dio(BaseOptions(
-      baseUrl: 'https://mytick8.com/api/v1/',
+      baseUrl: 'http://royacard.royaweb.com/app_data/',
       validateStatus: (status) => true,
       connectTimeout: const Duration(seconds: 60),
       sendTimeout: const Duration(seconds: 60),

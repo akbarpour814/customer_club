@@ -1,4 +1,4 @@
-package com.example.customer_club
+package com.app.royacard
 
 import io.flutter.embedding.android.FlutterActivity
 

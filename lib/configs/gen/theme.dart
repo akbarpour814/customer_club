@@ -6,7 +6,7 @@ ThemeData myTheme() {
   return ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
     useMaterial3: true,
-    fontFamily: FontFamily.dana,
+    fontFamily: FontFamily.estedad,
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(const Size(300, 34)),
@@ -26,12 +26,12 @@ ThemeData myTheme() {
             letterSpacing: 0,
             wordSpacing: 1,
             color: Colors.black,
-            fontFamily: FontFamily.dana),
+            fontFamily: FontFamily.estedad),
         hintStyle: const TextStyle(
             letterSpacing: 0,
             wordSpacing: 1,
             fontSize: 12,
-            fontFamily: FontFamily.dana,
+            fontFamily: FontFamily.estedad,
             color: ColorPalette.grayColor),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
