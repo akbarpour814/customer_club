@@ -2,6 +2,7 @@ import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/custom_page_route.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/features/home/presentation/screens/home_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/bottom_menu_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class MainScreenState extends State<MainScreen> {
                       cartIndex,
                       const Center(),
                     ),
-                    _navigator(_homeKey, homeIndex, const Center()),
+                    _navigator(_homeKey, homeIndex, const HomeScreen()),
                     _navigator(_favoriteKey, favoriteIndex, const Center()),
                     _navigator(_profileKey, profileIndex, const Center()),
                   ],
@@ -86,10 +87,11 @@ class MainScreenState extends State<MainScreen> {
                 right: 0,
                 child: Container(
                   width: 100.w(context),
-                  height: 90,
+                  height: 80,
                   padding: const EdgeInsets.only(top: 16),
                   decoration: BoxDecoration(
                       image: DecorationImage(
+                          fit: BoxFit.fill,
                           image:
                               AssetImage(Assets.resources.bottomBarBg1.path))),
                   child: Row(
@@ -122,7 +124,7 @@ class MainScreenState extends State<MainScreen> {
                         width: 14.w(context),
                         height: 14.w(context),
                         margin: EdgeInsets.fromLTRB(
-                            3.w(context), 0, 3.w(context), 0),
+                            3.w(context), 0, 3.w(context), 8),
                         decoration: BoxDecoration(
                             color: ColorPalette.primaryColor,
                             shape: BoxShape.circle),

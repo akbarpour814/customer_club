@@ -20,11 +20,18 @@ dependencies:
   flutter_svg:
   persian_number_utility:
   dio:
+  dots_indicator:
+  carousel_slider:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
   flutter_launcher_icons:
   flutter_gen_runner:
   build_runner: 
   injectable_generator:
-
+  
 flutter_gen:
   output: lib/configs/gen
   integrations:
@@ -35,11 +42,6 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/resources/app_logo.png"
   remove_alpha_ios: true
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
