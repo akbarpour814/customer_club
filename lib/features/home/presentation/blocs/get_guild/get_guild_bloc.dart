@@ -10,13 +10,15 @@ part 'get_guild_state.dart';
 class GetGuildBloc extends Bloc<GetGuildEvent, GetGuildState> {
   GetGuildBloc() : super(GetGuildInitial()) {
     on<GetGuildEvent>((event, emit) async {
+     if(event is GetGuildStartEvent){
+       emit(GetGuildLoading());
       final state = await GetGuildUseCase().call();
-      emit(GetGuildLoading());
       if (state is DataSuccess) {
         emit(GetGuildLoaded(guildList: state.data!));
       } else {
         emit(GetGuildError(message: state.error!));
       }
+     }
     });
   }
 }

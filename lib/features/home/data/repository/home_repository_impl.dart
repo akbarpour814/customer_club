@@ -3,7 +3,8 @@ import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/data/data_source/home_data_source.dart';
-import 'package:customer_club/features/home/data/models/home_data_model/home_data_model.dart';
+import 'package:customer_club/features/home/data/models/guild_details_model.dart';
+import 'package:customer_club/features/home/data/models/home_data_model.dart';
 import 'package:customer_club/features/home/domain/repository/home_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -42,6 +43,19 @@ class HomeRepository implements IHomeRepository {
             .toList());
       }
       return DataError(_guildListRes.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<GuildDetailsModel>> getGuildDetails(int guildId) async {
+    try {
+      final res = await getIt<IHomeDataSource>().getGuildDetails(guildId);
+      if (res.validate()) {
+        return DataSuccess(GuildDetailsModel.fromJson(res.data));
+      }
+      return DataError(res.getErrorMessage);
     } catch (e) {
       return DataError(null.getErrorMessage);
     }

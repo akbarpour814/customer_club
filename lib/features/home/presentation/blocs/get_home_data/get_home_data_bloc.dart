@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:customer_club/core/utils/data_states.dart';
-import 'package:customer_club/features/home/data/models/home_data_model/home_data_model.dart';
+import 'package:customer_club/features/home/data/models/home_data_model.dart';
 import 'package:customer_club/features/home/domain/use_cases/get_home_data_use_case.dart';
 import 'package:meta/meta.dart';
 

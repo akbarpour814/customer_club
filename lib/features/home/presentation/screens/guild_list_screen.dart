@@ -1,8 +1,8 @@
 import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
-import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/widgets/animated_expanded_widget.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_guild/get_guild_bloc.dart';
+import 'package:customer_club/features/home/presentation/widgets/guild_item_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -60,8 +60,10 @@ class _GuildListScreenState extends State<GuildListScreen> {
               }, child: BlocBuilder<GetGuildBloc, GetGuildState>(
                 builder: (context, state) {
                   return state is GetGuildLoading
-                      ? const Center(
-                          child: CupertinoActivityIndicator(),
+                      ? Center(
+                          child: CupertinoActivityIndicator(
+                            color: ColorPalette.primaryColor,
+                          ),
                         )
                       : state is GetGuildLoaded
                           ? GridView.count(
@@ -71,27 +73,8 @@ class _GuildListScreenState extends State<GuildListScreen> {
                               childAspectRatio: 1.2,
                               padding:
                                   const EdgeInsets.only(top: 16, bottom: 80),
-                              children: [...state.guildList, ...state.guildList]
-                                  .map((e) => Column(
-                                        children: [
-                                          Image.network(
-                                            e.icon ?? '',
-                                            width: 30.w(context),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w(context),
-                                            child: Text(
-                                              e.name ?? '',
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          )
-                                        ],
-                                      ))
+                              children: state.guildList
+                                  .map((e) => GuildItemWidget(e))
                                   .toList(),
                             )
                           : const Center();
