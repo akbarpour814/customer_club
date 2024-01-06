@@ -67,13 +67,13 @@ class _SplashScreenState extends State<SplashScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Assets.resources.splashVector
-                              .svg(width: 70.w(context)),
+                          Assets.resources.splashVector.svg(width: 300),
                         ],
                       ),
                       24.hsb(),
-                      60.w(context).wsb(
-                              child: const Text(
+                      const SizedBox(
+                          width: 200,
+                          child: Text(
                             'جستجو در بیش از 1000 فروشگاه تخفیفی در شهر شما',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),

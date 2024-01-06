@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 
 abstract class IHomeDataSource {
   Future<Response> getHomeData();
+  Future<Response> getGuilds();
 }
 
 @Injectable(
@@ -11,5 +12,8 @@ abstract class IHomeDataSource {
 )
 class HomeDataSource implements IHomeDataSource {
   @override
-  Future<Response> getHomeData() => getIt<Dio>().post('home.php');
+  Future<Response> getHomeData() => getIt<Dio>().get('home.php');
+  
+  @override
+  Future<Response> getGuilds() => getIt<Dio>().get('shop_catagories.php');
 }

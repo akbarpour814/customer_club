@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 ThemeData myTheme() {
   return ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+    colorScheme: ColorScheme.fromSeed(seedColor: ColorPalette.primaryColor),
     useMaterial3: true,
     fontFamily: FontFamily.estedad,
     elevatedButtonTheme: ElevatedButtonThemeData(

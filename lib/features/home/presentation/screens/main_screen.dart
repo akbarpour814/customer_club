@@ -2,10 +2,11 @@ import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/custom_page_route.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/features/home/presentation/screens/guild_list_screen.dart';
 import 'package:customer_club/features/home/presentation/screens/home_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/bottom_menu_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -43,6 +44,8 @@ class MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: ColorPalette.primaryColor));
   }
 
   @override
@@ -77,7 +80,8 @@ class MainScreenState extends State<MainScreen> {
                     ),
                     _navigator(_homeKey, homeIndex, const HomeScreen()),
                     _navigator(_favoriteKey, favoriteIndex, const Center()),
-                    _navigator(_profileKey, profileIndex, const Center()),
+                    _navigator(
+                        _profileKey, profileIndex, const GuildListScreen()),
                   ],
                 ),
               ),
