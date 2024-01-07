@@ -1,11 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/utils/my_navigator.dart';
+import 'package:customer_club/features/home/data/models/slider_model.dart';
+import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
+import 'package:customer_club/features/home/presentation/screens/shop_details_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeSlider extends StatefulWidget {
-  final List<String> sliderItems;
+  final List<SliderModel> sliderItems;
   const HomeSlider(this.sliderItems, {super.key});
 
   @override
@@ -24,7 +31,6 @@ class _HomeSliderState extends State<HomeSlider> {
           children: [
             CarouselSlider(
               options: CarouselOptions(
-                  height: 50.w(context),
                   autoPlay: true,
                   viewportFraction: 1.2,
                   onPageChanged: (index, reason) {
@@ -35,10 +41,30 @@ class _HomeSliderState extends State<HomeSlider> {
                   autoPlayInterval: const Duration(seconds: 8)),
               items: widget.sliderItems
                   .map(
-                    (e) => Image.network(
-                      e,
-                      fit: BoxFit.fill,
-                      width: 100.w(context),
+                    (e) => InkWell(
+                      onTap: () {
+                        if (e.link.isNotNullOrEmpty) {
+                          if (e.link!.contains('http')) {
+                            launchUrl(Uri.parse(e.link!),
+                                mode: LaunchMode.externalApplication,
+                                webOnlyWindowName: '_self');
+                          } else {
+                            MyNavigator.push(
+                                MainScreen.scaffoldKey.currentContext!,
+                                ShopDetailsScreen(
+                                    shopId: int.parse((e.link!))));
+                          }
+                        }
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: e.image ?? '',
+                        fit: BoxFit.fill,
+                        width: 100.w(context),
+                        progressIndicatorBuilder: (_, __, ___) =>
+                            CupertinoActivityIndicator(
+                          color: ColorPalette.primaryColor,
+                        ),
+                      ),
                     ),
                   )
                   .toList(),

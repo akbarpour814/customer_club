@@ -1,5 +1,6 @@
 import 'package:customer_club/configs/gen/di/di.dart';
 import 'package:customer_club/core/models/guild_model.dart';
+import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/data/data_source/home_data_source.dart';
@@ -10,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 Response? _guildListRes;
+Response? _locationShopListRes;
 
 @Injectable(
   as: IHomeRepository,
@@ -56,6 +58,26 @@ class HomeRepository implements IHomeRepository {
         return DataSuccess(GuildDetailsModel.fromJson(res.data));
       }
       return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<List<ShopModel>>> getLocationShops() async {
+    try {
+      if (_guildListRes.validate()) {
+        return DataSuccess((_locationShopListRes!.data as List)
+            .map((e) => ShopModel.fromJson(e))
+            .toList());
+      }
+      _locationShopListRes = await getIt<IHomeDataSource>().getLocationShops();
+      if (_locationShopListRes.validate()) {
+        return DataSuccess((_locationShopListRes!.data as List)
+            .map((e) => ShopModel.fromJson(e))
+            .toList());
+      }
+      return DataError(_locationShopListRes.getErrorMessage);
     } catch (e) {
       return DataError(null.getErrorMessage);
     }

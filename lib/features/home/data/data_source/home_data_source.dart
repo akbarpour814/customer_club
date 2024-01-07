@@ -6,6 +6,7 @@ abstract class IHomeDataSource {
   Future<Response> getHomeData();
   Future<Response> getGuilds();
   Future<Response> getGuildDetails(int guildId);
+  Future<Response> getLocationShops();
 }
 
 @Injectable(
@@ -21,4 +22,7 @@ class HomeDataSource implements IHomeDataSource {
   @override
   Future<Response> getGuildDetails(int guildId) =>
       getIt<Dio>().get('category_shops.php?shop_catagories_id=$guildId');
+
+  @override
+  Future<Response> getLocationShops() => getIt<Dio>().get('shops_location.php');
 }

@@ -38,6 +38,9 @@ class $AssetsResourcesGen {
   AssetGenImage get menuSearch =>
       const AssetGenImage('assets/resources/menu_search.png');
 
+  /// File path: assets/resources/pin.png
+  AssetGenImage get pin => const AssetGenImage('assets/resources/pin.png');
+
   /// File path: assets/resources/splash_vector.svg
   SvgGenImage get splashVector =>
       const SvgGenImage('assets/resources/splash_vector.svg');
@@ -50,6 +53,7 @@ class $AssetsResourcesGen {
         menuLocations,
         menuProfile,
         menuSearch,
+        pin,
         splashVector
       ];
 }

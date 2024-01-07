@@ -65,7 +65,7 @@ class _GuildListScreenState extends State<GuildListScreen> {
                             color: ColorPalette.primaryColor,
                           ),
                         )
-                      : state is GetGuildLoaded
+                      : state is GetGuildLoaded && state.guildList.isNotEmpty
                           ? GridView.count(
                               physics: const BouncingScrollPhysics(),
                               shrinkWrap: true,
@@ -77,7 +77,9 @@ class _GuildListScreenState extends State<GuildListScreen> {
                                   .map((e) => GuildItemWidget(e))
                                   .toList(),
                             )
-                          : const Center();
+                          : const Center(
+                              child: Text('موردی یافت نشده است!'),
+                            );
                 },
               )),
             )

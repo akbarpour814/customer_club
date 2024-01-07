@@ -1,8 +1,9 @@
 import 'package:customer_club/core/models/shop_model.dart';
+import 'package:customer_club/features/home/data/models/slider_model.dart';
 
 class HomeDataModel {
   List<ShopModel>? shops;
-  List<String>? slides;
+  List<SliderModel>? slides;
 
   HomeDataModel({this.shops, this.slides});
 
@@ -11,7 +12,7 @@ class HomeDataModel {
             ?.map((e) => ShopModel.fromJson(e as Map<String, dynamic>))
             .toList(),
         slides: (json['slides'] as List<dynamic>?)
-            ?.map((e) => e.toString())
+            ?.map((e) => SliderModel.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
 

@@ -4,6 +4,7 @@ import 'package:customer_club/core/utils/custom_page_route.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/presentation/screens/guild_list_screen.dart';
 import 'package:customer_club/features/home/presentation/screens/home_screen.dart';
+import 'package:customer_club/features/home/presentation/screens/map_shops_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/bottom_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,32 +14,31 @@ class MainScreen extends StatefulWidget {
 
   static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   static GlobalKey<MainScreenState> stateKey = GlobalKey();
-
   @override
   State<MainScreen> createState() => MainScreenState();
 }
 
-const int catIndex = 0;
-const int cartIndex = 1;
+const int profileIndex = 0;
+const int searchIndex = 1;
 const int homeIndex = 2;
-const int favoriteIndex = 3;
-const int profileIndex = 4;
+const int locationIndex = 3;
+const int guildsIndex = 4;
 
 class MainScreenState extends State<MainScreen> {
   int _selectedScreenIndex = homeIndex;
   final List<int> _history = [];
   final GlobalKey<NavigatorState> _homeKey = GlobalKey();
-  final GlobalKey<NavigatorState> _cartKey = GlobalKey();
-  final GlobalKey<NavigatorState> _categoryKey = GlobalKey();
-  final GlobalKey<NavigatorState> _favoriteKey = GlobalKey();
+  final GlobalKey<NavigatorState> _searchKey = GlobalKey();
   final GlobalKey<NavigatorState> _profileKey = GlobalKey();
+  final GlobalKey<NavigatorState> _locationKey = GlobalKey();
+  final GlobalKey<NavigatorState> _guildsKey = GlobalKey();
 
   late final map = {
-    catIndex: _categoryKey,
-    cartIndex: _cartKey,
-    homeIndex: _homeKey,
     profileIndex: _profileKey,
-    favoriteIndex: _favoriteKey,
+    searchIndex: _searchKey,
+    homeIndex: _homeKey,
+    guildsIndex: _guildsKey,
+    locationIndex: _locationKey,
   };
 
   @override
@@ -72,16 +72,17 @@ class MainScreenState extends State<MainScreen> {
                 child: IndexedStack(
                   index: _selectedScreenIndex,
                   children: [
-                    _navigator(_categoryKey, catIndex, const Center()),
+                    _navigator(_profileKey, profileIndex, const Center()),
                     _navigator(
-                      _cartKey,
-                      cartIndex,
+                      _searchKey,
+                      searchIndex,
                       const Center(),
                     ),
                     _navigator(_homeKey, homeIndex, const HomeScreen()),
-                    _navigator(_favoriteKey, favoriteIndex, const Center()),
                     _navigator(
-                        _profileKey, profileIndex, const GuildListScreen()),
+                        _locationKey, locationIndex, const MapShopsScreen()),
+                    _navigator(
+                        _guildsKey, guildsIndex, const GuildListScreen()),
                   ],
                 ),
               ),
@@ -103,7 +104,7 @@ class MainScreenState extends State<MainScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () => onChangeTab(catIndex),
+                        onTap: () => onChangeTab(profileIndex),
                         child: BottomMenuItem(
                             selectedIcon: Assets.resources.menuProfile.image(
                                 color: ColorPalette.primaryColor,
@@ -111,10 +112,10 @@ class MainScreenState extends State<MainScreen> {
                                 width: 24),
                             unSelectedIcon: Assets.resources.menuProfile
                                 .image(height: 24, width: 24),
-                            isSelected: _selectedScreenIndex == catIndex),
+                            isSelected: _selectedScreenIndex == profileIndex),
                       ),
                       InkWell(
-                        onTap: () => onChangeTab(cartIndex),
+                        onTap: () => onChangeTab(searchIndex),
                         child: BottomMenuItem(
                             selectedIcon: Assets.resources.menuSearch.image(
                                 color: ColorPalette.primaryColor,
@@ -122,7 +123,7 @@ class MainScreenState extends State<MainScreen> {
                                 width: 24),
                             unSelectedIcon: Assets.resources.menuSearch
                                 .image(height: 24, width: 24),
-                            isSelected: _selectedScreenIndex == cartIndex),
+                            isSelected: _selectedScreenIndex == searchIndex),
                       ),
                       Container(
                         width: 14.w(context),
@@ -148,7 +149,7 @@ class MainScreenState extends State<MainScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: () => onChangeTab(favoriteIndex),
+                        onTap: () => onChangeTab(locationIndex),
                         child: BottomMenuItem(
                             selectedIcon: Assets.resources.menuLocations.image(
                                 color: ColorPalette.primaryColor,
@@ -156,10 +157,10 @@ class MainScreenState extends State<MainScreen> {
                                 width: 24),
                             unSelectedIcon: Assets.resources.menuLocations
                                 .image(height: 24, width: 24),
-                            isSelected: _selectedScreenIndex == favoriteIndex),
+                            isSelected: _selectedScreenIndex == locationIndex),
                       ),
                       InkWell(
-                        onTap: () => onChangeTab(profileIndex),
+                        onTap: () => onChangeTab(guildsIndex),
                         child: BottomMenuItem(
                             selectedIcon: Assets.resources.menuGuild.image(
                                 color: ColorPalette.primaryColor,
@@ -167,7 +168,7 @@ class MainScreenState extends State<MainScreen> {
                                 width: 24),
                             unSelectedIcon: Assets.resources.menuGuild
                                 .image(height: 22, width: 22),
-                            isSelected: _selectedScreenIndex == profileIndex),
+                            isSelected: _selectedScreenIndex == guildsIndex),
                       ),
                     ],
                   ),

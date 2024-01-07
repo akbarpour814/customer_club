@@ -27,71 +27,81 @@ class _GuildDetailsScreenState extends State<GuildDetailsScreen> {
           GetGuildDetailsStartEvent(guildId: widget.item.id ?? 0),
         ),
       child: SafeArea(
-        child: BlocBuilder<GetGuildDetailsBloc, GetGuildDetailsState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                AnimatedExpandedWidget(
-                    expand: !_scrollUp,
-                    child: AppBar(
-                      leading: const BackButton(
-                        color: Colors.white,
-                      ),
-                      actions: [
-                        if (state is GetGuildDetailsLoaded)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 12),
-                            child: Image.network(
-                                state.guildDetailsModel.category?.icon ?? '',
-                                width: 24,
-                                height: 24),
-                          )
-                      ],
-                      title: Text(
-                        widget.item.name ?? 'دسته بندی',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      backgroundColor: ColorPalette.primaryColor,
-                    )),
-                Expanded(
-                  child: state is GetGuildDetailsLoaded
-                      ? NotificationListener<UserScrollNotification>(
-                          onNotification: (notification) {
-                            final ScrollDirection direction =
-                                notification.direction;
-                            if (direction == ScrollDirection.forward) {
-                              setState(() {
-                                _scrollUp = false;
-                              });
-                            } else if (direction == ScrollDirection.reverse) {
-                              setState(() {
-                                _scrollUp = true;
-                              });
-                            }
-                            return true;
-                          },
-                          child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(
-                                top: 4, bottom: 80, left: 6, right: 6),
-                            children: (state.guildDetailsModel.shops ?? [])
-                                .map((e) => GuildDetailsShopItemWidget(e))
-                                .toList(),
-                          ))
-                      : state is GetGuildDetailsLoading
-                          ? Center(
-                              child: CupertinoActivityIndicator(
-                                color: ColorPalette.primaryColor,
+        child: Scaffold(
+          body: BlocBuilder<GetGuildDetailsBloc, GetGuildDetailsState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  AnimatedExpandedWidget(
+                      expand: !_scrollUp,
+                      child: AppBar(
+                        automaticallyImplyLeading: false,
+                        leading: state is GetGuildDetailsLoaded
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 12),
+                                child: Center(
+                                  child: Image.network(
+                                      state.guildDetailsModel.category?.icon ??
+                                          '',
+                                      width: 30,
+                                      height: 30),
+                                ),
+                              )
+                            : const SizedBox(
+                                width: 30,
                               ),
-                            )
-                          : const Center(),
-                )
-              ],
-            );
-          },
+                        title: Text(
+                          widget.item.name ?? 'دسته بندی',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        backgroundColor: ColorPalette.primaryColor,
+                      )),
+                  Expanded(
+                    child: state is GetGuildDetailsLoaded &&
+                            (state.guildDetailsModel.shops ?? []).isNotEmpty
+                        ? NotificationListener<UserScrollNotification>(
+                            onNotification: (notification) {
+                              final ScrollDirection direction =
+                                  notification.direction;
+                              if (direction == ScrollDirection.forward) {
+                                setState(() {
+                                  _scrollUp = false;
+                                });
+                              } else if (direction == ScrollDirection.reverse) {
+                                setState(() {
+                                  _scrollUp = true;
+                                });
+                              }
+                              return true;
+                            },
+                            child: ListView(
+                              physics: const BouncingScrollPhysics(),
+                              padding: const EdgeInsets.only(
+                                  top: 4, bottom: 80, left: 6, right: 6),
+                              children: (state.guildDetailsModel.shops ?? [])
+                                  .map((e) => GuildDetailsShopItemWidget(e))
+                                  .toList(),
+                            ))
+                        : state is GetGuildDetailsLoaded &&
+                                (state.guildDetailsModel.shops ?? []).isEmpty
+                            ? const Center(
+                                child: Text('فروشگاهی یافت نشده است!'),
+                              )
+                            : state is GetGuildDetailsLoading
+                                ? Center(
+                                    child: CupertinoActivityIndicator(
+                                      color: ColorPalette.primaryColor,
+                                    ),
+                                  )
+                                : const Center(),
+                  )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
