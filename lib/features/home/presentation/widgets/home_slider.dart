@@ -33,6 +33,7 @@ class _HomeSliderState extends State<HomeSlider> {
               options: CarouselOptions(
                   autoPlay: true,
                   viewportFraction: 1.2,
+                  aspectRatio: 1.8,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _index = index;

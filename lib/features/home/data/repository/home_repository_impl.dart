@@ -7,11 +7,10 @@ import 'package:customer_club/features/home/data/data_source/home_data_source.da
 import 'package:customer_club/features/home/data/models/guild_details_model.dart';
 import 'package:customer_club/features/home/data/models/home_data_model.dart';
 import 'package:customer_club/features/home/domain/repository/home_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-Response? _guildListRes;
-Response? _locationShopListRes;
+List<GuildModel>? _guildListRes;
+List<ShopModel>? _locationShopListRes;
 
 @Injectable(
   as: IHomeRepository,
@@ -33,18 +32,16 @@ class HomeRepository implements IHomeRepository {
   @override
   Future<DataState<List<GuildModel>>> getGuilds() async {
     try {
-      if (_guildListRes.validate()) {
-        return DataSuccess((_guildListRes!.data as List)
-            .map((e) => GuildModel.fromJson(e))
-            .toList());
+      if (_guildListRes != null) {
+        return DataSuccess(_guildListRes);
       }
-      _guildListRes = await getIt<IHomeDataSource>().getGuilds();
-      if (_guildListRes.validate()) {
-        return DataSuccess((_guildListRes!.data as List)
-            .map((e) => GuildModel.fromJson(e))
-            .toList());
+      final res = await getIt<IHomeDataSource>().getGuilds();
+      if (res.validate()) {
+        _guildListRes =
+            (res.data as List).map((e) => GuildModel.fromJson(e)).toList();
+        return DataSuccess(_guildListRes);
       }
-      return DataError(_guildListRes.getErrorMessage);
+      return DataError(res.getErrorMessage);
     } catch (e) {
       return DataError(null.getErrorMessage);
     }
@@ -66,18 +63,16 @@ class HomeRepository implements IHomeRepository {
   @override
   Future<DataState<List<ShopModel>>> getLocationShops() async {
     try {
-      if (_guildListRes.validate()) {
-        return DataSuccess((_locationShopListRes!.data as List)
-            .map((e) => ShopModel.fromJson(e))
-            .toList());
+      if (_locationShopListRes != null) {
+        return DataSuccess(_locationShopListRes);
       }
-      _locationShopListRes = await getIt<IHomeDataSource>().getLocationShops();
-      if (_locationShopListRes.validate()) {
-        return DataSuccess((_locationShopListRes!.data as List)
-            .map((e) => ShopModel.fromJson(e))
-            .toList());
+      final res = await getIt<IHomeDataSource>().getLocationShops();
+      if (res.validate()) {
+        _locationShopListRes =
+            (res.data as List).map((e) => ShopModel.fromJson(e)).toList();
+        return DataSuccess(_locationShopListRes);
       }
-      return DataError(_locationShopListRes.getErrorMessage);
+      return DataError(res.getErrorMessage);
     } catch (e) {
       return DataError(null.getErrorMessage);
     }

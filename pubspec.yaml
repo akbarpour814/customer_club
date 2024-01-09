@@ -24,11 +24,9 @@ dependencies:
   carousel_slider:
   url_launcher:
   cached_network_image: 
-  location: 
-  flutter_map:
-  flutter_map_marker_cluster:
   maps_launcher: 
   just_the_tooltip: 
+  flutter_osm_plugin: 0.70.4
 
 dev_dependencies:
   flutter_test:
