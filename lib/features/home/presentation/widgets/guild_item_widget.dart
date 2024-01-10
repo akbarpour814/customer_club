@@ -3,7 +3,6 @@ import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/features/home/presentation/screens/guild_details_screen.dart';
-import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class GuildItemWidget extends StatelessWidget {
@@ -30,7 +29,7 @@ class GuildItemWidget extends StatelessWidget {
               margin: EdgeInsets.zero,
               child: InkWell(
                 onTap: () {
-                  MyNavigator.push(MainScreen.scaffoldKey.currentContext!,
+                  MyNavigator.push(context,
                       GuildDetailsScreen(item: item));
                 },
                 splashColor: ColorPalette.primaryColor.withOpacity(0.3),

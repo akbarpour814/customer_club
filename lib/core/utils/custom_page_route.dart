@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CustomPageRoute<T> extends PageRoute<T> {
@@ -30,4 +31,11 @@ class CustomPageRoute<T> extends PageRoute<T> {
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 300);
+}
+
+class CustomPageRoute2 extends MaterialPageRoute {
+  CustomPageRoute2({required WidgetBuilder builder}) : super(builder: builder);
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 700);
 }

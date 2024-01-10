@@ -37,6 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
               if (state.configModel.colorMasterApp.isNotNullOrEmpty) {
                 ColorPalette.primaryColor =
                     Color(int.parse('0xff${state.configModel.colorMasterApp}'));
+                ColorPalette.primaryColorHex =
+                    state.configModel.colorMasterApp!;
               }
               if (state.configModel.colorClientApp.isNotNullOrEmpty) {
                 ColorPalette.secondryColor =

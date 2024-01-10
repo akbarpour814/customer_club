@@ -2,12 +2,14 @@ import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/custom_page_route.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/features/home/presentation/screens/guild_list_screen.dart';
 import 'package:customer_club/features/home/presentation/screens/home_screen.dart';
 import 'package:customer_club/features/home/presentation/screens/map_shops_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/bottom_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -26,14 +28,14 @@ const int guildsIndex = 4;
 
 class MainScreenState extends State<MainScreen> {
   int _selectedScreenIndex = homeIndex;
-  final List<int> _history = [];
+  final List<int> _history = [homeIndex];
   final GlobalKey<NavigatorState> _homeKey = GlobalKey();
   final GlobalKey<NavigatorState> _searchKey = GlobalKey();
   final GlobalKey<NavigatorState> _profileKey = GlobalKey();
   final GlobalKey<NavigatorState> _locationKey = GlobalKey();
   final GlobalKey<NavigatorState> _guildsKey = GlobalKey();
 
-  late final map = {
+  late final _map = {
     profileIndex: _profileKey,
     searchIndex: _searchKey,
     homeIndex: _homeKey,
@@ -51,13 +53,19 @@ class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: _history.isEmpty,
-      onPopInvoked: (value) async {
+      canPop: _history.isEmpty &&
+          _map[homeIndex]!.currentContext != null &&
+          !Navigator.canPop(_map[homeIndex]!.currentContext!),
+      onPopInvoked: (value) {
         if (!value) {
-          setState(() {
-            _selectedScreenIndex = _history.last;
-            _history.removeLast();
-          });
+          if (Navigator.canPop(_map[_selectedScreenIndex]!.currentContext!)) {
+            Navigator.pop(_map[_selectedScreenIndex]!.currentContext!);
+          } else if (_history.isNotEmpty) {
+            setState(() {
+              _selectedScreenIndex = _history.last;
+              _history.removeLast();
+            });
+          }
         }
       },
       child: Directionality(
@@ -106,23 +114,17 @@ class MainScreenState extends State<MainScreen> {
                       InkWell(
                         onTap: () => onChangeTab(profileIndex),
                         child: BottomMenuItem(
-                            selectedIcon: Assets.resources.menuProfile.image(
-                                color: ColorPalette.primaryColor,
-                                height: 24,
-                                width: 24),
-                            unSelectedIcon: Assets.resources.menuProfile
-                                .image(height: 24, width: 24),
+                            selectedIcon:
+                                SvgPicture.string(MyIcons.profileSelected),
+                            unSelectedIcon: SvgPicture.string(MyIcons.profile),
                             isSelected: _selectedScreenIndex == profileIndex),
                       ),
                       InkWell(
                         onTap: () => onChangeTab(searchIndex),
                         child: BottomMenuItem(
-                            selectedIcon: Assets.resources.menuSearch.image(
-                                color: ColorPalette.primaryColor,
-                                height: 24,
-                                width: 24),
-                            unSelectedIcon: Assets.resources.menuSearch
-                                .image(height: 24, width: 24),
+                            selectedIcon:
+                                SvgPicture.string(MyIcons.searchSelected),
+                            unSelectedIcon: SvgPicture.string(MyIcons.search),
                             isSelected: _selectedScreenIndex == searchIndex),
                       ),
                       Container(
@@ -142,8 +144,7 @@ class MainScreenState extends State<MainScreen> {
                             borderRadius: BorderRadius.circular(24),
                             onTap: () => onChangeTab(2),
                             child: Center(
-                              child: Assets.resources.menuHome
-                                  .image(width: 26, height: 26),
+                              child: SvgPicture.string(MyIcons.home),
                             ),
                           ),
                         ),
@@ -151,23 +152,17 @@ class MainScreenState extends State<MainScreen> {
                       InkWell(
                         onTap: () => onChangeTab(locationIndex),
                         child: BottomMenuItem(
-                            selectedIcon: Assets.resources.menuLocations.image(
-                                color: ColorPalette.primaryColor,
-                                height: 24,
-                                width: 24),
-                            unSelectedIcon: Assets.resources.menuLocations
-                                .image(height: 24, width: 24),
+                            selectedIcon:
+                                SvgPicture.string(MyIcons.locationSelected),
+                            unSelectedIcon: SvgPicture.string(MyIcons.location),
                             isSelected: _selectedScreenIndex == locationIndex),
                       ),
                       InkWell(
                         onTap: () => onChangeTab(guildsIndex),
                         child: BottomMenuItem(
-                            selectedIcon: Assets.resources.menuGuild.image(
-                                color: ColorPalette.primaryColor,
-                                height: 24,
-                                width: 24),
-                            unSelectedIcon: Assets.resources.menuGuild
-                                .image(height: 22, width: 22),
+                            selectedIcon:
+                                SvgPicture.string(MyIcons.categorySelected),
+                            unSelectedIcon: SvgPicture.string(MyIcons.category),
                             isSelected: _selectedScreenIndex == guildsIndex),
                       ),
                     ],
@@ -182,11 +177,16 @@ class MainScreenState extends State<MainScreen> {
   }
 
   void onChangeTab(int index) {
-    setState(() {
-      _history.remove(_selectedScreenIndex);
-      _history.add(_selectedScreenIndex);
-      _selectedScreenIndex = index;
-    });
+    if (_selectedScreenIndex == index) {
+      Navigator.popUntil(
+          _map[index]!.currentContext!, (route) => route.isFirst);
+    } else {
+      setState(() {
+        _history.remove(_selectedScreenIndex);
+        _history.add(_selectedScreenIndex);
+        _selectedScreenIndex = index;
+      });
+    }
   }
 
   Widget _navigator(GlobalKey key, int index, Widget child) {

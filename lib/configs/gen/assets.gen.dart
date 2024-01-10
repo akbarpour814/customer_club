@@ -18,26 +18,6 @@ class $AssetsResourcesGen {
   AssetGenImage get bottomBarBg1 =>
       const AssetGenImage('assets/resources/bottom_bar_bg1.png');
 
-  /// File path: assets/resources/menu_guild.png
-  AssetGenImage get menuGuild =>
-      const AssetGenImage('assets/resources/menu_guild.png');
-
-  /// File path: assets/resources/menu_home.png
-  AssetGenImage get menuHome =>
-      const AssetGenImage('assets/resources/menu_home.png');
-
-  /// File path: assets/resources/menu_locations.png
-  AssetGenImage get menuLocations =>
-      const AssetGenImage('assets/resources/menu_locations.png');
-
-  /// File path: assets/resources/menu_profile.png
-  AssetGenImage get menuProfile =>
-      const AssetGenImage('assets/resources/menu_profile.png');
-
-  /// File path: assets/resources/menu_search.png
-  AssetGenImage get menuSearch =>
-      const AssetGenImage('assets/resources/menu_search.png');
-
   /// File path: assets/resources/pin.png
   AssetGenImage get pin => const AssetGenImage('assets/resources/pin.png');
 
@@ -46,16 +26,7 @@ class $AssetsResourcesGen {
       const SvgGenImage('assets/resources/splash_vector.svg');
 
   /// List of all assets
-  List<dynamic> get values => [
-        bottomBarBg1,
-        menuGuild,
-        menuHome,
-        menuLocations,
-        menuProfile,
-        menuSearch,
-        pin,
-        splashVector
-      ];
+  List<dynamic> get values => [bottomBarBg1, pin, splashVector];
 }
 
 class Assets {

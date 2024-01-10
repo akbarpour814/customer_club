@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorPalette {
   static Color primaryColor = Color(0xffe91e63);
+  static String primaryColorHex = 'e91e63';
   static Color secondryColor = Color(0xff2DB9FF);
   static const accentColor = Color(0xffDADAF4);
   static const bgColor = Color(0xffF2F8FF);

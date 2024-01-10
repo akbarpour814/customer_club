@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/core/utils/custom_page_route.dart';
 import 'package:customer_club/core/utils/extentions.dart';
-import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/features/home/data/models/slider_model.dart';
-import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
 import 'package:customer_club/features/home/presentation/screens/shop_details_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,20 +49,25 @@ class _HomeSliderState extends State<HomeSlider> {
                                 mode: LaunchMode.externalApplication,
                                 webOnlyWindowName: '_self');
                           } else {
-                            MyNavigator.push(
-                                MainScreen.scaffoldKey.currentContext!,
-                                ShopDetailsScreen(
-                                    shopId: int.parse((e.link!))));
+                            Navigator.push(
+                                context,
+                                CustomPageRoute2(
+                                    builder: (_) => ShopDetailsScreen(
+                                        shopId: int.parse(e.link!),
+                                        imageUrl: e.image ?? '')));
                           }
                         }
                       },
-                      child: CachedNetworkImage(
-                        imageUrl: e.image ?? '',
-                        fit: BoxFit.fill,
-                        width: 100.w(context),
-                        progressIndicatorBuilder: (_, __, ___) =>
-                            CupertinoActivityIndicator(
-                          color: ColorPalette.primaryColor,
+                      child: Hero(
+                        tag: e.link!,
+                        child: CachedNetworkImage(
+                          imageUrl: e.image ?? '',
+                          fit: BoxFit.fill,
+                          width: 100.w(context),
+                          progressIndicatorBuilder: (_, __, ___) =>
+                              CupertinoActivityIndicator(
+                            color: ColorPalette.primaryColor,
+                          ),
                         ),
                       ),
                     ),

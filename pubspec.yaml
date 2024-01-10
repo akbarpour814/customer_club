@@ -27,6 +27,7 @@ dependencies:
   maps_launcher: 
   just_the_tooltip: 
   flutter_osm_plugin: 0.70.4
+  full_screen_image:
 
 dev_dependencies:
   flutter_test:

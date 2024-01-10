@@ -1,5 +1,6 @@
-import 'package:customer_club/configs/gen/assets.gen.dart';
+
 import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/widgets/animated_expanded_widget.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_guild/get_guild_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/guild_item_widget.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class GuildListScreen extends StatefulWidget {
   const GuildListScreen({super.key});
@@ -32,8 +34,7 @@ class _GuildListScreenState extends State<GuildListScreen> {
                 expand: !_scrollUp,
                 child: AppBar(
                   leading: Center(
-                      child: Assets.resources.menuGuild
-                          .image(width: 20, height: 20, color: Colors.white)),
+                      child: SvgPicture.string(MyIcons.categoryWhie)),
                   title: const Text(
                     'دسته بندی اصناف',
                     style: TextStyle(
