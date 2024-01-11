@@ -29,8 +29,7 @@ class GuildItemWidget extends StatelessWidget {
               margin: EdgeInsets.zero,
               child: InkWell(
                 onTap: () {
-                  MyNavigator.push(context,
-                      GuildDetailsScreen(item: item));
+                  MyNavigator.push(context, GuildDetailsScreen(item: item));
                 },
                 splashColor: ColorPalette.primaryColor.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(15.w(context)),

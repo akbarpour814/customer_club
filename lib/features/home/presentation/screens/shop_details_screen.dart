@@ -1,6 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/utils/my_icons.dart';
+import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
+import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
+import 'package:customer_club/features/home/presentation/widgets/shop_details_comments.dart';
+import 'package:customer_club/features/home/presentation/widgets/shop_details_discount_list.dart';
+import 'package:customer_club/features/home/presentation/widgets/shop_details_gallery.dart';
+import 'package:customer_club/features/home/presentation/widgets/shop_details_info.dart';
+import 'package:customer_club/features/home/presentation/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
   final int shopId;
@@ -12,23 +23,159 @@ class ShopDetailsScreen extends StatefulWidget {
   State<ShopDetailsScreen> createState() => _ShopDetailsScreenState();
 }
 
-class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
+class _ShopDetailsScreenState extends State<ShopDetailsScreen>
+    with TickerProviderStateMixin {
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Hero(
-                tag: widget.shopId,
-                child: CachedNetworkImage(
-                  width: 100.w(context),
-                  imageUrl: widget.imageUrl,
-                ))
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => GetShopDetailsBloc()
+                ..add(GetShopDetailsStartEvent(shopId: widget.shopId)),
+            ),
+            BlocProvider(
+              create: (context) => GetDiscountListBloc()
+                ..add(GetDiscountListStartEvent(shopId: widget.shopId)),
+            ),
           ],
+          child: BlocConsumer<GetShopDetailsBloc, GetShopDetailsState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: CachedNetworkImage(
+                          width: 100.w(context),
+                          height: 20.h(context),
+                          imageUrl: widget.imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          width: 100.w(context),
+                          padding: EdgeInsets.fromLTRB(16, 40, 16, 12),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black,
+                                  Colors.black.withOpacity(0.7),
+                                  Colors.black.withOpacity(0.0)
+                                ]),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if ((state is GetShopDetailsLoaded)) ...[
+                                Text(
+                                  state.shopAllDetailsModel.shop?.name ??
+                                      'نام فروشگاه',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    StarWidget(
+                                        size: 20,
+                                        star: state.shopAllDetailsModel.shop
+                                                ?.rating ??
+                                            0),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: ColorPalette.primaryColor),
+                                      padding: EdgeInsets.all(6),
+                                      child: Text(
+                                        'تخفیف دهنده',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ]
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: Column(
+                    children: [
+                      _tabBar(),
+                      Expanded(
+                          child: Container(
+                        color: ColorPalette.primaryColor,
+                        child: TabBarView(
+                            controller: _tabController,
+                            physics: BouncingScrollPhysics(),
+                            children: [
+                              ShopDetailsInfo(shopId: widget.shopId),
+                              ShopDetailsGallery(shopId: widget.shopId),
+                              ShopDetailsComments(shopId: widget.shopId),
+                              ShopDetailsDiscountList(shopId: widget.shopId)
+                            ]),
+                      ))
+                    ],
+                  ))
+                ],
+              );
+            },
+          ),
         ),
-      )),
+      ),
+    );
+  }
+
+  _tabBar() {
+    return Container(
+      color: Colors.black,
+      height: 40,
+      child: TabBar(
+        controller: _tabController,
+        indicator: BoxDecoration(
+            color: ColorPalette.primaryColor,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(6))),
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: ColorPalette.primaryColor,
+        onTap: (index) {
+          setState(() {});
+        },
+        tabs: [
+          Tab(child: SvgPicture.string(MyIcons.store)),
+          Tab(child: SvgPicture.string(MyIcons.eye)),
+          Tab(child: SvgPicture.string(MyIcons.message)),
+          Tab(child: SvgPicture.string(MyIcons.discount)),
+        ],
+      ),
     );
   }
 }

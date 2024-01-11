@@ -1,4 +1,3 @@
-
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/widgets/animated_expanded_widget.dart';
@@ -33,8 +32,8 @@ class _GuildListScreenState extends State<GuildListScreen> {
             AnimatedExpandedWidget(
                 expand: !_scrollUp,
                 child: AppBar(
-                  leading: Center(
-                      child: SvgPicture.string(MyIcons.categoryWhie)),
+                  leading:
+                      Center(child: SvgPicture.string(MyIcons.categoryWhie)),
                   title: const Text(
                     'دسته بندی اصناف',
                     style: TextStyle(

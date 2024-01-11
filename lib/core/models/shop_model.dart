@@ -27,18 +27,17 @@ class ShopModel {
       this.contrller});
 
   factory ShopModel.fromJson(Map<String, dynamic> json) => ShopModel(
-        id: json['id'] as int?,
-        rating: json['rating'] as int?,
-        name: json['name'] as String?,
-        shopImg: json['shop_img'] as String?,
-        shopBg: json['shop_bg'] as String?,
-        manager: json['manager'] as String?,
-        lat: json['lat'].toString(),
-        lng: json['lng'].toString(),
-        address: json['address'] as String?,
-        create: json['create'] as String?,
-        contrller: JustTheController()
-      );
+      id: json['id'] as int?,
+      rating: json['rating'] as int?,
+      name: json['name'] as String?,
+      shopImg: json['shop_img'] as String?,
+      shopBg: json['shop_bg'] as String?,
+      manager: json['manager'] as String?,
+      lat: json['lat'].toString(),
+      lng: json['lng'].toString(),
+      address: json['address'] as String?,
+      create: json['create'] as String?,
+      contrller: JustTheController());
 
   Map<String, dynamic> toJson() => {
         'id': id,

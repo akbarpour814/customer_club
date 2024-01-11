@@ -1,4 +1,3 @@
-
 import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/models/shop_model.dart';
 

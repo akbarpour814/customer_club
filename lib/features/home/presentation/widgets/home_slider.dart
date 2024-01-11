@@ -58,16 +58,13 @@ class _HomeSliderState extends State<HomeSlider> {
                           }
                         }
                       },
-                      child: Hero(
-                        tag: e.link!,
-                        child: CachedNetworkImage(
-                          imageUrl: e.image ?? '',
-                          fit: BoxFit.fill,
-                          width: 100.w(context),
-                          progressIndicatorBuilder: (_, __, ___) =>
-                              CupertinoActivityIndicator(
-                            color: ColorPalette.primaryColor,
-                          ),
+                      child: CachedNetworkImage(
+                        imageUrl: e.image ?? '',
+                        fit: BoxFit.fill,
+                        width: 100.w(context),
+                        progressIndicatorBuilder: (_, __, ___) =>
+                            CupertinoActivityIndicator(
+                          color: ColorPalette.primaryColor,
                         ),
                       ),
                     ),

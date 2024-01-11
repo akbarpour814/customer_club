@@ -4,8 +4,10 @@ import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/data/data_source/home_data_source.dart';
+import 'package:customer_club/features/home/data/models/discount_model.dart';
 import 'package:customer_club/features/home/data/models/guild_details_model.dart';
 import 'package:customer_club/features/home/data/models/home_data_model.dart';
+import 'package:customer_club/features/home/data/models/shop_details_model/shop_all_details_model.dart';
 import 'package:customer_club/features/home/domain/repository/home_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -71,6 +73,35 @@ class HomeRepository implements IHomeRepository {
         _locationShopListRes =
             (res.data as List).map((e) => ShopModel.fromJson(e)).toList();
         return DataSuccess(_locationShopListRes);
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<ShopAllDetailsModel>> getShopDetails(int shopId) async {
+    try {
+      final res = await getIt<IHomeDataSource>().getShopDetails(shopId);
+      if (res.validate()) {
+        return DataSuccess(ShopAllDetailsModel.fromJson(res.data));
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<List<DiscountModel>>> getDiscountList(int shopId) async {
+    try {
+      final res = await getIt<IHomeDataSource>().getDiscountList(shopId);
+      if (res.validate()) {
+        return DataSuccess(
+            ((res.data as Map<String, dynamic>)['offers'] as List)
+                .map((e) => DiscountModel.fromJson(e))
+                .toList());
       }
       return DataError(res.getErrorMessage);
     } catch (e) {
