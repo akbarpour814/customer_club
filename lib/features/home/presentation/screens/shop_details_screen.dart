@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
+import 'package:customer_club/features/home/data/models/shop_details_model/shop_gallery_model.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_comments.dart';
@@ -26,6 +27,7 @@ class ShopDetailsScreen extends StatefulWidget {
 class _ShopDetailsScreenState extends State<ShopDetailsScreen>
     with TickerProviderStateMixin {
   TabController? _tabController;
+  final List<List<ShopGalleryModel>> _shopRowList = [];
 
   @override
   void initState() {
@@ -50,7 +52,19 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
           ],
           child: BlocConsumer<GetShopDetailsBloc, GetShopDetailsState>(
             listener: (context, state) {
-              // TODO: implement listener
+              if (state is GetShopDetailsLoaded &&
+                  (state.shopAllDetailsModel.shop?.shopGallery ?? [])
+                      .isNotEmpty) {
+                for (var element
+                    in state.shopAllDetailsModel.shop!.shopGallery!) {
+                  if (_shopRowList.isEmpty || _shopRowList.last.length == 3) {
+                    _shopRowList.add([element]);
+                  } else {
+                    _shopRowList.last.add(element);
+                  }
+                }
+                setState(() {});
+              }
             },
             builder: (context, state) {
               return Column(
@@ -61,7 +75,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
                         padding: const EdgeInsets.only(bottom: 4),
                         child: CachedNetworkImage(
                           width: 100.w(context),
-                          height: 20.h(context),
+                          height: 30.h(context),
                           imageUrl: widget.imageUrl,
                           fit: BoxFit.cover,
                         ),
@@ -139,7 +153,9 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
                             physics: BouncingScrollPhysics(),
                             children: [
                               ShopDetailsInfo(shopId: widget.shopId),
-                              ShopDetailsGallery(shopId: widget.shopId),
+                              ShopDetailsGallery(
+                                  shopId: widget.shopId,
+                                  shopRowList: _shopRowList),
                               ShopDetailsComments(shopId: widget.shopId),
                               ShopDetailsDiscountList(shopId: widget.shopId)
                             ]),

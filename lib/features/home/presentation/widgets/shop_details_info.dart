@@ -7,15 +7,14 @@ class ShopDetailsInfo extends StatefulWidget {
   const ShopDetailsInfo({super.key, required this.shopId});
 
   @override
-  State<ShopDetailsInfo> createState() =>
-      _ShopDetailsInfoState();
+  State<ShopDetailsInfo> createState() => _ShopDetailsInfoState();
 }
 
 class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
+      margin: EdgeInsets.only(top: 4, left: 4, right: 4),
       padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
       decoration: BoxDecoration(
           color: Colors.white,

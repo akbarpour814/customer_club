@@ -1,4 +1,3 @@
-import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class ShopModel {
   int? id;
@@ -11,7 +10,6 @@ class ShopModel {
   String? lng;
   String? address;
   String? create;
-  JustTheController? contrller;
 
   ShopModel(
       {this.id,
@@ -23,8 +21,7 @@ class ShopModel {
       this.manager,
       this.lat,
       this.lng,
-      this.address,
-      this.contrller});
+      this.address});
 
   factory ShopModel.fromJson(Map<String, dynamic> json) => ShopModel(
       id: json['id'] as int?,
@@ -36,8 +33,7 @@ class ShopModel {
       lat: json['lat'].toString(),
       lng: json['lng'].toString(),
       address: json['address'] as String?,
-      create: json['create'] as String?,
-      contrller: JustTheController());
+      create: json['create'] as String?);
 
   Map<String, dynamic> toJson() => {
         'id': id,

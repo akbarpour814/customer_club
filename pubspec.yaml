@@ -25,7 +25,6 @@ dependencies:
   url_launcher:
   cached_network_image: 
   maps_launcher: 
-  just_the_tooltip: 
   flutter_osm_plugin: 0.70.4
   full_screen_image:
   animations:
