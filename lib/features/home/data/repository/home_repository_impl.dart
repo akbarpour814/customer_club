@@ -108,4 +108,17 @@ class HomeRepository implements IHomeRepository {
       return DataError(null.getErrorMessage);
     }
   }
+
+  @override
+  Future<DataState<ShopModel>> getShopLocation(int shopId) async {
+    try {
+      final res = await getIt<IHomeDataSource>().getShopLocation(shopId);
+      if (res.validate()) {
+        return DataSuccess(ShopModel.fromJson(res.data));
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
 }

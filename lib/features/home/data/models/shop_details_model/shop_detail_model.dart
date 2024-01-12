@@ -8,7 +8,7 @@ class ShopModel {
   String? worktime;
   int? view;
   String? city;
-  dynamic contentCat;
+  List<Map<String, dynamic>>? contentCat;
   int? rating;
   int? follow;
   String? shopImg;
@@ -39,7 +39,9 @@ class ShopModel {
         worktime: json['worktime'] as String?,
         view: json['view'] as int?,
         city: json['city'] as String?,
-        contentCat: json['content_cat'] as dynamic,
+        contentCat: (json['content_cat'] as List<dynamic>?)
+            ?.map((e) => e as Map<String, dynamic>)
+            .toList(),
         rating: json['rating'] as int?,
         follow: json['follow'] as int?,
         shopImg: json['shop_img'] as String?,

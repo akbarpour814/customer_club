@@ -5,6 +5,7 @@ import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/features/home/data/models/shop_details_model/shop_gallery_model.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
+import 'package:customer_club/features/home/presentation/blocs/get_shop_location/get_shop_location_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_comments.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_discount_list.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_gallery.dart';
@@ -12,6 +13,7 @@ import 'package:customer_club/features/home/presentation/widgets/shop_details_in
 import 'package:customer_club/features/home/presentation/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
@@ -28,6 +30,13 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
     with TickerProviderStateMixin {
   TabController? _tabController;
   final List<List<ShopGalleryModel>> _shopRowList = [];
+  MapController? _mapController;
+
+  @override
+  void dispose() {
+    _mapController?.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -48,6 +57,10 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
             BlocProvider(
               create: (context) => GetDiscountListBloc()
                 ..add(GetDiscountListStartEvent(shopId: widget.shopId)),
+            ),
+            BlocProvider(
+              create: (context) => GetShopLocationBloc()
+                ..add(GetShopLocationStartEvent(shopId: widget.shopId)),
             ),
           ],
           child: BlocConsumer<GetShopDetailsBloc, GetShopDetailsState>(

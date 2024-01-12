@@ -13,4 +13,5 @@ abstract class IHomeRepository {
   Future<DataState<List<ShopModel>>> getLocationShops();
   Future<DataState<ShopAllDetailsModel>> getShopDetails(int shopId);
   Future<DataState<List<DiscountModel>>> getDiscountList(int shopId);
+  Future<DataState<ShopModel>> getShopLocation(int shopId);
 }
