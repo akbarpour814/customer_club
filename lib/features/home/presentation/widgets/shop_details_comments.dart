@@ -14,7 +14,7 @@ class _ShopDetailsCommentsState extends State<ShopDetailsComments> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 4,left: 4,right: 4),
+      margin: EdgeInsets.only(top: 4, left: 4, right: 4),
       padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
       decoration: BoxDecoration(
           color: Colors.white,

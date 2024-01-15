@@ -16,18 +16,29 @@ class _ImageFullScreenState extends State<ImageFullScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.item.name ?? 'نمونه کار'),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 80),
-          child: Center(
-            child: CachedNetworkImage(
-              imageUrl: widget.item.image ?? '',
-              width: 100.w(context),
+          child: InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: CachedNetworkImage(
+                      imageUrl: widget.item.image ?? '',
+                      width: 100.w(context),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  child: Text(
+                    widget.item.name ?? '',
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
             ),
           ),
         ),

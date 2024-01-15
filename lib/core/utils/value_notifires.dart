@@ -1,1 +1,3 @@
-// ValueNotifier<UserModel> userInfoNotifire = ValueNotifier(UserModel());
+import 'package:flutter/widgets.dart';
+
+ValueNotifier<String?> tokenNotifire = ValueNotifier(null);

@@ -1,13 +1,18 @@
 import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
+import 'package:customer_club/core/utils/value_notifires.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_home_data/get_home_data_bloc.dart';
 import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
 import 'package:customer_club/features/login/presentation/blocs/get_app_config/get_app_config_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,6 +22,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getIt<FlutterSecureStorage>().read(key: 'token').then((value) {
+      if (value.isNotNullOrEmpty) {
+        tokenNotifire.value = value!;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -34,6 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: BlocListener<GetAppConfigBloc, GetAppConfigState>(
           listener: (context, state) {
             if (state is GetAppConfigLoaded) {
+              appConfig = state.configModel;
               if (state.configModel.colorMasterApp.isNotNullOrEmpty) {
                 ColorPalette.primaryColor =
                     Color(int.parse('0xff${state.configModel.colorMasterApp}'));
@@ -73,10 +89,11 @@ class _SplashScreenState extends State<SplashScreen> {
                         ],
                       ),
                       24.hsb(),
-                      const SizedBox(
+                      SizedBox(
                           width: 200,
                           child: Text(
-                            'جستجو در بیش از 1000 فروشگاه تخفیفی در شهر شما',
+                            'جستجو در بیش از 1000 فروشگاه تخفیفی در شهر شما'
+                                .toPersianDigit(),
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ))
@@ -84,8 +101,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ),
                 80.hsb(
-                    child: const CupertinoActivityIndicator(
+                    child: const MyLoading(
                   color: Colors.white,
+                  withText: false,
                 ))
               ],
             ),

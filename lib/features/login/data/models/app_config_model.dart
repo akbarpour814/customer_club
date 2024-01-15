@@ -11,6 +11,8 @@ class AppConfigModel {
   String? appFontSizeTitle;
   String? colorMasterApp;
   String? colorClientApp;
+  String? appBuyCard;
+  String? appBuyCardRequestLink;
 
   AppConfigModel({
     this.websitePathAddress,
@@ -25,6 +27,8 @@ class AppConfigModel {
     this.appFontSizeTitle,
     this.colorMasterApp,
     this.colorClientApp,
+    this.appBuyCard,
+    this.appBuyCardRequestLink,
   });
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +45,8 @@ class AppConfigModel {
       appFontSizeTitle: json['app_font_size_title'] as String?,
       colorMasterApp: json['color_master_app'] as String?,
       colorClientApp: json['color_client_app'] as String?,
+      appBuyCard: json['app_buy_card'] as String?,
+      appBuyCardRequestLink: json['app_link_request_buy_card'] as String?,
     );
   }
 

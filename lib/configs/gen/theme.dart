@@ -9,17 +9,20 @@ ThemeData myTheme() {
     fontFamily: FontFamily.estedad,
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-            fixedSize: MaterialStateProperty.all(const Size(300, 34)),
-            maximumSize: MaterialStateProperty.all(const Size(300, 34)),
+            foregroundColor: MaterialStatePropertyAll(Colors.white),
+            backgroundColor:
+                MaterialStatePropertyAll(ColorPalette.primaryColor),
+            fixedSize: MaterialStateProperty.all(const Size(300, 44)),
+            maximumSize: MaterialStateProperty.all(const Size(300, 44)),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             )),
-            foregroundColor: MaterialStateProperty.all(Colors.white),
             textStyle: MaterialStateProperty.all(const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
-            backgroundColor:
-                MaterialStateProperty.all(ColorPalette.secondryColor),
-            minimumSize: MaterialStateProperty.all(const Size(300, 34)))),
+                fontSize: 12,
+                fontFamily: FontFamily.estedad,
+                color: Colors.white,
+                fontWeight: FontWeight.bold)),
+            minimumSize: MaterialStateProperty.all(const Size(300, 44)))),
     inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         labelStyle: const TextStyle(
@@ -39,21 +42,21 @@ ThemeData myTheme() {
               color: ColorPalette.grayColor2,
             )),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: ColorPalette.grayColor2)),
+          borderRadius: BorderRadius.circular(8),
+        ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: ColorPalette.grayColor2)),
+          borderRadius: BorderRadius.circular(8),
+        ),
         errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: ColorPalette.grayColor2)),
+          borderRadius: BorderRadius.circular(8),
+        ),
         disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: ColorPalette.grayColor2)),
+          borderRadius: BorderRadius.circular(8),
+        ),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: ColorPalette.grayColor2)),
+          borderRadius: BorderRadius.circular(8),
+        ),
         errorStyle: const TextStyle(fontSize: 11),
-        contentPadding: const EdgeInsets.fromLTRB(12, 6, 12, 6)),
+        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10)),
   );
 }

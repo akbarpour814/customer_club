@@ -28,6 +28,7 @@ dependencies:
   flutter_osm_plugin: 0.70.4
   full_screen_image:
   animations:
+  qr_code_scanner:
 
 dev_dependencies:
   flutter_test:

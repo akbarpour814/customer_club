@@ -6,6 +6,7 @@ import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 class MapShopItemWidegt extends StatelessWidget {
   final ShopModel item;
@@ -87,7 +88,9 @@ class MapShopItemWidegt extends StatelessWidget {
                               4.wsb(),
                               Expanded(
                                 child: Text(
-                                  item.address ?? '',
+                                  (item.address ?? '')
+                                      .toString()
+                                      .toPersianDigit(),
                                   style: const TextStyle(fontSize: 10),
                                 ),
                               )

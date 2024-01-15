@@ -2,14 +2,15 @@ import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_location/get_shop_location_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 class ShopDetailsInfo extends StatefulWidget {
   final int shopId;
@@ -28,10 +29,17 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      child: BlocConsumer<GetShopLocationBloc, GetShopLocationState>(
-        listener: (context, locationState) {},
+      child: BlocBuilder<GetShopLocationBloc, GetShopLocationState>(
         builder: (context, locationState) {
-          return BlocBuilder<GetShopDetailsBloc, GetShopDetailsState>(
+          return BlocConsumer<GetShopDetailsBloc, GetShopDetailsState>(
+            listener: (context, state) {
+              if (state is GetShopDetailsLoaded) {
+                if (state.shopAllDetailsModel.shop?.contentCat != null) {
+                  state.shopAllDetailsModel.shop?.contentCat!.sort((a, b) =>
+                      b.entries.first.key.compareTo(a.entries.first.key));
+                }
+              }
+            },
             builder: (context, state) {
               return state is GetShopDetailsLoaded
                   ? SingleChildScrollView(
@@ -39,42 +47,66 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
                       padding: EdgeInsets.only(bottom: 80),
                       child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'شعار تبلیغاتی شما',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                          16.hsb(),
-                          Text(
-                            state.shopAllDetailsModel.shop?.aboutUs ?? '',
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                          12.hsb(),
+                          if (state.shopAllDetailsModel.shop != null &&
+                              state.shopAllDetailsModel.shop!.contentCat !=
+                                  null &&
+                              state.shopAllDetailsModel.shop!.contentCat!.any(
+                                  (element) => element['slogan'] != null)) ...[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  (state.shopAllDetailsModel.shop?.contentCat
+                                              ?.firstWhere((element) =>
+                                                  element['slogan'] != null)
+                                              .entries
+                                              .first
+                                              .value ??
+                                          '')
+                                      .toString()
+                                      .toPersianDigit(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                            16.hsb()
+                          ],
+                          if (state.shopAllDetailsModel.shop != null &&
+                              state.shopAllDetailsModel.shop!.aboutUs
+                                  .isNotNullOrEmpty) ...[
+                            Text(
+                              state.shopAllDetailsModel.shop!.aboutUs!
+                                  .toString()
+                                  .toPersianDigit(),
+                              textAlign: TextAlign.justify,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                            12.hsb()
+                          ],
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (state.shopAllDetailsModel.shop!.manager
                                   .isNotNullOrEmpty)
-                                _infoItem('مدیریت',
+                                _infoItem(MyIcons.boss, 'مدیریت',
                                     state.shopAllDetailsModel.shop!.manager!),
                               if (state.shopAllDetailsModel.shop!.manager
                                   .isNotNullOrEmpty)
-                                _infoItem('ساعت کار',
-                                    state.shopAllDetailsModel.shop!.worktime!),
+                                _infoItem(
+                                    MyIcons.clock,
+                                    'ساعت کار',
+                                    state.shopAllDetailsModel.shop!.worktime!
+                                        .toString()
+                                        .toPersianDigit()),
                               24.hsb(),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.circle,
-                                    size: 8,
-                                    color: ColorPalette.primaryColor,
+                                  SvgPicture.string(
+                                    MyIcons.headset,
+                                    width: 18,
                                   ),
                                   6.wsb(),
                                   Text(
@@ -87,31 +119,37 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
                               ),
                               ...(state.shopAllDetailsModel.shop!.contentCat ??
                                       [])
+                                  .where((element) =>
+                                      element.keys.first != 'slogan')
                                   .map(
-                                (e) => Directionality(
-                                  textDirection: e.entries.first.key
-                                          .toString()
-                                          .toLowerCase()
-                                          .contains('address')
-                                      ? TextDirection.rtl
-                                      : TextDirection.ltr,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, left: 8, right: 8),
-                                    child: Row(
-                                      children: [
-                                        _getIconFromKey(e.entries.first.key),
-                                        6.wsb(),
-                                        Text(
-                                          e.entries.first.value,
-                                          style: TextStyle(
-                                              color: Colors.grey, fontSize: 12),
+                                    (e) => Directionality(
+                                      textDirection: e.entries.first.key
+                                              .toString()
+                                              .toLowerCase()
+                                              .contains('address')
+                                          ? TextDirection.rtl
+                                          : TextDirection.ltr,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8, left: 8, right: 8),
+                                        child: Row(
+                                          children: [
+                                            _getIconFromKey(
+                                                e.entries.first.key),
+                                            6.wsb(),
+                                            Text(
+                                              e.entries.first.value
+                                                  .toString()
+                                                  .toPersianDigit(),
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
                             ],
                           ),
                           24.hsb(),
@@ -180,10 +218,7 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
                       ),
                     )
                   : state is GetShopDetailsLoading
-                      ? Center(
-                          child: CupertinoActivityIndicator(
-                              color: ColorPalette.primaryColor),
-                        )
+                      ? MyLoading()
                       : const Center();
             },
           );
@@ -192,7 +227,7 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
     );
   }
 
-  Widget _infoItem(String title, String value) {
+  Widget _infoItem(String icon, String title, String value) {
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: Column(
@@ -200,10 +235,9 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.circle,
-                size: 8,
-                color: ColorPalette.primaryColor,
+              SvgPicture.string(
+                icon,
+                width: 20,
               ),
               6.wsb(),
               Text(

@@ -21,12 +21,16 @@ class $AssetsResourcesGen {
   /// File path: assets/resources/pin.png
   AssetGenImage get pin => const AssetGenImage('assets/resources/pin.png');
 
+  /// File path: assets/resources/qr_code_scan.svg
+  SvgGenImage get qrCodeScan =>
+      const SvgGenImage('assets/resources/qr_code_scan.svg');
+
   /// File path: assets/resources/splash_vector.svg
   SvgGenImage get splashVector =>
       const SvgGenImage('assets/resources/splash_vector.svg');
 
   /// List of all assets
-  List<dynamic> get values => [bottomBarBg1, pin, splashVector];
+  List<dynamic> get values => [bottomBarBg1, pin, qrCodeScan, splashVector];
 }
 
 class Assets {

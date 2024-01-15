@@ -2,11 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 extension HttpResponseValidator on Response? {
-  bool validate({bool withoutData = false}) {
+  bool validate({bool withoutData = false, bool checkError = false}) {
     try {
       return (this != null &&
           this!.statusCode == 200 &&
-          (withoutData || this!.data != null));
+          (withoutData || this!.data != null) &&
+          ((!checkError ||
+              (this!.data != null &&
+                  (this!.data as Map<String, dynamic>)['status'] == true))));
     } catch (e) {
       return false;
     }

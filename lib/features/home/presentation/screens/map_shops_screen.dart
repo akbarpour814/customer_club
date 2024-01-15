@@ -1,10 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:customer_club/configs/gen/assets.gen.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shops_location/get_shops_location_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/map_shop_item_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
@@ -139,11 +138,7 @@ class _MapShopsScreenState extends State<MapShopsScreen>
                         ],
                       )
                     : state is GetShopsLocationLoading
-                        ? Center(
-                            child: CupertinoActivityIndicator(
-                              color: ColorPalette.primaryColor,
-                            ),
-                          )
+                        ? MyLoading()
                         : const Center(
                             child: Text('فروشگاهی یافت نشده است.'),
                           )),

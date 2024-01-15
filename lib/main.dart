@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:customer_club/configs/gen/di/di.dart';
 import 'package:customer_club/configs/gen/theme.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_home_data/get_home_data_bloc.dart';

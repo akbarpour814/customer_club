@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/utils/extentions.dart';
@@ -14,46 +15,42 @@ class GuildItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Image.network(
-              item.icon ?? '',
-              width: 30.w(context),
-            ),
-            Card(
-              elevation: 0,
-              color: Colors.transparent,
-              surfaceTintColor: Colors.transparent,
-              margin: EdgeInsets.zero,
-              child: InkWell(
-                onTap: () {
-                  MyNavigator.push(context, GuildDetailsScreen(item: item));
-                },
-                splashColor: ColorPalette.primaryColor.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(15.w(context)),
-                child: Container(
-                  width: 30.w(context),
-                  height: 30.w(context),
-                  decoration: const BoxDecoration(shape: BoxShape.circle),
-                ),
+    return Container(
+      margin: EdgeInsets.all(2),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Color(int.parse(
+              '0xff${(item.bgColor ?? ColorPalette.primaryColorHex).replaceAll('#', '')}'))),
+      child: Card(
+        elevation: 0,
+        color: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        margin: EdgeInsets.zero,
+        child: InkWell(
+          onTap: () {
+            MyNavigator.push(context, GuildDetailsScreen(item: item));
+          },
+          splashColor: ColorPalette.primaryColor.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CachedNetworkImage(
+                imageUrl: item.icon ?? '',
+                width: 20.w(context),
               ),
-            )
-          ],
-        ),
-        SizedBox(
-          width: 40.w(context),
-          child: Text(
-            item.name ?? '',
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                overflow: TextOverflow.ellipsis,
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
+              Text(
+                item.name ?? '',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 3.5.w(context),
+                    height: 0.1),
+              )
+            ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }

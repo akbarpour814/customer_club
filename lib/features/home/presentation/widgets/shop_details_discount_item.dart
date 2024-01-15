@@ -32,7 +32,7 @@ class ShopDetailsDiscountItem extends StatelessWidget {
                 children: [
                   10.hsb(),
                   Text(
-                    item.title ?? '',
+                    (item.title ?? '').toString().toPersianDigit(),
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class ShopDetailsDiscountItem extends StatelessWidget {
                   ),
                   4.hsb(),
                   Text(
-                    item.description ?? '',
+                    (item.description ?? '').toString().toPersianDigit(),
                     style: TextStyle(fontSize: 10, color: Colors.grey),
                   )
                 ],

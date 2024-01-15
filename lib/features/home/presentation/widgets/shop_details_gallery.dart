@@ -1,8 +1,7 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/data/models/shop_details_model/shop_gallery_model.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_gallery_row_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,11 +40,7 @@ class _ShopDetailsGalleryState extends State<ShopDetailsGallery> {
               Divider(),
               Expanded(
                 child: state is GetShopDetailsLoading
-                    ? Center(
-                        child: CupertinoActivityIndicator(
-                          color: ColorPalette.primaryColor,
-                        ),
-                      )
+                    ? MyLoading()
                     : state is GetShopDetailsLoaded &&
                             (state.shopAllDetailsModel.shop?.shopGallery ?? [])
                                 .isNotEmpty

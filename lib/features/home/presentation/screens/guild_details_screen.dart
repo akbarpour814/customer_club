@@ -1,6 +1,7 @@
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/widgets/animated_expanded_widget.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_guild_details/get_guild_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/guild_details_shop_item_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -91,11 +92,7 @@ class _GuildDetailsScreenState extends State<GuildDetailsScreen> {
                                 child: Text('فروشگاهی یافت نشده است!'),
                               )
                             : state is GetGuildDetailsLoading
-                                ? Center(
-                                    child: CupertinoActivityIndicator(
-                                      color: ColorPalette.primaryColor,
-                                    ),
-                                  )
+                                ? MyLoading()
                                 : const Center(),
                   )
                 ],

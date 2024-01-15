@@ -1,3 +1,7 @@
+import 'package:customer_club/features/login/data/models/app_config_model.dart';
+
+AppConfigModel appConfig = AppConfigModel();
+
 enum TypeEnum {
   string,
   longString,

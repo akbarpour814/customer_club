@@ -25,7 +25,8 @@ class ShopModel {
       this.address});
 
   factory ShopModel.fromJson(Map<String, dynamic> json) => ShopModel(
-      id: int.parse(json['id'].toString().isNotNullOrEmpty ? json['id'].toString() : '0'),
+      id: int.parse(
+          json['id'].toString().isNotNullOrEmpty ? json['id'].toString() : '0'),
       rating: json['rating'] as int?,
       name: json['name'] as String?,
       shopImg: json['shop_img'] as String?,
