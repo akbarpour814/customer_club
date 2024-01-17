@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:customer_club/configs/gen/assets.gen.dart';
+import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shops_location/get_shops_location_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/map_shop_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MapShopsScreen extends StatefulWidget {
   const MapShopsScreen({super.key});
@@ -60,6 +63,18 @@ class _MapShopsScreenState extends State<MapShopsScreen>
         },
         builder: (context, state) {
           return Scaffold(
+           appBar: AppBar(
+                    leading:
+                        Center(child: SvgPicture.string(MyIcons.locationWhite)),
+                    title: const Text(
+                      'فروشگاه های اطراف',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    backgroundColor: ColorPalette.primaryColor,
+                  ),
             body: SafeArea(
                 child: state is GetShopsLocationLoaded &&
                         state.shopList.isNotEmpty

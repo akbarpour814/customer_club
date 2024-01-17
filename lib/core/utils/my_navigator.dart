@@ -1,8 +1,9 @@
 import 'package:animations/animations.dart';
+import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/features/home/presentation/screens/shop_details_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'custom_page_route.dart';
 
@@ -48,6 +49,8 @@ class InkWellOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: ColorPalette.primaryColor));
     return InkWell(
       onTap: openContainer,
       child: child,

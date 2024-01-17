@@ -16,7 +16,9 @@ import 'package:persian_number_utility/persian_number_utility.dart';
 
 class VerifyLoginScreen extends StatefulWidget {
   final String idCard;
-  const VerifyLoginScreen({super.key, required this.idCard});
+  final bool isLogin;
+  const VerifyLoginScreen(
+      {super.key, required this.idCard, required this.isLogin});
 
   @override
   State<VerifyLoginScreen> createState() => _VerifyLoginScreenState();
@@ -100,63 +102,84 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: Column(
                     children: [
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                            label: Text('نام'),
-                            prefixIconConstraints:
-                                BoxConstraints(maxWidth: 30, minWidth: 30),
-                            prefixIcon: SizedBox(
-                              width: 20,
-                              child: Center(
-                                child: SvgPicture.string(
-                                  MyIcons.user,
-                                  width: 20,
+                      if (!widget.isLogin) ...[
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                              label: Text('نام'),
+                              prefixIconConstraints:
+                                  BoxConstraints(maxWidth: 30, minWidth: 30),
+                              prefixIcon: SizedBox(
+                                width: 20,
+                                child: Center(
+                                  child: SvgPicture.string(
+                                    MyIcons.user,
+                                    width: 20,
+                                  ),
                                 ),
-                              ),
-                            )),
-                        validator: (value) => generalValidator(value, 'نام'),
-                      ),
-                      16.hsb(),
-                      TextFormField(
-                        controller: _lastNameController,
-                        decoration: InputDecoration(
-                            label: Text('نام خانوادگی'),
-                            prefixIconConstraints:
-                                BoxConstraints(maxWidth: 30, minWidth: 30),
-                            prefixIcon: SizedBox(
-                              width: 20,
-                              child: Center(
-                                child: SvgPicture.string(
-                                  MyIcons.user,
-                                  width: 20,
+                              )),
+                          validator: (value) => generalValidator(value, 'نام'),
+                        ),
+                        16.hsb(),
+                        TextFormField(
+                          controller: _lastNameController,
+                          decoration: InputDecoration(
+                              label: Text('نام خانوادگی'),
+                              prefixIconConstraints:
+                                  BoxConstraints(maxWidth: 30, minWidth: 30),
+                              prefixIcon: SizedBox(
+                                width: 20,
+                                child: Center(
+                                  child: SvgPicture.string(
+                                    MyIcons.user,
+                                    width: 20,
+                                  ),
                                 ),
-                              ),
-                            )),
-                        validator: (value) =>
-                            generalValidator(value, 'نام خانوادگی'),
-                      ),
-                      16.hsb(),
-                      TextFormField(
-                        controller: _mobileController,
-                        keyboardType: textInputType(TypeEnum.mobile),
-                        inputFormatters: typeInputFormatters(TypeEnum.mobile),
-                        decoration: InputDecoration(
-                            label: Text('شماره موبایل'),
-                            prefixIconConstraints:
-                                BoxConstraints(maxWidth: 30, minWidth: 30),
-                            prefixIcon: SizedBox(
-                              width: 20,
-                              child: Center(
-                                child: SvgPicture.string(
-                                  MyIcons.mobileBlack,
-                                  width: 20,
+                              )),
+                          validator: (value) =>
+                              generalValidator(value, 'نام خانوادگی'),
+                        ),
+                        16.hsb(),
+                        TextFormField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(
+                              label: Text('نام کاربری'),
+                              prefixIconConstraints:
+                                  BoxConstraints(maxWidth: 30, minWidth: 30),
+                              prefixIcon: SizedBox(
+                                width: 20,
+                                child: Center(
+                                  child: SvgPicture.string(
+                                    MyIcons.user,
+                                    width: 20,
+                                  ),
                                 ),
-                              ),
-                            )),
-                        validator: (value) => mobileNumberValidator(value),
-                      ),
-                      16.hsb(),
+                              )),
+                          validator: (value) =>
+                              generalValidator(value, 'نام کاربری'),
+                        ),
+                        16.hsb(),
+                        TextFormField(
+                          controller: _mobileController,
+                          keyboardType: textInputType(TypeEnum.mobile),
+                          inputFormatters: typeInputFormatters(TypeEnum.mobile),
+                          decoration: InputDecoration(
+                              label: Text('شماره موبایل'),
+                              prefixIconConstraints:
+                                  BoxConstraints(maxWidth: 30, minWidth: 30),
+                              prefixIcon: SizedBox(
+                                width: 20,
+                                child: Center(
+                                  child: SvgPicture.string(
+                                    MyIcons.mobileBlack,
+                                    width: 20,
+                                  ),
+                                ),
+                              )),
+                          validator: (value) => mobileNumberValidator(value),
+                        ),
+                        16.hsb(),
+                      ],
                       TextFormField(
                         controller: _cvv2Controller,
                         obscureText: _obscurepass,
@@ -196,25 +219,6 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                           }
                           return null;
                         },
-                      ),
-                      16.hsb(),
-                      TextFormField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                            label: Text('نام کاربری'),
-                            prefixIconConstraints:
-                                BoxConstraints(maxWidth: 30, minWidth: 30),
-                            prefixIcon: SizedBox(
-                              width: 20,
-                              child: Center(
-                                child: SvgPicture.string(
-                                  MyIcons.user,
-                                  width: 20,
-                                ),
-                              ),
-                            )),
-                        validator: (value) =>
-                            generalValidator(value, 'نام کاربری'),
                       ),
                       24.hsb(),
                       BlocConsumer<VerifyLoginBloc, VerifyLoginState>(

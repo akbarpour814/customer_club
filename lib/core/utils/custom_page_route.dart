@@ -1,4 +1,6 @@
+import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomPageRoute<T> extends PageRoute<T> {
   CustomPageRoute(this.child);
@@ -14,6 +16,8 @@ class CustomPageRoute<T> extends PageRoute<T> {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: ColorPalette.primaryColor));
     return FadeTransition(
       opacity: animation,
       child: Directionality(

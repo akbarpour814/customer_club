@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/features/login/presentation/screens/login_with_qr_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginIntroScreen extends StatefulWidget {
@@ -18,7 +20,16 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.primaryColor,
+      appBar: AppBar(
+        leading: Center(child: SvgPicture.string(MyIcons.profileWhite)),
+        title: const Text(
+          'حساب کاربری',
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: ColorPalette.primaryColor,
+      ),
       body: SafeArea(
           child: Container(
         padding: EdgeInsets.only(bottom: 80),

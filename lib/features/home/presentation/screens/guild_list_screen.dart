@@ -1,12 +1,9 @@
 import 'package:customer_club/configs/gen/color_palette.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
-import 'package:customer_club/core/widgets/animated_expanded_widget.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_guild/get_guild_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/guild_item_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -18,7 +15,6 @@ class GuildListScreen extends StatefulWidget {
 }
 
 class _GuildListScreenState extends State<GuildListScreen> {
-  bool _scrollUp = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,59 +23,38 @@ class _GuildListScreenState extends State<GuildListScreen> {
         ..add(
           GetGuildStartEvent(),
         ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            AnimatedExpandedWidget(
-                expand: !_scrollUp,
-                child: AppBar(
-                  leading:
-                      Center(child: SvgPicture.string(MyIcons.categoryWhie)),
-                  title: const Text(
-                    'دسته بندی اصناف',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  backgroundColor: ColorPalette.primaryColor,
-                )),
-            Expanded(
-              child: NotificationListener<UserScrollNotification>(
-                  onNotification: (notification) {
-                final ScrollDirection direction = notification.direction;
-                if (direction == ScrollDirection.forward) {
-                  setState(() {
-                    _scrollUp = false;
-                  });
-                } else if (direction == ScrollDirection.reverse) {
-                  setState(() {
-                    _scrollUp = true;
-                  });
-                }
-                return true;
-              }, child: BlocBuilder<GetGuildBloc, GetGuildState>(
-                builder: (context, state) {
-                  return state is GetGuildLoading
-                      ? MyLoading()
-                      : state is GetGuildLoaded && state.guildList.isNotEmpty
-                          ? GridView.count(
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              crossAxisCount: 3,
-                              childAspectRatio: 1,
-                              padding: const EdgeInsets.only(bottom: 80),
-                              children: state.guildList
-                                  .map((e) => GuildItemWidget(e))
-                                  .toList(),
-                            )
-                          : const Center(
-                              child: Text('موردی یافت نشده است!'),
-                            );
-                },
-              )),
-            )
-          ],
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          leading: Center(child: SvgPicture.string(MyIcons.categoryWhie)),
+          title: const Text(
+            'دسته بندی اصناف',
+            style: TextStyle(
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: ColorPalette.primaryColor,
+        ),
+        body: SafeArea(
+          child: BlocBuilder<GetGuildBloc, GetGuildState>(
+            builder: (context, state) {
+              return state is GetGuildLoading
+                  ? MyLoading()
+                  : state is GetGuildLoaded && state.guildList.isNotEmpty
+                      ? GridView.count(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          crossAxisCount: 3,
+                          childAspectRatio: 1,
+                          padding: const EdgeInsets.only(bottom: 80),
+                          children: state.guildList
+                              .map((e) => GuildItemWidget(e))
+                              .toList(),
+                        )
+                      : const Center(
+                          child: Text('موردی یافت نشده است!'),
+                        );
+            },
+          ),
         ),
       ),
     );

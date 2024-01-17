@@ -93,7 +93,11 @@ class _LoginWithQrScreenState extends State<LoginWithQrScreen> {
                     }
                     if (state is LoginWithQrSuccess) {
                       MyNavigator.pushReplacement(
-                          context, VerifyLoginScreen(idCard: state.idCard));
+                          context,
+                          VerifyLoginScreen(
+                            idCard: state.resModel.idCard,
+                            isLogin: state.resModel.isLogin,
+                          ));
                     }
                   },
                   builder: (_, state) {

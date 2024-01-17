@@ -156,6 +156,12 @@ class MyIcons {
 <path d="M18 22C20.2091 22 22 20.2091 22 18C22 15.7909 20.2091 14 18 14C15.7909 14 14 15.7909 14 18C14 20.2091 15.7909 22 18 22Z" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ''';
+static String locationWhite =
+      '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.1199 10.31C15.1199 12.03 13.7299 13.43 11.9999 13.43C10.2699 13.43 8.87988 12.04 8.87988 10.31C8.87988 8.58 10.2799 7.19 11.9999 7.19C12.3399 7.19 12.6699 7.24 12.9699 7.34" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.97996 4.3C10.35 0.19 18.82 1.6 20.38 8.51C21.53 13.59 18.37 17.89 15.6 20.55C13.59 22.49 10.41 22.49 8.38996 20.55C5.62996 17.88 2.45996 13.58 3.61996 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+''';
   static String location =
       '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M15.1199 10.31C15.1199 12.03 13.7299 13.43 11.9999 13.43C10.2699 13.43 8.87988 12.04 8.87988 10.31C8.87988 8.58 10.2799 7.19 11.9999 7.19C12.3399 7.19 12.6699 7.24 12.9699 7.34" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -167,6 +173,13 @@ class MyIcons {
 <path d="M14.94 8.04C15.16 8.48 15.29 8.98 15.29 9.51C15.28 11.28 13.89 12.73 12.13 12.78C12.06 12.77 11.97 12.77 11.89 12.78C10.13 12.72 8.72998 11.28 8.72998 9.51C8.72998 7.7 10.19 6.23 12.01 6.23" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M18.74 19.38C16.96 21.01 14.6 22 12 22C9.40001 22 7.04001 21.01 5.26001 19.38C5.36001 18.44 5.96001 17.52 7.03001 16.8C9.77001 14.98 14.25 14.98 16.97 16.8C18.04 17.52 18.64 18.44 18.74 19.38Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M4 6C2.75 7.67 2 9.75 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C10.57 2 9.2 2.3 7.97 2.85" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+''';
+static String profileWhite =
+      '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.94 8.04C15.16 8.48 15.29 8.98 15.29 9.51C15.28 11.28 13.89 12.73 12.13 12.78C12.06 12.77 11.97 12.77 11.89 12.78C10.13 12.72 8.72998 11.28 8.72998 9.51C8.72998 7.7 10.19 6.23 12.01 6.23" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.74 19.38C16.96 21.01 14.6 22 12 22C9.40001 22 7.04001 21.01 5.26001 19.38C5.36001 18.44 5.96001 17.52 7.03001 16.8C9.77001 14.98 14.25 14.98 16.97 16.8C18.04 17.52 18.64 18.44 18.74 19.38Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4 6C2.75 7.67 2 9.75 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C10.57 2 9.2 2.3 7.97 2.85" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ''';
   static String search =

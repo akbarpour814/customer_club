@@ -8,9 +8,9 @@ final class LoginWithQrInitial extends LoginWithQrState {}
 final class LoginWithQrLoading extends LoginWithQrState {}
 
 final class LoginWithQrSuccess extends LoginWithQrState {
-  final String idCard;
+  final LoginOrRegisterResponseModel resModel;
 
-  LoginWithQrSuccess({required this.idCard});
+  LoginWithQrSuccess({required this.resModel});
 }
 
 final class LoginWithQrError extends LoginWithQrState {
