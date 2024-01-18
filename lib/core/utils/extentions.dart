@@ -9,7 +9,9 @@ extension HttpResponseValidator on Response? {
           (withoutData || this!.data != null) &&
           ((!checkError ||
               (this!.data != null &&
-                  (this!.data as Map<String, dynamic>)['status'] == true))));
+                  ((this!.data as Map<String, dynamic>)['status'] == true ||
+                      (this!.data as Map<String, dynamic>)['success'] ==
+                          true)))));
     } catch (e) {
       return false;
     }

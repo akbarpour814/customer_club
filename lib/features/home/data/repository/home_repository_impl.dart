@@ -126,8 +126,9 @@ class HomeRepository implements IHomeRepository {
   Future<DataState<ShopModel>> getShopWithQR(String qr) async {
     try {
       final res = await getIt<IHomeDataSource>().getShopWithQr(qr);
-      if (res.validate()) {
-        return DataSuccess(ShopModel.fromJson(res.data));
+      if (res.validate(checkError: true)) {
+        return DataSuccess(
+            ShopModel.fromJson((res.data as Map<String, dynamic>)['data']));
       }
       return DataError(res.getErrorMessage);
     } catch (e) {
@@ -139,7 +140,7 @@ class HomeRepository implements IHomeRepository {
   Future<DataState<List<ShopModel>>> searchShops(String query) async {
     try {
       final res = await getIt<IHomeDataSource>().searchShops(query);
-      if (res.validate()) {
+      if (res.validate(checkError: true)) {
         return DataSuccess(((res.data as Map<String, dynamic>)['data'] as List)
             .map((e) => ShopModel.fromJson(e))
             .toList());

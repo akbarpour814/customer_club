@@ -1,9 +1,11 @@
 import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
+import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/core/widgets/my_icon_button.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/search/search_bloc.dart';
+import 'package:customer_club/features/home/presentation/screens/scan_shop_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/vertical_shop_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +76,15 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             actions: [
               MyIconButton(
-                  onTap: () {},
+                  onTap: () => MyNavigator.push(context, ScanShopScreen(
+                        onScan: (qr) {
+                          Navigator.pop(context);
+                          _searchController.clear();
+                          setState(() {});
+                          BlocProvider.of<SearchBloc>(context)
+                              .add(SearchWithQREvent(QR: qr));
+                        },
+                      )),
                   padding: EdgeInsets.only(left: 12),
                   child: SvgPicture.string(MyIcons.scan))
             ],
