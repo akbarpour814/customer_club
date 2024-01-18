@@ -25,38 +25,32 @@ ThemeData myTheme() {
             minimumSize: MaterialStateProperty.all(const Size(300, 44)))),
     inputDecorationTheme: InputDecorationTheme(
         isDense: true,
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
             letterSpacing: 0,
             wordSpacing: 1,
-            color: Colors.black,
+            color: Colors.grey.shade400,
             fontFamily: FontFamily.estedad),
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
             letterSpacing: 0,
             wordSpacing: 1,
             fontSize: 12,
             fontFamily: FontFamily.estedad,
-            color: ColorPalette.grayColor),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: ColorPalette.grayColor2,
-            )),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        errorStyle: const TextStyle(fontSize: 11),
+            color: Colors.grey.shade400),
+        focusedBorder: _border(),
+        border: _border(),
+        enabledBorder: _border(),
+        errorBorder: _border(),
+        disabledBorder: _border(),
+        focusedErrorBorder: _border(),
+        errorStyle: const TextStyle(fontSize: 10, height: .5),
         contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10)),
   );
+}
+
+OutlineInputBorder _border() {
+  return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(
+        color: Colors.grey.shade300,
+      ));
 }

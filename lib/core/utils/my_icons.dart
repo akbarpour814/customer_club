@@ -35,10 +35,26 @@ class MyIcons {
 <path d="M7.0946 12H7.10359" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ''';
+  static String passwordPrimary =
+      '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.02 19.5H7.5C6.88 19.5 6.33 19.48 5.84 19.41C3.21 19.12 2.5 17.88 2.5 14.5V9.5C2.5 6.12 3.21 4.88 5.84 4.59C6.33 4.52 6.88 4.5 7.5 4.5H10.96" stroke="#${ColorPalette.primaryColorHex}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21.5 13.34V14.5C21.5 17.88 20.79 19.12 18.16 19.41C17.67 19.48 17.12 19.5 16.5 19.5H15.02" stroke="#${ColorPalette.primaryColorHex}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.02 4.5H16.5C17.12 4.5 17.67 4.52 18.16 4.59C20.79 4.88 21.5 6.12 21.5 9.5" stroke="#${ColorPalette.primaryColorHex}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 2V22" stroke="#${ColorPalette.primaryColorHex}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.4945 12H11.5035" stroke="#${ColorPalette.primaryColorHex}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.0946 12H7.10359" stroke="#${ColorPalette.primaryColorHex}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+''';
   static String user =
       '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M15.68 3.96C16.16 4.67 16.44 5.52 16.44 6.44C16.43 8.84 14.54 10.79 12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.61996 10.8 7.82996 9.11 7.58996 6.95C7.29996 4.38 9.40996 2 11.99 2" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M6.99005 14.56C4.57005 16.18 4.57005 18.82 6.99005 20.43C9.74005 22.27 14.25 22.27 17 20.43C19.42 18.81 19.42 16.17 17 14.56C14.27 12.73 9.76005 12.73 6.99005 14.56Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+''';
+static String userPrimary =
+      '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.68 3.96C16.16 4.67 16.44 5.52 16.44 6.44C16.43 8.84 14.54 10.79 12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.61996 10.8 7.82996 9.11 7.58996 6.95C7.29996 4.38 9.40996 2 11.99 2" stroke="#${ColorPalette.primaryColorHex}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.99005 14.56C4.57005 16.18 4.57005 18.82 6.99005 20.43C9.74005 22.27 14.25 22.27 17 20.43C19.42 18.81 19.42 16.17 17 14.56C14.27 12.73 9.76005 12.73 6.99005 14.56Z" stroke="#${ColorPalette.primaryColorHex}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ''';
   static String creditCartDone =

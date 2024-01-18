@@ -5,6 +5,7 @@ class LoginWithQrRequestModel {
   String? fname;
   String? lname;
   String? mobile;
+  String? password;
 
   LoginWithQrRequestModel({
     this.cvv2,
@@ -13,6 +14,7 @@ class LoginWithQrRequestModel {
     this.fname,
     this.lname,
     this.mobile,
+    this.password
   });
 
   factory LoginWithQrRequestModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class LoginWithQrRequestModel {
       fname: json['fname'] as String?,
       lname: json['lname'] as String?,
       mobile: json['mobile'] as String?,
+      password: json['password'] as String?,
     );
   }
 
@@ -33,5 +36,6 @@ class LoginWithQrRequestModel {
         'fname': fname,
         'lname': lname,
         'mobile': mobile,
+        'password': password,
       };
 }

@@ -51,3 +51,10 @@ extension StringUtil on String? {
   bool get isNotNullOrEmpty =>
       this != null && this != 'Null' && this != 'null' && this!.isNotEmpty;
 }
+
+extension StringExtension on String {
+  bool get hasUpperCase => RegExp(r'[A-Z]+').hasMatch(this);
+  bool get hasLowerCase => RegExp(r'[a-z]+').hasMatch(this);
+  bool get hasNumber => RegExp(r'\d').hasMatch(this);
+  bool get hasNonWords => RegExp(r'[\W_]+').hasMatch(this);
+}

@@ -8,3 +8,8 @@ class VerifyLoginRequestEvent extends VerifyLoginEvent {
 
   VerifyLoginRequestEvent({required this.requestModel});
 }
+class VerifyRegisterRequestEvent extends VerifyLoginEvent {
+  final LoginWithQrRequestModel requestModel;
+
+  VerifyRegisterRequestEvent({required this.requestModel});
+}

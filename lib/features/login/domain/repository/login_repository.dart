@@ -7,4 +7,5 @@ abstract class ILoginRepository {
   Future<DataState<AppConfigModel>> getAppConfig();
   Future<DataState<LoginOrRegisterResponseModel>> loginWithQR(String qr);
   Future<DataState<String>> loginWithQRVerify(LoginWithQrRequestModel requestModel);
+  Future<DataState<String>> registerWithQRVerify(LoginWithQrRequestModel requestModel);
 }

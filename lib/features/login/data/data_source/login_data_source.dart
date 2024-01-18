@@ -7,6 +7,7 @@ abstract class ILoginDataSource {
   Future<Response> getAppConfig();
   Future<Response> loginWithQR(String qr);
   Future<Response> loginWithQRVerify(LoginWithQrRequestModel requestModel);
+  Future<Response> registerWithQRVerify(LoginWithQrRequestModel requestModel);
 }
 
 @Injectable(
@@ -22,5 +23,9 @@ class LoginDataSource implements ILoginDataSource {
 
   @override
   Future<Response> loginWithQRVerify(LoginWithQrRequestModel requestModel) =>
+      getIt<Dio>()
+          .post('login_step2_password.php', data: requestModel.toJson());
+  @override
+  Future<Response> registerWithQRVerify(LoginWithQrRequestModel requestModel) =>
       getIt<Dio>().post('register_step2_cvv.php', data: requestModel.toJson());
 }

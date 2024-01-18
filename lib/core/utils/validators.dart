@@ -6,7 +6,7 @@ String? nationalCodeValidator(String? value) {
       value.trim().isEmpty ||
       value.trim().length != 10 ||
       !value.trim().toEnglishDigit().isValidIranianNationalCode()) {
-    return 'لطفا کد ملی را به درستی وارد نمایید';
+    return 'کد ملی را به درستی وارد نمایید';
   } else {
     return null;
   }
@@ -15,7 +15,7 @@ String? nationalCodeValidator(String? value) {
 String? postalCodeValidator(String? value) {
   if (value != null && value.isNotEmpty) {
     if (value.length != 10 || (value.contains('0') && (value.contains('2')))) {
-      return 'لطفا کد پستی را به درستی وارد نمایید';
+      return 'کد پستی را به درستی وارد نمایید';
     } else {
       return null;
     }
@@ -28,7 +28,7 @@ String? emailValidator(String? value) {
   if (value != null && value.isNotEmpty) {
     if (!value.isNotNullOrEmpty ||
         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'لطفا ایمیل را به درستی وارد نمایید';
+      return 'ایمیل را به درستی وارد نمایید';
     } else {
       return null;
     }
@@ -41,7 +41,7 @@ String? mobileNumberValidator(String? value) {
   if (value == null ||
       value.trim().isEmpty ||
       !value.trim().toEnglishDigit().isValidIranianMobileNumber()) {
-    return 'لطفا شماره موبایل را به درستی وارد نمایید';
+    return 'شماره موبایل را به درستی وارد نمایید';
   } else {
     return null;
   }
@@ -53,7 +53,7 @@ String? phoneNumberValidator(String? value, {bool isRequired = false}) {
         value.isEmpty ||
         value.trim().length != 11 ||
         !value.trim().toEnglishDigit().isValidIranianMobileNumber()) {
-      return 'لطفا شماره تلفن را به درستی وارد نمایید';
+      return 'شماره تلفن را به درستی وارد نمایید';
     } else {
       return null;
     }
@@ -61,7 +61,7 @@ String? phoneNumberValidator(String? value, {bool isRequired = false}) {
     if (value != null && value.isNotEmpty) {
       if (value.trim().length != 11 ||
           !value.trim().toEnglishDigit().isValidIranianMobileNumber()) {
-        return 'لطفا شماره تلفن را به درستی وارد نمایید';
+        return 'شماره تلفن را به درستی وارد نمایید';
       } else {
         return null;
       }
@@ -73,7 +73,7 @@ String? phoneNumberValidator(String? value, {bool isRequired = false}) {
 
 String? generalValidator(String? value, String title) {
   if (value == null || value.trim().isEmpty) {
-    return 'لطفا $title را به درستی وارد نمایید';
+    return '$title را به درستی وارد نمایید';
   }
   return null;
 }
@@ -82,7 +82,7 @@ String? latinValidator(String? value, String title) {
   if (value == null ||
       value.trim().isEmpty ||
       !RegExp(r'^\S.*[a-zA-Z\s]*$').hasMatch(value)) {
-    return 'لطفا $title را به درستی وارد نمایید';
+    return '$title را به درستی وارد نمایید';
   }
   return null;
 }
@@ -97,7 +97,7 @@ String? smsCodeValidator(String? value) {
 
 String? dropdownValidator(Object? value, String title) {
   if (value == null) {
-    return 'لطفا $title را انتخاب نمایید';
+    return '$title را انتخاب نمایید';
   }
   return null;
 }
@@ -111,4 +111,24 @@ String? cardValidator(Object? value) {
     return 'شماره کارت وارد شده صحیح نمی‌باشد';
   }
   return null;
+}
+
+String? passwordValidator(String? value, {String? mainValue}) {
+  if (value == null || value.trim().isEmpty) {
+    return 'رمز عبور را به درستی وارد نمایید';
+  } else if (value.length < 8) {
+    return 'رمز عبور باید شامل حداقل ۸ کاراکتر باشد ';
+  } else if (!value.hasLowerCase) {
+    return 'رمز عبور باید شامل حداقل یک حروف کوچک باشد';
+  } else if (!value.hasUpperCase) {
+    return 'رمز عبور باید شامل حداقل یک حروف بزرگ باشد';
+  } else if (!value.hasNumber) {
+    return 'رمز عبور باید شامل حداقل یک عدد باشد';
+  } else if (!value.hasNonWords) {
+    return 'رمز عبور باید شامل حداقل یک نماد باشد';
+  } else if (mainValue.isNotNullOrEmpty && value != mainValue) {
+    return 'رمز عبور همخوانی ندارد';
+  } else {
+    return null;
+  }
 }

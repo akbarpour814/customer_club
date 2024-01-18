@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+     getIt<FlutterSecureStorage>().deleteAll();
     getIt<FlutterSecureStorage>().read(key: 'token').then((value) {
       if (value.isNotNullOrEmpty) {
         tokenNotifire.value = value!;
