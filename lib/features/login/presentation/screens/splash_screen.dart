@@ -1,5 +1,5 @@
 import 'package:customer_club/configs/gen/assets.gen.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/configs/gen/di/di.dart';
 import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/extentions.dart';
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-     getIt<FlutterSecureStorage>().deleteAll();
+    // getIt<FlutterSecureStorage>().deleteAll();
     getIt<FlutterSecureStorage>().read(key: 'token').then((value) {
       if (value.isNotNullOrEmpty) {
         tokenNotifire.value = value!;

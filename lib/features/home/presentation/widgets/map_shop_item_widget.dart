@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';

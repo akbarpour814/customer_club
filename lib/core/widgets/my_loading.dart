@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:flutter/cupertino.dart';
 

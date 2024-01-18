@@ -13,6 +13,7 @@ class AppConfigModel {
   String? colorClientApp;
   String? appBuyCard;
   String? appBuyCardRequestLink;
+  String? appBGCard;
 
   AppConfigModel({
     this.websitePathAddress,
@@ -29,6 +30,7 @@ class AppConfigModel {
     this.colorClientApp,
     this.appBuyCard,
     this.appBuyCardRequestLink,
+    this.appBGCard,
   });
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class AppConfigModel {
       colorClientApp: json['color_client_app'] as String?,
       appBuyCard: json['app_buy_card'] as String?,
       appBuyCardRequestLink: json['app_link_request_buy_card'] as String?,
+      appBGCard: json['app_bg_card'] as String?,
     );
   }
 
@@ -63,5 +66,6 @@ class AppConfigModel {
         'app_font_size_title': appFontSizeTitle,
         'color_master_app': colorMasterApp,
         'color_client_app': colorClientApp,
+        'app_bg_card': appBGCard,
       };
 }

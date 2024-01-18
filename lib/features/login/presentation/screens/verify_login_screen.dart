@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/custom_modals.dart';
 import 'package:customer_club/core/utils/extentions.dart';
@@ -76,45 +76,44 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                     Container(
                       margin: EdgeInsets.only(bottom: 24),
                       padding: EdgeInsets.all(12),
-                      height: 44.w(context),
+                      height: 50.w(context),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorPalette.primaryColor,
-                                ColorPalette.fontColor1
-                              ],
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft)),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                appConfig.appBGCard ?? '',
+                              ))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'رویا کارت',
+                                appConfig.appNameFa ?? '',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
-                              SvgPicture.string(MyIcons.creditCartDone),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                widget.idCard.toPersianDigit(),
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    letterSpacing: 2,
-                                    fontWeight: FontWeight.bold),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(bottom: 2.5.w(context)),
+                                child: Text(
+                                  '${widget.idCard.toPersianDigit().substring(0, 4)}-${widget.idCard.toPersianDigit().substring(4, 8)}-${widget.idCard.toPersianDigit().substring(8, 12)}-${widget.idCard.toPersianDigit().substring(12, 16)}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      letterSpacing: 2,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ],
                           ),
-                          24.hsb()
                         ],
                       ),
                     ),

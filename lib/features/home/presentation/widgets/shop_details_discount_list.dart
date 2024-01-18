@@ -1,4 +1,5 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
+import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
@@ -56,7 +57,7 @@ class _ShopDetailsDiscountListState extends State<ShopDetailsDiscountList> {
                       ),
                     ),
                     Text(
-                      'رویا کارت',
+                      appConfig.appNameFa ?? '',
                       style: TextStyle(
                           color: ColorPalette.primaryColor,
                           fontSize: 12,

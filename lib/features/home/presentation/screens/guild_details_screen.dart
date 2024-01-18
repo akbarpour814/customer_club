@@ -1,8 +1,8 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_guild_details/get_guild_details_bloc.dart';
-import 'package:customer_club/features/home/presentation/widgets/guild_details_shop_item_widget.dart';
+import 'package:customer_club/features/home/presentation/widgets/vertical_shop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -58,7 +58,7 @@ class _GuildDetailsScreenState extends State<GuildDetailsScreen> {
                     padding: const EdgeInsets.only(
                         top: 4, bottom: 80, left: 6, right: 6),
                     children: (state.guildDetailsModel.shops ?? [])
-                        .map((e) => GuildDetailsShopItemWidget(e))
+                        .map((e) => VerticalShopItem(e))
                         .toList(),
                   )
                 : state is GetGuildDetailsLoaded &&

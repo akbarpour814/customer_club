@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/custom_page_route.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/data/models/slider_model.dart';

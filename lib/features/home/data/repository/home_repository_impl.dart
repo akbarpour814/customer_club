@@ -121,4 +121,32 @@ class HomeRepository implements IHomeRepository {
       return DataError(null.getErrorMessage);
     }
   }
+
+  @override
+  Future<DataState<ShopModel>> getShopWithQR(String qr) async {
+    try {
+      final res = await getIt<IHomeDataSource>().getShopWithQr(qr);
+      if (res.validate()) {
+        return DataSuccess(ShopModel.fromJson(res.data));
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<List<ShopModel>>> searchShops(String query) async {
+    try {
+      final res = await getIt<IHomeDataSource>().searchShops(query);
+      if (res.validate()) {
+        return DataSuccess(((res.data as Map<String, dynamic>)['data'] as List)
+            .map((e) => ShopModel.fromJson(e))
+            .toList());
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
 }

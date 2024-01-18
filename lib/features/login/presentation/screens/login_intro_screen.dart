@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
@@ -43,7 +43,7 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
               Column(
                 children: [
                   Text(
-                    'برای ورود یا عضویت، رویاکارت خود را ثبت کنید',
+                    'برای ورود یا عضویت، ${appConfig.appNameFa ?? ''} خود را ثبت کنید',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
@@ -54,7 +54,7 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
                               ColorPalette.primaryColor)),
                       onPressed: () =>
                           MyNavigator.push(context, LoginWithQrScreen()),
-                      child: Text('ثبت رویاکارت')),
+                      child: Text('ثبت کارت')),
                 ],
               ),
               Column(
@@ -84,7 +84,7 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
                             webOnlyWindowName: '_self');
                       },
                       child: Text(
-                        'خرید رویاکارت',
+                        'خرید کارت',
                         style: TextStyle(
                             color: ColorPalette.primaryColor,
                             fontWeight: FontWeight.bold),

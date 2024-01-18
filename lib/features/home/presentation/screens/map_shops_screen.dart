@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:customer_club/configs/gen/assets.gen.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
@@ -63,18 +63,17 @@ class _MapShopsScreenState extends State<MapShopsScreen>
         },
         builder: (context, state) {
           return Scaffold(
-           appBar: AppBar(
-                    leading:
-                        Center(child: SvgPicture.string(MyIcons.locationWhite)),
-                    title: const Text(
-                      'فروشگاه های اطراف',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    backgroundColor: ColorPalette.primaryColor,
-                  ),
+            appBar: AppBar(
+              leading: Center(child: SvgPicture.string(MyIcons.locationWhite)),
+              title: const Text(
+                'فروشگاه های اطراف',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: ColorPalette.primaryColor,
+            ),
             body: SafeArea(
                 child: state is GetShopsLocationLoaded &&
                         state.shopList.isNotEmpty

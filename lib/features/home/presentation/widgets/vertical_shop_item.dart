@@ -5,9 +5,9 @@ import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/features/home/presentation/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
 
-class GuildDetailsShopItemWidget extends StatelessWidget {
+class VerticalShopItem extends StatelessWidget {
   final ShopModel item;
-  const GuildDetailsShopItemWidget(
+  const VerticalShopItem(
     this.item, {
     super.key,
   });
@@ -24,7 +24,7 @@ class GuildDetailsShopItemWidget extends StatelessWidget {
             child: Container(
               height: 56.w(context),
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: 4),
+              margin: const EdgeInsets.only(top: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 image: DecorationImage(

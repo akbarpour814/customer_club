@@ -10,6 +10,8 @@ abstract class IHomeDataSource {
   Future<Response> getShopDetails(int shopId);
   Future<Response> getDiscountList(int shopId);
   Future<Response> getShopLocation(int shopId);
+  Future<Response> getShopWithQr(String qr);
+  Future<Response> searchShops(String query);
 }
 
 @Injectable(
@@ -40,4 +42,12 @@ class HomeDataSource implements IHomeDataSource {
   @override
   Future<Response> getShopLocation(int shopId) =>
       getIt<Dio>().get('shop_location.php?shop_id=$shopId');
+
+  @override
+  Future<Response> getShopWithQr(String qr) =>
+      getIt<Dio>().get('qr_shop.php?qrcode=$qr');
+
+  @override
+  Future<Response> searchShops(String query) =>
+      getIt<Dio>().get('search_shops.php?search=$query');
 }

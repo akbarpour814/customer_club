@@ -14,4 +14,6 @@ abstract class IHomeRepository {
   Future<DataState<ShopAllDetailsModel>> getShopDetails(int shopId);
   Future<DataState<List<DiscountModel>>> getDiscountList(int shopId);
   Future<DataState<ShopModel>> getShopLocation(int shopId);
+  Future<DataState<ShopModel>> getShopWithQR(String qr);
+  Future<DataState<List<ShopModel>>> searchShops(String query);
 }

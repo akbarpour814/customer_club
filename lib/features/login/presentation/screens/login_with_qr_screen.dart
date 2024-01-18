@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:customer_club/configs/gen/assets.gen.dart';
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/custom_modals.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';

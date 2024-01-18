@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_guild/get_guild_bloc.dart';
@@ -15,7 +15,6 @@ class GuildListScreen extends StatefulWidget {
 }
 
 class _GuildListScreenState extends State<GuildListScreen> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

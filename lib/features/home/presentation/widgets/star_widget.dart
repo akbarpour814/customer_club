@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class StarWidget extends StatelessWidget {

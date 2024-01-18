@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/color_palette.dart';
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/configs/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ ThemeData myTheme() {
         hintStyle: TextStyle(
             letterSpacing: 0,
             wordSpacing: 1,
-            fontSize: 12,
+            fontSize: 14,
             fontFamily: FontFamily.estedad,
             color: Colors.grey.shade400),
         focusedBorder: _border(),
