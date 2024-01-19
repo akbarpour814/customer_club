@@ -1,5 +1,5 @@
 import 'package:customer_club/core/widgets/my_loading.dart';
-import 'package:customer_club/features/home/data/models/shop_details_model/shop_gallery_model.dart';
+import 'package:customer_club/core/models/shop_details_model/shop_gallery_model.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_gallery_row_item.dart';
 import 'package:flutter/material.dart';

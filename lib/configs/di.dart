@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'package:customer_club/configs/gen/di/di.config.dart';
+import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/utils/value_notifires.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -50,10 +52,9 @@ Dio createApiClient() {
             'Params=> ${request.queryParameters}'
             '\n',
           );
-          // if (userInfoNotifire.value.token.isNotNullOrEmpty) {
-          //   request.headers['Authorization'] =
-          //       'Bearer ${userInfoNotifire.value.token}';
-          // }
+          if (tokenNotifire.value.isNotNullOrEmpty) {
+            request.headers['Authorization'] = 'Bearer ${tokenNotifire.value}';
+          }
           handler.next(request);
         } catch (e) {
           print(e);

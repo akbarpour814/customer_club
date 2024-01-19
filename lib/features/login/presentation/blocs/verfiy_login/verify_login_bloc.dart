@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/features/login/data/models/login_with_qr_request_model.dart';
 import 'package:customer_club/features/login/domain/use_cases/login_with_qr_verify_use_case.dart';

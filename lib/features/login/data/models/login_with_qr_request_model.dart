@@ -7,15 +7,14 @@ class LoginWithQrRequestModel {
   String? mobile;
   String? password;
 
-  LoginWithQrRequestModel({
-    this.cvv2,
-    this.idcard,
-    this.username,
-    this.fname,
-    this.lname,
-    this.mobile,
-    this.password
-  });
+  LoginWithQrRequestModel(
+      {this.cvv2,
+      this.idcard,
+      this.username,
+      this.fname,
+      this.lname,
+      this.mobile,
+      this.password});
 
   factory LoginWithQrRequestModel.fromJson(Map<String, dynamic> json) {
     return LoginWithQrRequestModel(

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/configs/theme.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_home_data/get_home_data_bloc.dart';
 import 'package:customer_club/features/login/presentation/screens/splash_screen.dart';

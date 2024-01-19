@@ -1,6 +1,6 @@
 import 'shop_gallery_model.dart';
 
-class ShopModel {
+class ShopDetailModel {
   int? id;
   String? name;
   String? aboutUs;
@@ -15,7 +15,7 @@ class ShopModel {
   String? shopBg;
   List<ShopGalleryModel>? shopGallery;
 
-  ShopModel({
+  ShopDetailModel({
     this.id,
     this.name,
     this.aboutUs,
@@ -31,7 +31,8 @@ class ShopModel {
     this.shopGallery,
   });
 
-  factory ShopModel.fromJson(Map<String, dynamic> json) => ShopModel(
+  factory ShopDetailModel.fromJson(Map<String, dynamic> json) =>
+      ShopDetailModel(
         id: json['id'] as int?,
         name: json['name'] as String?,
         aboutUs: json['about_us'] as String?,

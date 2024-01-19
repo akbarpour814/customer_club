@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 

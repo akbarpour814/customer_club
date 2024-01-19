@@ -15,4 +15,4 @@ class SearchWithQREvent extends SearchEvent {
   SearchWithQREvent({required this.QR});
 }
 
-class SearchClearEvent extends SearchEvent{}
+class SearchClearEvent extends SearchEvent {}

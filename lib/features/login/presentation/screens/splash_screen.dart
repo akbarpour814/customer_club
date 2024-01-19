@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/color_palette.dart';
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
@@ -28,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
     // getIt<FlutterSecureStorage>().deleteAll();
     getIt<FlutterSecureStorage>().read(key: 'token').then((value) {
       if (value.isNotNullOrEmpty) {
-        tokenNotifire.value = value!;
+        log(value!);
+        tokenNotifire.value = value;
       }
     });
   }

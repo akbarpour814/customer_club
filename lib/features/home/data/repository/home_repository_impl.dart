@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
@@ -7,7 +7,7 @@ import 'package:customer_club/features/home/data/data_source/home_data_source.da
 import 'package:customer_club/features/home/data/models/discount_model.dart';
 import 'package:customer_club/features/home/data/models/guild_details_model.dart';
 import 'package:customer_club/features/home/data/models/home_data_model.dart';
-import 'package:customer_club/features/home/data/models/shop_details_model/shop_all_details_model.dart';
+import 'package:customer_club/core/models/shop_details_model/shop_all_details_model.dart';
 import 'package:customer_club/features/home/domain/repository/home_repository.dart';
 import 'package:injectable/injectable.dart';
 

@@ -1,4 +1,4 @@
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/use_case.dart';

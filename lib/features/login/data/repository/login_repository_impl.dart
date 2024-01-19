@@ -1,10 +1,13 @@
-import 'package:customer_club/configs/gen/di/di.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/models/app_config_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/models/shop_details_model/shop_all_details_model.dart';
 import 'package:customer_club/features/login/data/data_source/login_data_source.dart';
+import 'package:customer_club/features/login/data/models/city_model.dart';
 import 'package:customer_club/features/login/data/models/login_or_register_response_model.dart';
 import 'package:customer_club/features/login/data/models/login_with_qr_request_model.dart';
+import 'package:customer_club/features/login/data/models/user_model.dart';
 import 'package:customer_club/features/login/domain/repository/login_repository.dart';
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
@@ -84,7 +87,7 @@ class LoginRepository implements ILoginRepository {
       return DataError(null.getErrorMessage);
     }
   }
-  
+
   bool _isLoginOk(Response<dynamic> res) {
     return res.statusCode == 200 &&
         res.data != null &&
@@ -92,5 +95,46 @@ class LoginRepository implements ILoginRepository {
                 true ||
             ((res.data as List).first as Map<String, dynamic>)['success'] ==
                 'login');
+  }
+
+  @override
+  Future<DataState<List<CityModel>>> getAllCity() async {
+    try {
+      final res = await getIt<ILoginDataSource>().getAllCity();
+      if (res.validate()) {
+        return DataSuccess(
+            (res.data as List?)?.map((e) => CityModel.fromJson(e)).toList());
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<UserModel>> getProfile() async {
+    try {
+      final res = await getIt<ILoginDataSource>().getProfile();
+      if (res.validate(checkError: true)) {
+        return DataSuccess(
+            UserModel.fromJson((res.data as Map<String, dynamic>)['data']));
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<ShopAllDetailsModel>> getShopDetails(int shopId) async {
+    try {
+      final res = await getIt<ILoginDataSource>().getShopDetails(shopId);
+      if (res.validate()) {
+        return DataSuccess(ShopAllDetailsModel.fromJson(res.data));
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
   }
 }

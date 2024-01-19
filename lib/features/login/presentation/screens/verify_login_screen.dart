@@ -201,8 +201,16 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                                       ),
                                     ),
                                   )),
-                              validator: (value) =>
-                                  generalValidator(value, 'نام کاربری'),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'نام کاربری را به درستی وارد نمایید';
+                                }
+                                if (value.characters
+                                    .any((element) => element.isPersian)) {
+                                  return 'نام کاربری باید لاتین باشد';
+                                }
+                                return null;
+                              },
                             ),
                             16.hsb(),
                             TextFormField(

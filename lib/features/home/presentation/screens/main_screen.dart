@@ -10,6 +10,7 @@ import 'package:customer_club/features/home/presentation/screens/map_shops_scree
 import 'package:customer_club/features/home/presentation/screens/search_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/bottom_menu_item.dart';
 import 'package:customer_club/features/login/presentation/screens/login_intro_screen.dart';
+import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -90,9 +91,7 @@ class MainScreenState extends State<MainScreen> {
                             valueListenable: tokenNotifire,
                             builder: (context, token, _) {
                               return token.isNotNullOrEmpty
-                                  ? Center(
-                                      child: Text('پروفایل'),
-                                    )
+                                  ? const ProfileScreen()
                                   : const LoginIntroScreen();
                             })),
                     _navigator(

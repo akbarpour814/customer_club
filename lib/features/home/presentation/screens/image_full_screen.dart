@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer_club/core/utils/extentions.dart';
-import 'package:customer_club/features/home/data/models/shop_details_model/shop_gallery_model.dart';
+import 'package:customer_club/core/models/shop_details_model/shop_gallery_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

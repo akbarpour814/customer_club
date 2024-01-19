@@ -29,6 +29,10 @@ dependencies:
   full_screen_image:
   animations:
   qr_code_scanner:
+  image_picker:
+  image_cropper:
+  flutter_image_compress:
+  path_provider:
 
 dev_dependencies:
   flutter_test:

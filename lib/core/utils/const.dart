@@ -1,4 +1,3 @@
-
 import 'package:customer_club/core/models/app_config_model.dart';
 
 AppConfigModel appConfig = AppConfigModel();
