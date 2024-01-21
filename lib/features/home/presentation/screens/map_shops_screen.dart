@@ -65,8 +65,9 @@ class _MapShopsScreenState extends State<MapShopsScreen>
           return Scaffold(
             appBar: AppBar(
               leading: Center(child: SvgPicture.string(MyIcons.locationWhite)),
+              centerTitle: true,
               title: const Text(
-                'فروشگاه های اطراف',
+                'نقشه',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

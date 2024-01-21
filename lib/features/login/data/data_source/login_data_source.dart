@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/utils/value_notifires.dart';
 import 'package:customer_club/features/login/data/models/login_with_qr_request_model.dart';
+import 'package:customer_club/features/login/data/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,6 +15,8 @@ abstract class ILoginDataSource {
   Future<Response> getAllCity();
   Future<Response> getProfile();
   Future<Response> getShopDetails(int shopId);
+  Future<Response> uploadAvatar(File file);
+  Future<Response> updateProfile(UserModel userModel);
 }
 
 @Injectable(
@@ -44,4 +49,22 @@ class LoginDataSource implements ILoginDataSource {
   @override
   Future<Response> getProfile() =>
       getIt<Dio>().get('user_info.php', data: {'token': tokenNotifire.value});
+
+  @override
+  Future<Response> uploadAvatar(File file) async =>
+      getIt<Dio>().post('upload_user_img.php',
+          data: FormData.fromMap(
+            {
+              "image": await MultipartFile.fromFile(
+                file.path,
+                filename: file.path.split('/').last,
+              ),
+              'token': tokenNotifire.value
+            },
+          ));
+
+  @override
+  Future<Response> updateProfile(UserModel userModel) =>
+      getIt<Dio>().post('user_edit.php',
+          data: {'token': tokenNotifire.value, ...userModel.toJson()});
 }

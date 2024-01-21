@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:customer_club/core/models/app_config_model.dart';
 import 'package:customer_club/core/models/shop_details_model/shop_all_details_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
@@ -16,4 +18,6 @@ abstract class ILoginRepository {
   Future<DataState<ShopAllDetailsModel>> getShopDetails(int shopId);
   Future<DataState<List<CityModel>>> getAllCity();
   Future<DataState<UserModel>> getProfile();
+  Future<DataState<String>> uploadAvatar(File file);
+  Future<DataState> updateProfile(UserModel userModel);
 }

@@ -25,6 +25,9 @@ String? postalCodeValidator(String? value) {
 }
 
 String? emailValidator(String? value) {
+  if (!value.isNotNullOrEmpty) {
+    return 'ایمیل را به درستی وارد نمایید';
+  }
   if (value != null && value.isNotEmpty) {
     if (!value.isNotNullOrEmpty ||
         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {

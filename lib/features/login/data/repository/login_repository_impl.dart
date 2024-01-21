@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/models/app_config_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
@@ -133,6 +135,35 @@ class LoginRepository implements ILoginRepository {
         return DataSuccess(ShopAllDetailsModel.fromJson(res.data));
       }
       return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<String>> uploadAvatar(File file) async {
+    try {
+      final res = await getIt<ILoginDataSource>().uploadAvatar(file);
+      if (_isLoginOk(res)) {
+        return DataSuccess(
+            ((((res.data as List).first as Map<String, dynamic>)['filename']
+                .toString())));
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState> updateProfile(UserModel userModel) async {
+    try {
+      final res = await getIt<ILoginDataSource>().updateProfile(userModel);
+      if (_isLoginOk(res)) {
+        return DataSuccess(null);
+      } else {
+        return DataError(res.getErrorMessage);
+      }
     } catch (e) {
       return DataError(null.getErrorMessage);
     }

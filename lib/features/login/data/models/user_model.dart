@@ -6,11 +6,13 @@ class UserModel {
   String? mobile;
   String? image;
   String? city;
-  int? cityId;
-  int? idcard;
+  String? cityId;
+  String? idcard;
   bool? qrscan;
-  int? shopId;
+  String? shopId;
   String? shopName;
+  String? password;
+  String? numNotify;
 
   UserModel({
     this.username,
@@ -25,22 +27,25 @@ class UserModel {
     this.qrscan,
     this.shopId,
     this.shopName,
+    this.password,
+    this.numNotify,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        username: json['username'] as String?,
-        fname: json['fname'] as String?,
-        lname: json['lname'] as String?,
-        email: json['email'] as String?,
-        mobile: json['mobile'] as String?,
-        image: json['image'] as String?,
-        city: json['city'] as String?,
-        cityId: json['city_id'] as int?,
-        idcard: json['idcard'] as int?,
-        qrscan: json['qrscan'] as bool?,
-        shopId: json['shop_id'] as int?,
-        shopName: json['shop_name'] as String?,
-      );
+      username: json['username'] as String?,
+      fname: json['fname'] as String?,
+      lname: json['lname'] as String?,
+      email: json['email'] as String?,
+      mobile: json['mobile'] as String?,
+      image: json['image'] as String?,
+      city: json['city'] as String?,
+      cityId: json['city_id'].toString(),
+      idcard: json['idcard'].toString(),
+      qrscan: json['qrscan'] as bool?,
+      shopId: json['shop_id'].toString(),
+      shopName: json['shop_name'] as String?,
+      numNotify: json['num_notify'].toString(),
+      password: json['password'] as String?);
 
   Map<String, dynamic> toJson() => {
         'username': username,
@@ -55,5 +60,7 @@ class UserModel {
         'qrscan': qrscan,
         'shop_id': shopId,
         'shop_name': shopName,
+        'password': password,
+        'num_notify': numNotify
       };
 }

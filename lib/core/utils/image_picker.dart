@@ -37,7 +37,7 @@ imagePicker(BuildContext context, TapDownDetails details,
             },
             value: 0,
             child: const Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'انتخاب از گالری',
@@ -56,7 +56,7 @@ imagePicker(BuildContext context, TapDownDetails details,
           },
           value: 1,
           child: const Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'انتخاب از دوربین',
@@ -65,24 +65,24 @@ imagePicker(BuildContext context, TapDownDetails details,
             ],
           ),
         ),
-        if (isAlreadyPicked)
-          PopupMenuItem<int>(
-            onTap: (() {
-              onPick(null);
-            }),
-            value: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'حذف تصویر',
-                  style: TextStyle(
-                    color: Colors.red.shade700,
-                  ),
-                ),
-              ],
-            ),
-          )
+        // if (isAlreadyPicked)
+        //   PopupMenuItem<int>(
+        //     onTap: (() {
+        //       onPick(null);
+        //     }),
+        //     value: 1,
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.end,
+        //       children: [
+        //         Text(
+        //           'حذف تصویر',
+        //           style: TextStyle(
+        //             color: Colors.red.shade700,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   )
       ],
     );
   }
