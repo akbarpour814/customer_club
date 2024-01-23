@@ -1,4 +1,5 @@
 import 'package:customer_club/configs/di.dart';
+import 'package:customer_club/core/utils/value_notifires.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,6 +13,7 @@ abstract class IHomeDataSource {
   Future<Response> getShopLocation(int shopId);
   Future<Response> getShopWithQr(String qr);
   Future<Response> searchShops(String query);
+  Future<Response> getUserNotifyShops();
 }
 
 @Injectable(
@@ -50,4 +52,8 @@ class HomeDataSource implements IHomeDataSource {
   @override
   Future<Response> searchShops(String query) =>
       getIt<Dio>().get('search_shops.php?search=$query');
+
+  @override
+  Future<Response> getUserNotifyShops() => getIt<Dio>()
+      .post('user_notify.php', data: {'token': tokenNotifire.value});
 }

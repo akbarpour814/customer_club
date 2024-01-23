@@ -6,16 +6,19 @@ import 'package:customer_club/features/home/presentation/widgets/star_widget.dar
 import 'package:flutter/material.dart';
 
 class VerticalShopItem extends StatelessWidget {
+  final bool goSurveyTab;
   final ShopModel item;
   const VerticalShopItem(
     this.item, {
     super.key,
+    this.goSurveyTab = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return OpenContainerWrapper(
         item: item,
+        goSurveyTab: goSurveyTab,
         onClosed: (_) {},
         transitionType: ContainerTransitionType.fadeThrough,
         closedBuilder: (BuildContext _, VoidCallback openContainer) {

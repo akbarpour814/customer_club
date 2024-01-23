@@ -150,4 +150,19 @@ class HomeRepository implements IHomeRepository {
       return DataError(null.getErrorMessage);
     }
   }
+
+  @override
+  Future<DataState<List<ShopModel>>> getUserNotifyShops() async {
+    try {
+      final res = await getIt<IHomeDataSource>().getUserNotifyShops();
+      if (res.validate(checkError: true)) {
+        return DataSuccess(((res.data as Map<String, dynamic>)['shops'] as List)
+            .map((e) => ShopModel.fromJson(e))
+            .toList());
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
 }

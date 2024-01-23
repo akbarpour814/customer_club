@@ -7,11 +7,13 @@ import 'package:customer_club/core/utils/custom_modals.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/image_picker.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
+import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/core/utils/utils.dart';
 import 'package:customer_club/core/utils/validators.dart';
 import 'package:customer_club/core/utils/value_notifires.dart';
 import 'package:customer_club/core/widgets/my_icon_button.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
+import 'package:customer_club/features/home/presentation/screens/user_notify_shops_screen.dart';
 import 'package:customer_club/features/login/data/models/city_model.dart';
 import 'package:customer_club/features/login/data/models/user_model.dart';
 import 'package:customer_club/features/login/presentation/blocs/get_profile/get_profile_bloc.dart';
@@ -90,14 +92,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             actions: [
               MyIconButton(
-                  onTap: () {},
+                  onTap: state is GetProfileLoaded &&
+                          state.user.numNotify.isNotNullOrEmpty
+                      ? () => MyNavigator.push(context, UserNotifyShopsScreen())
+                      : null,
                   padding: EdgeInsets.zero,
                   child: Stack(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8),
                         child: SvgPicture.string(
-                          MyIcons.store,
+                          MyIcons.message,
                           width: 22,
                         ),
                       ),

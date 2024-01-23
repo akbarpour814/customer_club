@@ -17,10 +17,14 @@ import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
+  final bool goSurveyTab;
   final int shopId;
   final String imageUrl;
   const ShopDetailsScreen(
-      {super.key, required this.shopId, required this.imageUrl});
+      {super.key,
+      required this.shopId,
+      required this.imageUrl,
+      this.goSurveyTab = false});
 
   @override
   State<ShopDetailsScreen> createState() => _ShopDetailsScreenState();
@@ -42,6 +46,10 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    if (widget.goSurveyTab) {
+      Future.delayed(Duration(milliseconds: 500))
+          .then((value) => _tabController?.animateTo(2));
+    }
   }
 
   @override

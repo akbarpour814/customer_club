@@ -59,11 +59,13 @@ class InkWellOverlay extends StatelessWidget {
 }
 
 class OpenContainerWrapper extends StatelessWidget {
+  final bool goSurveyTab;
   const OpenContainerWrapper({
     required this.closedBuilder,
     required this.transitionType,
     required this.onClosed,
     required this.item,
+    this.goSurveyTab = false,
   });
 
   final CloseContainerBuilder closedBuilder;
@@ -76,7 +78,11 @@ class OpenContainerWrapper extends StatelessWidget {
     return OpenContainer<bool>(
       transitionType: transitionType,
       openBuilder: (BuildContext context, VoidCallback _) {
-        return ShopDetailsScreen(shopId: item.id ?? 0, imageUrl: item.shopBg!);
+        return ShopDetailsScreen(
+          shopId: item.id ?? 0,
+          imageUrl: item.shopBg!,
+          goSurveyTab: goSurveyTab,
+        );
       },
       onClosed: onClosed,
       tappable: false,
