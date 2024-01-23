@@ -1,3 +1,5 @@
+import 'package:customer_club/core/utils/extentions.dart';
+
 class UserModel {
   String? username;
   String? fname;
@@ -13,6 +15,7 @@ class UserModel {
   String? shopName;
   String? password;
   String? numNotify;
+  String? expireDay;
 
   UserModel({
     this.username,
@@ -29,6 +32,7 @@ class UserModel {
     this.shopName,
     this.password,
     this.numNotify,
+    this.expireDay,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -45,22 +49,24 @@ class UserModel {
       shopId: json['shop_id'].toString(),
       shopName: json['shop_name'] as String?,
       numNotify: json['num_notify'].toString(),
+      expireDay: json['expire_day'].toString(),
       password: json['password'] as String?);
 
   Map<String, dynamic> toJson() => {
-        'username': username,
+        // 'username': username,
         'fname': fname,
         'lname': lname,
         'email': email,
-        'mobile': mobile,
-        'image': image,
-        'city': city,
+        // 'mobile': mobile,
+        // 'image': image,
+        // 'city': city,
         'city_id': cityId,
-        'idcard': idcard,
-        'qrscan': qrscan,
-        'shop_id': shopId,
-        'shop_name': shopName,
-        'password': password,
-        'num_notify': numNotify
+        // 'idcard': idcard,
+        // 'qrscan': qrscan,
+        // 'shop_id': shopId,
+        // 'shop_name': shopName,
+        if (password.isNotNullOrEmpty) 'password': password,
+        // 'num_notify': numNotify,
+        // 'expire_day': expireDay,
       };
 }

@@ -17,6 +17,7 @@ abstract class ILoginDataSource {
   Future<Response> getShopDetails(int shopId);
   Future<Response> uploadAvatar(File file);
   Future<Response> updateProfile(UserModel userModel);
+  Future<Response> scanUserCard(String qr);
 }
 
 @Injectable(
@@ -67,4 +68,9 @@ class LoginDataSource implements ILoginDataSource {
   Future<Response> updateProfile(UserModel userModel) =>
       getIt<Dio>().post('user_edit.php',
           data: {'token': tokenNotifire.value, ...userModel.toJson()});
+
+  @override
+  Future<Response> scanUserCard(String qr) =>
+      getIt<Dio>().post('qr_manager_shop.php',
+          data: {'qrcode': qr, 'token': tokenNotifire.value});
 }

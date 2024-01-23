@@ -168,4 +168,18 @@ class LoginRepository implements ILoginRepository {
       return DataError(null.getErrorMessage);
     }
   }
+
+  @override
+  Future<DataState> scanUserCard(String qr) async {
+    try {
+      final res = await getIt<ILoginDataSource>().scanUserCard(qr);
+      if (_isLoginOk(res)) {
+        return DataSuccess(null);
+      } else {
+        return DataError(res.getErrorMessage);
+      }
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
 }

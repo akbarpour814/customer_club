@@ -25,9 +25,6 @@ String? postalCodeValidator(String? value) {
 }
 
 String? emailValidator(String? value) {
-  if (!value.isNotNullOrEmpty) {
-    return 'ایمیل را به درستی وارد نمایید';
-  }
   if (value != null && value.isNotEmpty) {
     if (!value.isNotNullOrEmpty ||
         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
@@ -119,18 +116,8 @@ String? cardValidator(Object? value) {
 String? passwordValidator(String? value, {String? mainValue}) {
   if (value == null || value.trim().isEmpty) {
     return 'رمز عبور را به درستی وارد نمایید';
-  } else if (value.length < 8) {
-    return 'رمز عبور باید شامل حداقل ۸ کاراکتر باشد ';
-  } else if (!value.hasLowerCase) {
-    return 'رمز عبور باید شامل حداقل یک حروف کوچک باشد';
-  } else if (!value.hasUpperCase) {
-    return 'رمز عبور باید شامل حداقل یک حروف بزرگ باشد';
-  } else if (!value.hasNumber) {
-    return 'رمز عبور باید شامل حداقل یک عدد باشد';
-  } else if (!value.hasNonWords) {
-    return 'رمز عبور باید شامل حداقل یک نماد باشد';
-  } else if (mainValue.isNotNullOrEmpty && value != mainValue) {
-    return 'رمز عبور همخوانی ندارد';
+  } else if (value.length < 6) {
+    return 'رمز عبور باید شامل حداقل 6 کاراکتر باشد ';
   } else {
     return null;
   }
