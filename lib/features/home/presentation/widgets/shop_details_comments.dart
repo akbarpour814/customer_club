@@ -1,4 +1,7 @@
-import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
+import 'package:customer_club/core/utils/extentions.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
+import 'package:customer_club/features/home/presentation/blocs/get_shop_rating/get_shop_rating_bloc.dart';
+import 'package:customer_club/features/home/presentation/widgets/commnt_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,12 +22,32 @@ class _ShopDetailsCommentsState extends State<ShopDetailsComments> {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      child: BlocBuilder<GetDiscountListBloc, GetDiscountListState>(
+      child: BlocBuilder<GetShopRatingBloc, GetShopRatingState>(
         builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [],
-          );
+          return state is GetShopRatingLoaded && state.commentList.isNotEmpty
+              ? ListView(
+                  padding: EdgeInsets.only(bottom: 80),
+                  physics: BouncingScrollPhysics(),
+                  children: state.commentList
+                      .where((element) => element.comment.isNotNullOrEmpty)
+                      .map((e) => CommentItem(
+                            comment: e,
+                          ))
+                      .toList(),
+                )
+              : state is GetShopRatingLoading
+                  ? Center(
+                      child: MyLoading(),
+                    )
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: Text(
+                          'برای این فروشگاه تاکنون نظری ثبت نشده است',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
         },
       ),
     );

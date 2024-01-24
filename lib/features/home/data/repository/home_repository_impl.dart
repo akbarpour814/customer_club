@@ -4,6 +4,7 @@ import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/data/data_source/home_data_source.dart';
+import 'package:customer_club/features/home/data/models/comment_model.dart';
 import 'package:customer_club/features/home/data/models/discount_model.dart';
 import 'package:customer_club/features/home/data/models/guild_details_model.dart';
 import 'package:customer_club/features/home/data/models/home_data_model.dart';
@@ -159,6 +160,20 @@ class HomeRepository implements IHomeRepository {
         return DataSuccess(((res.data as Map<String, dynamic>)['shops'] as List)
             .map((e) => ShopModel.fromJson(e))
             .toList());
+      }
+      return DataError(res.getErrorMessage);
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  @override
+  Future<DataState<List<CommentModel>>> getShopRating(int shopId) async {
+    try {
+      final res = await getIt<IHomeDataSource>().getShopRating(shopId);
+      if (res.validate()) {
+        return DataSuccess(
+            (res.data as List).map((e) => CommentModel.fromJson(e)).toList());
       }
       return DataError(res.getErrorMessage);
     } catch (e) {

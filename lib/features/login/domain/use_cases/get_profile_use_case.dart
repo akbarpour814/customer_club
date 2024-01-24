@@ -6,6 +6,5 @@ import 'package:customer_club/features/login/domain/repository/login_repository.
 
 class GetProfileUseCase extends TUseCase<DataState<UserModel>> {
   @override
-  Future<DataState<UserModel>> call() =>
-      getIt<ILoginRepository>().getProfile();
+  Future<DataState<UserModel>> call() => getIt<ILoginRepository>().getProfile();
 }

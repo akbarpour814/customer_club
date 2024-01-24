@@ -6,6 +6,7 @@ import 'package:customer_club/core/models/shop_details_model/shop_gallery_model.
 import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_location/get_shop_location_bloc.dart';
+import 'package:customer_club/features/home/presentation/blocs/get_shop_rating/get_shop_rating_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_comments.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_discount_list.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_gallery.dart';
@@ -69,6 +70,10 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
             BlocProvider(
               create: (context) => GetShopLocationBloc()
                 ..add(GetShopLocationStartEvent(shopId: widget.shopId)),
+            ),
+            BlocProvider(
+              create: (context) => GetShopRatingBloc()
+                ..add(GetShopRatingStartEvent(shopId: widget.shopId)),
             ),
           ],
           child: BlocConsumer<GetShopDetailsBloc, GetShopDetailsState>(

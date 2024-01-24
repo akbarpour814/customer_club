@@ -14,6 +14,7 @@ abstract class IHomeDataSource {
   Future<Response> getShopWithQr(String qr);
   Future<Response> searchShops(String query);
   Future<Response> getUserNotifyShops();
+  Future<Response> getShopRating(int shopId);
 }
 
 @Injectable(
@@ -56,4 +57,8 @@ class HomeDataSource implements IHomeDataSource {
   @override
   Future<Response> getUserNotifyShops() => getIt<Dio>()
       .post('user_notify.php', data: {'token': tokenNotifire.value});
+
+  @override
+  Future<Response> getShopRating(int shopId) => getIt<Dio>()
+      .get('shop_rating.php', queryParameters: {'element_id': shopId});
 }

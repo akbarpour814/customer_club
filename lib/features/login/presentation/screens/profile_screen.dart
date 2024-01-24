@@ -93,7 +93,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             actions: [
               MyIconButton(
                   onTap: state is GetProfileLoaded &&
-                          state.user.numNotify.isNotNullOrEmpty
+                          state.user.numNotify.isNotNullOrEmpty &&
+                          (int.tryParse(state.user.numNotify ?? '0') ?? 0) > 0
                       ? () => MyNavigator.push(context, UserNotifyShopsScreen())
                       : null,
                   padding: EdgeInsets.zero,
@@ -109,7 +110,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       badges.Badge(
                         position: badges.BadgePosition.topEnd(top: 0, end: 0),
                         showBadge: state is GetProfileLoaded &&
-                            state.user.numNotify.isNotNullOrEmpty,
+                            state.user.numNotify.isNotNullOrEmpty &&
+                            (int.tryParse(state.user.numNotify ?? '0') ?? 0) >
+                                0,
                         ignorePointer: false,
                         badgeContent: Text(
                           state is GetProfileLoaded
