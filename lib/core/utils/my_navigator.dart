@@ -82,6 +82,7 @@ class OpenContainerWrapper extends StatelessWidget {
           shopId: item.id ?? 0,
           imageUrl: item.shopBg!,
           goSurveyTab: goSurveyTab,
+          onCommentAdd: () => onClosed(false),
         );
       },
       onClosed: onClosed,

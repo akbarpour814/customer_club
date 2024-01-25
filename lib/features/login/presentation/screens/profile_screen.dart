@@ -69,6 +69,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: BlocConsumer<GetProfileBloc, GetProfileState>(
           listener: (context, state) {
         if (state is GetProfileLoaded) {
+          Future.delayed(Duration(seconds: 8)).then((value) {
+            if (tokenNotifire.value.isNotNullOrEmpty) {
+              BlocProvider.of<GetProfileBloc>(context)
+                  .add(GetProfileNumNotifEvent(shopDetailModel: state.shopModel));
+            }
+          });
           if (!_firstLoaded) {
             _firstLoaded = true;
             _userNameController.text = state.user.username ?? '';
@@ -115,9 +121,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 0,
                         ignorePointer: false,
                         badgeContent: Text(
-                          state is GetProfileLoaded
-                              ? (state.user.numNotify ?? '')
-                              : '',
+                          (state is GetProfileLoaded
+                                  ? (state.user.numNotify ?? '')
+                                  : '')
+                              .toPersianDigit(),
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -398,7 +405,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onSelected: (selected) {
                             _selectedCity = selected;
                           },
-                          selectCityId: state.user.shopId),
+                          selectCityId: state.user.cityId),
                       16.hsb(),
                       TextFormField(
                         focusNode: _passNode,

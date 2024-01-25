@@ -2,6 +2,7 @@ import 'package:customer_club/core/models/guild_model.dart';
 import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/features/home/data/models/comment_model.dart';
+import 'package:customer_club/features/home/data/models/comment_request_model.dart';
 import 'package:customer_club/features/home/data/models/discount_model.dart';
 import 'package:customer_club/features/home/data/models/guild_details_model.dart';
 import 'package:customer_club/features/home/data/models/home_data_model.dart';
@@ -19,4 +20,6 @@ abstract class IHomeRepository {
   Future<DataState<List<ShopModel>>> searchShops(String query);
   Future<DataState<List<ShopModel>>> getUserNotifyShops();
   Future<DataState<List<CommentModel>>> getShopRating(int shopId);
+  Future<DataState> addComment(CommentRequestModel requestModel);
+
 }

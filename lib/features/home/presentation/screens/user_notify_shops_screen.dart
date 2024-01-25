@@ -53,6 +53,14 @@ class _UserNotifyShopsScreenState extends State<UserNotifyShopsScreen> {
                         .map((e) => VerticalShopItem(
                               e,
                               goSurveyTab: true,
+                              onCommentAdd: () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                BlocProvider.of<GetUserNotifyShopsBloc>(context)
+                                    .add(
+                                  GetUserNotifyShopsStartEvent(),
+                                );
+                              },
                             ))
                         .toList(),
                   )

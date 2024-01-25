@@ -14,6 +14,8 @@ import 'package:customer_club/features/login/domain/repository/login_repository.
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
 
+Response<dynamic>? _cityRes;
+
 @Injectable(
   as: ILoginRepository,
 )
@@ -102,12 +104,19 @@ class LoginRepository implements ILoginRepository {
   @override
   Future<DataState<List<CityModel>>> getAllCity() async {
     try {
-      final res = await getIt<ILoginDataSource>().getAllCity();
-      if (res.validate()) {
-        return DataSuccess(
-            (res.data as List?)?.map((e) => CityModel.fromJson(e)).toList());
+      if (_cityRes.validate()) {
+        return DataSuccess((_cityRes!.data as List?)
+            ?.map((e) => CityModel.fromJson(e))
+            .toList());
+      } else {
+        _cityRes = await getIt<ILoginDataSource>().getAllCity();
+        if (_cityRes.validate()) {
+          return DataSuccess((_cityRes!.data as List?)
+              ?.map((e) => CityModel.fromJson(e))
+              .toList());
+        }
+        return DataError(_cityRes.getErrorMessage);
       }
-      return DataError(res.getErrorMessage);
     } catch (e) {
       return DataError(null.getErrorMessage);
     }

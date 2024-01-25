@@ -5,11 +5,13 @@ import 'package:customer_club/core/utils/data_states.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/features/home/data/data_source/home_data_source.dart';
 import 'package:customer_club/features/home/data/models/comment_model.dart';
+import 'package:customer_club/features/home/data/models/comment_request_model.dart';
 import 'package:customer_club/features/home/data/models/discount_model.dart';
 import 'package:customer_club/features/home/data/models/guild_details_model.dart';
 import 'package:customer_club/features/home/data/models/home_data_model.dart';
 import 'package:customer_club/core/models/shop_details_model/shop_all_details_model.dart';
 import 'package:customer_club/features/home/domain/repository/home_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 List<GuildModel>? _guildListRes;
@@ -179,5 +181,29 @@ class HomeRepository implements IHomeRepository {
     } catch (e) {
       return DataError(null.getErrorMessage);
     }
+  }
+
+  @override
+  Future<DataState> addComment(CommentRequestModel requestModel) async {
+    try {
+      final res = await getIt<IHomeDataSource>().addComment(requestModel);
+      if (_isOk(res)) {
+        return DataSuccess(null);
+      }
+      return DataError(
+          ((res.data as List).first as Map<String, dynamic>)['error'] ??
+              'خطا در برقراری ارتباط با سرور');
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
+
+  bool _isOk(Response<dynamic> res) {
+    return res.statusCode == 200 &&
+        res.data != null &&
+        (((res.data as List).first as Map<String, dynamic>)['success'] ==
+                true ||
+            ((res.data as List).first as Map<String, dynamic>)['success'] ==
+                'login');
   }
 }

@@ -26,7 +26,7 @@ class _ShopDetailsCommentsState extends State<ShopDetailsComments> {
         builder: (context, state) {
           return state is GetShopRatingLoaded && state.commentList.isNotEmpty
               ? ListView(
-                  padding: EdgeInsets.only(bottom: 80),
+                  padding: EdgeInsets.only(bottom: 140),
                   physics: BouncingScrollPhysics(),
                   children: state.commentList
                       .where((element) => element.comment.isNotNullOrEmpty)

@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 class VerticalShopItem extends StatelessWidget {
   final bool goSurveyTab;
   final ShopModel item;
+  final void Function()? onCommentAdd;
   const VerticalShopItem(
     this.item, {
     super.key,
     this.goSurveyTab = false,
+    this.onCommentAdd,
   });
 
   @override
@@ -19,7 +21,11 @@ class VerticalShopItem extends StatelessWidget {
     return OpenContainerWrapper(
         item: item,
         goSurveyTab: goSurveyTab,
-        onClosed: (_) {},
+        onClosed: (_) {
+          if (onCommentAdd != null) {
+            onCommentAdd!();
+          }
+        },
         transitionType: ContainerTransitionType.fadeThrough,
         closedBuilder: (BuildContext _, VoidCallback openContainer) {
           return InkWellOverlay(

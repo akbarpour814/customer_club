@@ -1,5 +1,6 @@
 import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/utils/value_notifires.dart';
+import 'package:customer_club/features/home/data/models/comment_request_model.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,6 +16,7 @@ abstract class IHomeDataSource {
   Future<Response> searchShops(String query);
   Future<Response> getUserNotifyShops();
   Future<Response> getShopRating(int shopId);
+  Future<Response> addComment(CommentRequestModel requestModel);
 }
 
 @Injectable(
@@ -35,8 +37,8 @@ class HomeDataSource implements IHomeDataSource {
   Future<Response> getLocationShops() => getIt<Dio>().get('shops_location.php');
 
   @override
-  Future<Response> getShopDetails(int shopId) =>
-      getIt<Dio>().get('shop.php?shop_id=$shopId');
+  Future<Response> getShopDetails(int shopId) => getIt<Dio>()
+      .get('shop.php?shop_id=$shopId', data: {'token': tokenNotifire.value});
 
   @override
   Future<Response> getDiscountList(int shopId) =>
@@ -61,4 +63,9 @@ class HomeDataSource implements IHomeDataSource {
   @override
   Future<Response> getShopRating(int shopId) => getIt<Dio>()
       .get('shop_rating.php', queryParameters: {'element_id': shopId});
+
+  @override
+  Future<Response> addComment(CommentRequestModel requestModel) =>
+      getIt<Dio>().post('set_rating_shop.php',
+          data: {'token': tokenNotifire.value, ...requestModel.toJson()});
 }

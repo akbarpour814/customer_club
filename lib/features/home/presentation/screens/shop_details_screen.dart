@@ -7,6 +7,8 @@ import 'package:customer_club/features/home/presentation/blocs/get_discount_list
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_location/get_shop_location_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_rating/get_shop_rating_bloc.dart';
+import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
+import 'package:customer_club/features/home/presentation/widgets/add_comment_bs.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_comments.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_discount_list.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_gallery.dart';
@@ -21,11 +23,13 @@ class ShopDetailsScreen extends StatefulWidget {
   final bool goSurveyTab;
   final int shopId;
   final String imageUrl;
+  final void Function()? onCommentAdd;
   const ShopDetailsScreen(
       {super.key,
       required this.shopId,
       required this.imageUrl,
-      this.goSurveyTab = false});
+      this.goSurveyTab = false,
+      this.onCommentAdd});
 
   @override
   State<ShopDetailsScreen> createState() => _ShopDetailsScreenState();
@@ -36,6 +40,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   TabController? _tabController;
   final List<List<ShopGalleryModel>> _shopRowList = [];
   MapController? _mapController;
+  AnimationController? _bsController;
 
   @override
   void dispose() {
@@ -46,7 +51,12 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   @override
   void initState() {
     super.initState();
+    _bsController = BottomSheet.createAnimationController(this);
+    _bsController?.duration = const Duration(milliseconds: 600);
     _tabController = TabController(length: 4, vsync: this);
+    _tabController?.addListener(() {
+      setState(() {});
+    });
     if (widget.goSurveyTab) {
       Future.delayed(Duration(milliseconds: 500))
           .then((value) => _tabController?.animateTo(2));
@@ -56,6 +66,58 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: AnimatedOpacity(
+          opacity: (_tabController!.index != 2 || !widget.goSurveyTab) ? 0 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.only(bottom: 60),
+            child: FloatingActionButton.extended(
+              heroTag: "btn3",
+              backgroundColor: ColorPalette.primaryColor,
+              extendedPadding: const EdgeInsets.symmetric(horizontal: 10),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              onPressed: () {
+                if (_tabController!.index == 2 && widget.goSurveyTab) {
+                  showModalBottomSheet(
+                      context: MainScreen.scaffoldKey.currentContext!,
+                      isScrollControlled: true,
+                      transitionAnimationController: _bsController,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(16))),
+                      builder: (context) => AddCommentBottomSheet(
+                            shopId: widget.shopId,
+                            onAdd: () {
+                              if (widget.goSurveyTab &&
+                                  widget.onCommentAdd != null) {
+                                widget.onCommentAdd!();
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                          ));
+                }
+              },
+              label: Row(
+                children: [
+                  Text(
+                    'ثبت نظر',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  12.wsb(),
+                  SvgPicture.string(
+                    MyIcons.message,
+                    width: 16,
+                  )
+                ],
+              ),
+            ),
+          )),
       body: SafeArea(
         child: MultiBlocProvider(
           providers: [

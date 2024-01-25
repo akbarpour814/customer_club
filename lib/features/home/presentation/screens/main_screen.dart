@@ -31,7 +31,7 @@ const int locationIndex = 3;
 const int guildsIndex = 4;
 
 class MainScreenState extends State<MainScreen> {
-  int _selectedScreenIndex = homeIndex;
+  int selectedScreenIndex = homeIndex;
   final List<int> _history = [homeIndex];
   final GlobalKey<NavigatorState> _homeKey = GlobalKey();
   final GlobalKey<NavigatorState> _searchKey = GlobalKey();
@@ -62,11 +62,11 @@ class MainScreenState extends State<MainScreen> {
           !Navigator.canPop(_map[homeIndex]!.currentContext!),
       onPopInvoked: (value) {
         if (!value) {
-          if (Navigator.canPop(_map[_selectedScreenIndex]!.currentContext!)) {
-            Navigator.pop(_map[_selectedScreenIndex]!.currentContext!);
+          if (Navigator.canPop(_map[selectedScreenIndex]!.currentContext!)) {
+            Navigator.pop(_map[selectedScreenIndex]!.currentContext!);
           } else if (_history.isNotEmpty) {
             setState(() {
-              _selectedScreenIndex = _history.last;
+              selectedScreenIndex = _history.last;
               _history.removeLast();
             });
           }
@@ -82,7 +82,7 @@ class MainScreenState extends State<MainScreen> {
                 width: 100.w(context),
                 height: 100.h(context),
                 child: IndexedStack(
-                  index: _selectedScreenIndex,
+                  index: selectedScreenIndex,
                   children: [
                     _navigator(
                         _profileKey,
@@ -130,7 +130,7 @@ class MainScreenState extends State<MainScreen> {
                             selectedIcon:
                                 SvgPicture.string(MyIcons.profileSelected),
                             unSelectedIcon: SvgPicture.string(MyIcons.profile),
-                            isSelected: _selectedScreenIndex == profileIndex),
+                            isSelected: selectedScreenIndex == profileIndex),
                       ),
                       InkWell(
                         onTap: () => onChangeTab(searchIndex),
@@ -138,7 +138,7 @@ class MainScreenState extends State<MainScreen> {
                             selectedIcon:
                                 SvgPicture.string(MyIcons.searchSelected),
                             unSelectedIcon: SvgPicture.string(MyIcons.search),
-                            isSelected: _selectedScreenIndex == searchIndex),
+                            isSelected: selectedScreenIndex == searchIndex),
                       ),
                       Container(
                         width: 14.w(context),
@@ -168,7 +168,7 @@ class MainScreenState extends State<MainScreen> {
                             selectedIcon:
                                 SvgPicture.string(MyIcons.locationSelected),
                             unSelectedIcon: SvgPicture.string(MyIcons.location),
-                            isSelected: _selectedScreenIndex == locationIndex),
+                            isSelected: selectedScreenIndex == locationIndex),
                       ),
                       InkWell(
                         onTap: () => onChangeTab(guildsIndex),
@@ -176,7 +176,7 @@ class MainScreenState extends State<MainScreen> {
                             selectedIcon:
                                 SvgPicture.string(MyIcons.categorySelected),
                             unSelectedIcon: SvgPicture.string(MyIcons.category),
-                            isSelected: _selectedScreenIndex == guildsIndex),
+                            isSelected: selectedScreenIndex == guildsIndex),
                       ),
                     ],
                   ),
@@ -190,25 +190,25 @@ class MainScreenState extends State<MainScreen> {
   }
 
   void onChangeTab(int index) {
-    if (_selectedScreenIndex == index) {
+    if (selectedScreenIndex == index) {
       Navigator.popUntil(
           _map[index]!.currentContext!, (route) => route.isFirst);
     } else {
       setState(() {
-        _history.remove(_selectedScreenIndex);
-        _history.add(_selectedScreenIndex);
-        _selectedScreenIndex = index;
+        _history.remove(selectedScreenIndex);
+        _history.add(selectedScreenIndex);
+        selectedScreenIndex = index;
       });
     }
   }
 
   Widget _navigator(GlobalKey key, int index, Widget child) {
-    return key.currentState == null && _selectedScreenIndex != index
+    return key.currentState == null && selectedScreenIndex != index
         ? Container()
         : Navigator(
             key: key,
             onGenerateRoute: (settings) => CustomPageRoute(Offstage(
-                offstage: _selectedScreenIndex != index,
+                offstage: selectedScreenIndex != index,
                 child: Directionality(
                     textDirection: TextDirection.rtl, child: child))));
   }

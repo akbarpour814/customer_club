@@ -13,11 +13,12 @@ part 'get_profile_state.dart';
 class GetProfileBloc extends Bloc<GetProfileEvent, GetProfileState> {
   GetProfileBloc() : super(GetProfileInitial()) {
     on<GetProfileEvent>((event, emit) async {
-      if (event is GetProfileStartEvent) {
-        emit(GetProfileLoading());
+      if (event is GetProfileStartEvent || event is GetProfileNumNotifEvent) {
+        if (event is GetProfileStartEvent) emit(GetProfileLoading());
         final state = await GetProfileUseCase().call();
         if (state is DataSuccess) {
-          if (state.data!.shopId.isNotNullOrEmpty) {
+          if (event is GetProfileStartEvent &&
+              state.data!.shopId.isNotNullOrEmpty) {
             final shopState = await GetShopDetailsUseCase()
                 .call(int.parse(state.data!.shopId!));
             if (shopState is DataSuccess) {
@@ -25,7 +26,11 @@ class GetProfileBloc extends Bloc<GetProfileEvent, GetProfileState> {
                   user: state.data!, shopModel: shopState.data?.shop));
             }
           } else {
-            emit(GetProfileLoaded(user: state.data!));
+            emit(GetProfileLoaded(
+                user: state.data!,
+                shopModel: event is GetProfileNumNotifEvent
+                    ? event.shopDetailModel
+                    : null));
           }
         } else {
           emit(GetProfileError(message: state.error!));
