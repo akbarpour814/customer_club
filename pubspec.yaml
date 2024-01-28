@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  package_info_plus:
   cupertino_icons:
   flutter_secure_storage:
   top_snackbar_flutter:
@@ -52,7 +53,7 @@ flutter_gen:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/resources/app_logo.png"
+  image_path: "assets/resources/logo.png"
   remove_alpha_ios: true
 
 flutter:

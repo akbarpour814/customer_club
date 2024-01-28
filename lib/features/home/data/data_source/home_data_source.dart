@@ -37,8 +37,8 @@ class HomeDataSource implements IHomeDataSource {
   Future<Response> getLocationShops() => getIt<Dio>().get('shops_location.php');
 
   @override
-  Future<Response> getShopDetails(int shopId) => getIt<Dio>()
-      .get('shop.php?shop_id=$shopId', data: {'token': tokenNotifire.value});
+  Future<Response> getShopDetails(int shopId) => getIt<Dio>().post('shop.php',
+      data: {'shop_id': shopId, 'token': tokenNotifire.value});
 
   @override
   Future<Response> getDiscountList(int shopId) =>

@@ -2,6 +2,7 @@ import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_user_notify_shops/get_user_notify_shops_bloc.dart';
+import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/vertical_shop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +55,7 @@ class _UserNotifyShopsScreenState extends State<UserNotifyShopsScreen> {
                               e,
                               goSurveyTab: true,
                               onCommentAdd: () {
-                                Navigator.pop(context);
+                                MainScreen.scaffoldKey.currentContext!;
                                 Navigator.pop(context);
                                 BlocProvider.of<GetUserNotifyShopsBloc>(context)
                                     .add(

@@ -7,8 +7,6 @@ import 'package:customer_club/features/home/presentation/blocs/get_discount_list
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_location/get_shop_location_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_rating/get_shop_rating_bloc.dart';
-import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
-import 'package:customer_club/features/home/presentation/widgets/add_comment_bs.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_comments.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_discount_list.dart';
 import 'package:customer_club/features/home/presentation/widgets/shop_details_gallery.dart';
@@ -66,58 +64,6 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: AnimatedOpacity(
-          opacity: (_tabController!.index != 2 || !widget.goSurveyTab) ? 0 : 1,
-          duration: const Duration(milliseconds: 250),
-          child: Container(
-            height: 40,
-            margin: EdgeInsets.only(bottom: 60),
-            child: FloatingActionButton.extended(
-              heroTag: "btn3",
-              backgroundColor: ColorPalette.primaryColor,
-              extendedPadding: const EdgeInsets.symmetric(horizontal: 10),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              onPressed: () {
-                if (_tabController!.index == 2 && widget.goSurveyTab) {
-                  showModalBottomSheet(
-                      context: MainScreen.scaffoldKey.currentContext!,
-                      isScrollControlled: true,
-                      transitionAnimationController: _bsController,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(16))),
-                      builder: (context) => AddCommentBottomSheet(
-                            shopId: widget.shopId,
-                            onAdd: () {
-                              if (widget.goSurveyTab &&
-                                  widget.onCommentAdd != null) {
-                                widget.onCommentAdd!();
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            },
-                          ));
-                }
-              },
-              label: Row(
-                children: [
-                  Text(
-                    'ثبت نظر',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  12.wsb(),
-                  SvgPicture.string(
-                    MyIcons.message,
-                    width: 16,
-                  )
-                ],
-              ),
-            ),
-          )),
       body: SafeArea(
         child: MultiBlocProvider(
           providers: [
@@ -244,7 +190,14 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
                               ShopDetailsGallery(
                                   shopId: widget.shopId,
                                   shopRowList: _shopRowList),
-                              ShopDetailsComments(shopId: widget.shopId),
+                              ShopDetailsComments(
+                                  shopId: widget.shopId,
+                                  onCommentAdd: widget.onCommentAdd,
+                                  canAddComment: widget.goSurveyTab ||
+                                      (state is GetShopDetailsLoaded &&
+                                          (state.shopAllDetailsModel.shop
+                                                  ?.setRating ??
+                                              false))),
                               ShopDetailsDiscountList(shopId: widget.shopId)
                             ]),
                       ))

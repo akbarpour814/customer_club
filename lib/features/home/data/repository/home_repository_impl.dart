@@ -173,7 +173,7 @@ class HomeRepository implements IHomeRepository {
   Future<DataState<List<CommentModel>>> getShopRating(int shopId) async {
     try {
       final res = await getIt<IHomeDataSource>().getShopRating(shopId);
-      if (res.validate()) {
+      if (_isOk(res)) {
         return DataSuccess(
             (res.data as List).map((e) => CommentModel.fromJson(e)).toList());
       }
@@ -202,8 +202,8 @@ class HomeRepository implements IHomeRepository {
     return res.statusCode == 200 &&
         res.data != null &&
         (((res.data as List).first as Map<String, dynamic>)['success'] ==
-                true ||
+                null ||
             ((res.data as List).first as Map<String, dynamic>)['success'] ==
-                'login');
+                true);
   }
 }

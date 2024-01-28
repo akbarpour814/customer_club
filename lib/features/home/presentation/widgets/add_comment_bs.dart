@@ -1,3 +1,4 @@
+import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/custom_modals.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/widgets/my_icon_button.dart';
@@ -19,7 +20,7 @@ class AddCommentBottomSheet extends StatefulWidget {
 }
 
 class _AddCommentBottomSheetState extends State<AddCommentBottomSheet> {
-  int _selectedScore = 5;
+  int _selectedScore = 0;
   final TextEditingController _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -120,8 +121,16 @@ class _AddCommentBottomSheetState extends State<AddCommentBottomSheet> {
                         return SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        ColorPalette.primaryColor)),
                                 onPressed: () {
                                   if (state is! AddCommentLoading) {
+                                    if (_selectedScore < 1) {
+                                      CustomModal.showInfo(context,
+                                          'ابتدا میزان امتیاز را مشخص کنید');
+                                      return;
+                                    }
                                     BlocProvider.of<AddCommentBloc>(context)
                                         .add(AddCommentRequestEvent(
                                             requestModel: CommentRequestModel(
@@ -172,7 +181,7 @@ class _StarItem extends StatelessWidget {
           onTap: onSelect,
           child: Icon(
             selected ? Icons.star_rate_rounded : Icons.star_border_rounded,
-            color: Colors.green.shade700,
+            color: ColorPalette.goldColor,
             size: 36,
           ),
         ),

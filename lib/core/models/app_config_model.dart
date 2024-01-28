@@ -14,24 +14,29 @@ class AppConfigModel {
   String? appBuyCard;
   String? appBuyCardRequestLink;
   String? appBGCard;
+  String? appFownloadIos;
+  String? appDownloadAndroid;
+  String? appAbout;
 
-  AppConfigModel({
-    this.websitePathAddress,
-    this.appPathHome,
-    this.appNameEn,
-    this.appNameFa,
-    this.appEmailContact,
-    this.appFavicon,
-    this.appLogo,
-    this.appVersionCompile,
-    this.appFontContent,
-    this.appFontSizeTitle,
-    this.colorMasterApp,
-    this.colorClientApp,
-    this.appBuyCard,
-    this.appBuyCardRequestLink,
-    this.appBGCard,
-  });
+  AppConfigModel(
+      {this.websitePathAddress,
+      this.appPathHome,
+      this.appNameEn,
+      this.appNameFa,
+      this.appEmailContact,
+      this.appFavicon,
+      this.appLogo,
+      this.appVersionCompile,
+      this.appFontContent,
+      this.appFontSizeTitle,
+      this.colorMasterApp,
+      this.colorClientApp,
+      this.appBuyCard,
+      this.appBuyCardRequestLink,
+      this.appBGCard,
+      this.appAbout,
+      this.appDownloadAndroid,
+      this.appFownloadIos});
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
     return AppConfigModel(
@@ -50,6 +55,9 @@ class AppConfigModel {
       appBuyCard: json['app_buy_card'] as String?,
       appBuyCardRequestLink: json['app_link_request_buy_card'] as String?,
       appBGCard: json['app_bg_card'] as String?,
+      appAbout: json['app_about'] as String?,
+      appDownloadAndroid: json['app_download_android'] as String?,
+      appFownloadIos: json['app_download_ios'] as String?,
     );
   }
 

@@ -21,11 +21,8 @@ class VerticalShopItem extends StatelessWidget {
     return OpenContainerWrapper(
         item: item,
         goSurveyTab: goSurveyTab,
-        onClosed: (_) {
-          if (onCommentAdd != null) {
-            onCommentAdd!();
-          }
-        },
+        onCommentAdd: onCommentAdd,
+        onClosed: (_) {},
         transitionType: ContainerTransitionType.fadeThrough,
         closedBuilder: (BuildContext _, VoidCallback openContainer) {
           return InkWellOverlay(

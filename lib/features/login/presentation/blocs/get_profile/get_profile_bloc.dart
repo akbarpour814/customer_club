@@ -32,7 +32,7 @@ class GetProfileBloc extends Bloc<GetProfileEvent, GetProfileState> {
                     ? event.shopDetailModel
                     : null));
           }
-        } else {
+        } else if (event is! GetProfileNumNotifEvent) {
           emit(GetProfileError(message: state.error!));
         }
       }

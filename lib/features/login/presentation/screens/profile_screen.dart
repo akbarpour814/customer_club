@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:customer_club/configs/color_palette.dart';
@@ -51,13 +52,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   CityModel? _selectedCity;
   String? _uploadedAvatarLink;
   bool _firstLoaded = false;
+  Timer? _timer;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => GetProfileBloc()..add(GetProfileStartEvent()),
+          create: (context) {
+            final bloc = GetProfileBloc()..add(GetProfileStartEvent());
+            _timer = Timer.periodic(Duration(seconds: 8), (timer) {
+              if (tokenNotifire.value.isNotNullOrEmpty) {
+                bloc.add(GetProfileNumNotifEvent(
+                    shopDetailModel: bloc.state is GetProfileLoaded
+                        ? (bloc.state as GetProfileLoaded).shopModel
+                        : null));
+              }
+            });
+            return bloc;
+          },
         ),
         BlocProvider(
           create: (context) => UploadAvatarBloc(),
@@ -69,12 +88,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: BlocConsumer<GetProfileBloc, GetProfileState>(
           listener: (context, state) {
         if (state is GetProfileLoaded) {
-          Future.delayed(Duration(seconds: 8)).then((value) {
-            if (tokenNotifire.value.isNotNullOrEmpty) {
-              BlocProvider.of<GetProfileBloc>(context)
-                  .add(GetProfileNumNotifEvent(shopDetailModel: state.shopModel));
-            }
-          });
           if (!_firstLoaded) {
             _firstLoaded = true;
             _userNameController.text = state.user.username ?? '';
@@ -527,25 +540,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         itemBuilder: (context) => [
-          PopupMenuItem<int>(
-            onTap: () {},
-            value: 0,
-            height: 36,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.string(
-                  MyIcons.abountUs,
-                  width: 20,
-                ),
-                8.wsb(),
-                Text(
-                  'درباره ما',
-                  style: TextStyle(color: Color(0xff292D32)),
-                ),
-              ],
+          if (appConfig.appAbout.isNotNullOrEmpty)
+            PopupMenuItem<int>(
+              onTap: () {
+                FocusScope.of(context).requestFocus();
+                showDialog(
+                  context: context,
+                  builder: (context) => Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: AlertDialog(
+                      backgroundColor: Colors.white,
+                      surfaceTintColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      title: Text(
+                        'درباره ما',
+                      ),
+                      content: Text(
+                        appConfig.appAbout!,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(height: 2),
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('متوجه شدم'))
+                      ],
+                    ),
+                  ),
+                );
+              },
+              value: 0,
+              height: 36,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SvgPicture.string(
+                    MyIcons.abountUs,
+                    width: 20,
+                  ),
+                  8.wsb(),
+                  Text(
+                    'درباره ما',
+                    style: TextStyle(color: Color(0xff292D32)),
+                  ),
+                ],
+              ),
             ),
-          ),
           PopupMenuItem<int>(
             onTap: () async {
               await getIt<FlutterSecureStorage>().deleteAll();

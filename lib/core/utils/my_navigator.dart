@@ -65,13 +65,14 @@ class OpenContainerWrapper extends StatelessWidget {
     required this.transitionType,
     required this.onClosed,
     required this.item,
-    this.goSurveyTab = false,
+    this.goSurveyTab = false, this.onCommentAdd,
   });
 
   final CloseContainerBuilder closedBuilder;
   final ContainerTransitionType transitionType;
   final ClosedCallback<bool?> onClosed;
   final ShopModel item;
+  final void Function()? onCommentAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class OpenContainerWrapper extends StatelessWidget {
           shopId: item.id ?? 0,
           imageUrl: item.shopBg!,
           goSurveyTab: goSurveyTab,
-          onCommentAdd: () => onClosed(false),
+          onCommentAdd: onCommentAdd,
         );
       },
       onClosed: onClosed,

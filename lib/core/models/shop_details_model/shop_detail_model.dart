@@ -13,23 +13,24 @@ class ShopDetailModel {
   int? follow;
   String? shopImg;
   String? shopBg;
+  bool? setRating;
   List<ShopGalleryModel>? shopGallery;
 
-  ShopDetailModel({
-    this.id,
-    this.name,
-    this.aboutUs,
-    this.manager,
-    this.worktime,
-    this.view,
-    this.city,
-    this.contentCat,
-    this.rating,
-    this.follow,
-    this.shopImg,
-    this.shopBg,
-    this.shopGallery,
-  });
+  ShopDetailModel(
+      {this.id,
+      this.name,
+      this.aboutUs,
+      this.manager,
+      this.worktime,
+      this.view,
+      this.city,
+      this.contentCat,
+      this.rating,
+      this.follow,
+      this.shopImg,
+      this.shopBg,
+      this.shopGallery,
+      this.setRating});
 
   factory ShopDetailModel.fromJson(Map<String, dynamic> json) =>
       ShopDetailModel(
@@ -47,6 +48,7 @@ class ShopDetailModel {
         follow: json['follow'] as int?,
         shopImg: json['shop_img'] as String?,
         shopBg: json['shop_bg'] as String?,
+        setRating: json['set_rating'] as bool?,
         shopGallery: (json['shop_gallery'] as List<dynamic>?)
             ?.map((e) => ShopGalleryModel.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -65,6 +67,7 @@ class ShopDetailModel {
         'follow': follow,
         'shop_img': shopImg,
         'shop_bg': shopBg,
+        'set_rating': setRating,
         'shop_gallery': shopGallery?.map((e) => e.toJson()).toList(),
       };
 }

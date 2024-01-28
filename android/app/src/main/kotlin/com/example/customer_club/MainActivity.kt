@@ -1,4 +1,4 @@
-package com.app.royacard
+package com.app.ariacard
 
 import io.flutter.embedding.android.FlutterActivity
 
