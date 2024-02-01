@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     
     <application
-        android:label="رویا کارت"
+        android:label="آریا کارت"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
