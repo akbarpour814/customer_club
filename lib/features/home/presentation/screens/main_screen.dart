@@ -50,12 +50,8 @@ class MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-        statusBarColor: ColorPalette.primaryColor,
-        systemStatusBarContrastEnforced: true,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    // SystemChrome.setSystemUIOverlayStyle(
+    //     SystemUiOverlayStyle(statusBarColor: ColorPalette.primaryColor));
   }
 
   @override
@@ -80,6 +76,10 @@ class MainScreenState extends State<MainScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           key: MainScreen.scaffoldKey,
+          appBar: AppBar(
+            toolbarHeight: 0,
+            backgroundColor: ColorPalette.primaryColor,
+          ),
           body: Stack(
             children: [
               SizedBox(
