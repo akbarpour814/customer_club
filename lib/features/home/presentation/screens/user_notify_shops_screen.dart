@@ -55,7 +55,8 @@ class _UserNotifyShopsScreenState extends State<UserNotifyShopsScreen> {
                               e,
                               goSurveyTab: true,
                               onCommentAdd: () {
-                                MainScreen.scaffoldKey.currentContext!;
+                                Navigator.pop(
+                                    MainScreen.scaffoldKey.currentContext!);
                                 Navigator.pop(context);
                                 BlocProvider.of<GetUserNotifyShopsBloc>(context)
                                     .add(

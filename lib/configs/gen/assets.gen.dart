@@ -18,6 +18,13 @@ class $AssetsResourcesGen {
   AssetGenImage get bottomBarBg1 =>
       const AssetGenImage('assets/resources/bottom_bar_bg1.png');
 
+  /// File path: assets/resources/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/resources/logo.png');
+
+  /// File path: assets/resources/logo_white.png
+  AssetGenImage get logoWhite =>
+      const AssetGenImage('assets/resources/logo_white.png');
+
   /// File path: assets/resources/pin.png
   AssetGenImage get pin => const AssetGenImage('assets/resources/pin.png');
 
@@ -29,13 +36,25 @@ class $AssetsResourcesGen {
   SvgGenImage get searchShape =>
       const SvgGenImage('assets/resources/search_shape.svg');
 
+  /// File path: assets/resources/splash.jpg
+  AssetGenImage get splash =>
+      const AssetGenImage('assets/resources/splash.jpg');
+
   /// File path: assets/resources/splash_vector.svg
   SvgGenImage get splashVector =>
       const SvgGenImage('assets/resources/splash_vector.svg');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [bottomBarBg1, pin, qrCodeScan, searchShape, splashVector];
+  List<dynamic> get values => [
+        bottomBarBg1,
+        logo,
+        logoWhite,
+        pin,
+        qrCodeScan,
+        searchShape,
+        splash,
+        splashVector
+      ];
 }
 
 class Assets {

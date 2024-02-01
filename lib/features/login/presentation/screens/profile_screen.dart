@@ -29,6 +29,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -555,16 +556,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderRadius: BorderRadius.circular(8)),
                       title: Text(
                         'درباره ما',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      content: Text(
-                        appConfig.appAbout!,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(height: 2),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            appConfig.appAbout!,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(height: 2),
+                          ),
+                          if (appConfig.websitePathAddress.isNotNullOrEmpty)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    launchUrl(
+                                        Uri.parse(
+                                            appConfig.websitePathAddress ?? ''),
+                                        mode: LaunchMode.externalApplication,
+                                        webOnlyWindowName: '_self');
+                                  },
+                                  child: Text(
+                                    appConfig.websitePathAddress!,
+                                    style: TextStyle(
+                                        height: 2,
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blue),
+                                  ),
+                                ),
+                                8.wsb(),
+                                SvgPicture.string(
+                                  MyIcons.siteGray,
+                                  width: 16,
+                                ),
+                              ],
+                            ),
+                        ],
                       ),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: Text('متوجه شدم'))
+                            child: Text('بستن'))
                       ],
                     ),
                   ),

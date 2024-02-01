@@ -1,10 +1,9 @@
 import 'package:customer_club/configs/color_palette.dart';
-import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_rating/get_shop_rating_bloc.dart';
 import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
 import 'package:customer_club/features/home/presentation/widgets/add_comment_bs.dart';
-import 'package:customer_club/features/home/presentation/widgets/commnt_item_widget.dart';
+import 'package:customer_club/features/home/presentation/widgets/comment_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +24,7 @@ class ShopDetailsComments extends StatefulWidget {
 class _ShopDetailsCommentsState extends State<ShopDetailsComments>
     with TickerProviderStateMixin {
   AnimationController? _bsController;
+  bool _commentAdded = false;
 
   @override
   void initState() {
@@ -43,31 +43,39 @@ class _ShopDetailsCommentsState extends State<ShopDetailsComments>
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
       child: Column(
         children: [
-          ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(ColorPalette.primaryColor)),
-              onPressed: () {
-                showModalBottomSheet(
-                    context: MainScreen.scaffoldKey.currentContext!,
-                    isScrollControlled: true,
-                    transitionAnimationController: _bsController,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(16))),
-                    builder: (context) => AddCommentBottomSheet(
-                          shopId: widget.shopId,
-                          onAdd: () {
-                            if (widget.onCommentAdd != null) {
-                              widget.onCommentAdd!();
-                            } else {
-                              Navigator.pop(context);
-                            }
-                          },
-                        ));
-              },
-              child: Text('نظر خود را از تجربه خرید عنوان کنید')),
-          Divider(),
+          if (widget.canAddComment && !_commentAdded) ...[
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll(ColorPalette.primaryColor)),
+                onPressed: () {
+                  showModalBottomSheet(
+                      context: MainScreen.scaffoldKey.currentContext!,
+                      isScrollControlled: true,
+                      transitionAnimationController: _bsController,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(16))),
+                      builder: (ctx) => AddCommentBottomSheet(
+                            shopId: widget.shopId,
+                            onAdd: () {
+                              if (widget.onCommentAdd != null) {
+                                widget.onCommentAdd!();
+                              } else {
+                                setState(() {
+                                  _commentAdded = true;
+                                });
+                                BlocProvider.of<GetShopRatingBloc>(context).add(
+                                    GetShopRatingStartEvent(
+                                        shopId: widget.shopId));
+                                Navigator.pop(ctx);
+                              }
+                            },
+                          ));
+                },
+                child: Text('نظر خود را از تجربه خرید عنوان کنید')),
+            Divider(),
+          ],
           Expanded(
             child: BlocBuilder<GetShopRatingBloc, GetShopRatingState>(
               builder: (context, state) {
@@ -77,8 +85,6 @@ class _ShopDetailsCommentsState extends State<ShopDetailsComments>
                         padding: EdgeInsets.only(bottom: 140),
                         physics: BouncingScrollPhysics(),
                         children: state.commentList
-                            .where(
-                                (element) => element.comment.isNotNullOrEmpty)
                             .map((e) => CommentItem(
                                   comment: e,
                                 ))

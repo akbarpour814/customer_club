@@ -27,7 +27,7 @@ class _GuildListScreenState extends State<GuildListScreen> {
           centerTitle: true,
           leading: Center(child: SvgPicture.string(MyIcons.categoryWhie)),
           title: const Text(
-            'دسته بندی اصناف',
+            'اصناف',
             style: TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
           ),

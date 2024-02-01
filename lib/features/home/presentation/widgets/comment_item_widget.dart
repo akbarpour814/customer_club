@@ -76,20 +76,22 @@ class CommentItem extends StatelessWidget {
               )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    comment.comment!,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          if (comment.comment.isNotNullOrEmpty)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      comment.comment!,
+                      textAlign: TextAlign.justify,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )
+                ],
+              ),
+            )
         ],
       ),
     );

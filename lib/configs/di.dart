@@ -31,7 +31,7 @@ Future<void> configureDependencies() async {
 
 Dio createApiClient() {
   Dio dio = Dio(BaseOptions(
-      baseUrl: 'http://royacard.royaweb.com/app_data/',
+      baseUrl: 'https://royacard.royaweb.com/app_data/',
       validateStatus: (status) => true,
       connectTimeout: const Duration(seconds: 60),
       sendTimeout: const Duration(seconds: 60),
@@ -60,7 +60,11 @@ Dio createApiClient() {
           print(e);
         }
       },
-      onResponse: (e, handler) {
+      onResponse: (e, handler) async {
+        if (e.statusCode == 401) {
+          await getIt<FlutterSecureStorage>().deleteAll();
+          tokenNotifire.value = null;
+        }
         log(
           'Response=> ${e.realUri} '
           '\n'

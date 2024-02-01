@@ -11,6 +11,7 @@ import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ShopDetailsInfo extends StatefulWidget {
   final int shopId;
@@ -122,30 +123,58 @@ class _ShopDetailsInfoState extends State<ShopDetailsInfo> {
                                   .where((element) =>
                                       element.keys.first != 'slogan')
                                   .map(
-                                    (e) => Directionality(
-                                      textDirection: e.entries.first.key
-                                              .toString()
-                                              .toLowerCase()
-                                              .contains('address')
-                                          ? TextDirection.rtl
-                                          : TextDirection.ltr,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 8, left: 8, right: 8),
-                                        child: Row(
-                                          children: [
-                                            _getIconFromKey(
-                                                e.entries.first.key),
-                                            6.wsb(),
-                                            Text(
-                                              e.entries.first.value
+                                    (e) => Card(
+                                      elevation: 0,
+                                      color: Colors.transparent,
+                                      surfaceTintColor: Colors.transparent,
+                                      child: InkWell(
+                                        onTap: () {
+                                          if (e['url'] != null) {
+                                            launchUrl(Uri.parse(e['url']),
+                                                mode: LaunchMode
+                                                    .externalApplication,
+                                                webOnlyWindowName: '_self');
+                                          } else if (e['phone'] != null) {
+                                            launchUrl(Uri.parse(
+                                                'tel:${e.entries.first.value}'));
+                                          } else if (e['website'] != null) {
+                                            launchUrl(
+                                                Uri.parse(e['website']
+                                                        .toString()
+                                                        .contains('http')
+                                                    ? e['website']
+                                                    : 'https://${e['website']}'),
+                                                mode: LaunchMode
+                                                    .externalApplication,
+                                                webOnlyWindowName: '_self');
+                                          }
+                                        },
+                                        child: Directionality(
+                                          textDirection: e.entries.first.key
                                                   .toString()
-                                                  .toPersianDigit(),
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 12),
+                                                  .toLowerCase()
+                                                  .contains('address')
+                                              ? TextDirection.rtl
+                                              : TextDirection.ltr,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8, left: 8, right: 8),
+                                            child: Row(
+                                              children: [
+                                                _getIconFromKey(
+                                                    e.entries.first.key),
+                                                6.wsb(),
+                                                Text(
+                                                  e.entries.first.value
+                                                      .toString()
+                                                      .toPersianDigit(),
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),

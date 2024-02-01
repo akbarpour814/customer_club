@@ -14,6 +14,7 @@ import 'package:customer_club/features/home/presentation/blocs/get_home_data/get
 import 'package:customer_club/features/home/presentation/screens/main_screen.dart';
 import 'package:customer_club/features/login/presentation/blocs/get_app_config/get_app_config_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,9 +33,19 @@ class _SplashScreenState extends State<SplashScreen> {
   String _version = '';
 
   @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     // getIt<FlutterSecureStorage>().deleteAll();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       PackageInfo.fromPlatform().then((value) {
         setState(() {
@@ -178,54 +189,60 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           },
           child: Scaffold(
-            backgroundColor: ColorPalette.primaryColor,
-            body: Column(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      80.hsb(),
-                      const Text(
-                        'خوش آمدید',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: Colors.white),
-                      ),
-                      24.hsb(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Assets.resources.splashVector.svg(width: 300),
-                        ],
-                      ),
-                      24.hsb(),
-                      SizedBox(
-                          width: 200,
-                          child: Text(
-                            'جستجو در بیش از 1000 فروشگاه تخفیفی در شهر شما'
-                                .toPersianDigit(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
-                          ))
-                    ],
+            body: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: Assets.resources.splash.provider(),
+                      fit: BoxFit.cover)),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        80.hsb(),
+                        const Text(
+                          'خوش آمدید',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white),
+                        ),
+                        10.h(context).hsb(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Assets.resources.logoWhite
+                                .image(width: 50.w(context)),
+                          ],
+                        ),
+                        6.h(context).hsb(),
+                        SizedBox(
+                            width: 200,
+                            child: Text(
+                              'جستجو در بیش از 1000 فروشگاه تخفیفی در شهر شما'
+                                  .toPersianDigit(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ))
+                      ],
+                    ),
                   ),
-                ),
-                80.hsb(
-                    child: const MyLoading(
-                  color: Colors.white,
-                  withText: false,
-                )),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: Text(
-                    'V$_version',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                )
-              ],
+                  80.hsb(
+                      child: const MyLoading(
+                    color: Colors.white,
+                    withText: false,
+                  )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      'V$_version'.toPersianDigit(),
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -41,8 +41,8 @@ class LoginDataSource implements ILoginDataSource {
       getIt<Dio>().post('register_step2_cvv.php', data: requestModel.toJson());
 
   @override
-  Future<Response> getShopDetails(int shopId) =>
-      getIt<Dio>().get('shop.php?shop_id=$shopId');
+  Future<Response> getShopDetails(int shopId) => getIt<Dio>().post('shop.php',
+      data: {'shop_id': shopId, 'token': tokenNotifire.value});
 
   @override
   Future<Response> getAllCity() => getIt<Dio>().get('cities.php');
