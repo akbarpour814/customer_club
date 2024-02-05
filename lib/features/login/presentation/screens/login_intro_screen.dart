@@ -29,6 +29,22 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
         ),
         centerTitle: true,
         backgroundColor: ColorPalette.primaryColor,
+        actions: [
+          if (appConfig.privacyPolicyUrl.isNotNullOrEmpty)
+            TextButton(
+                onPressed: () {
+                  launchUrl(Uri.parse(appConfig.privacyPolicyUrl ?? ''),
+                      mode: LaunchMode.externalApplication,
+                      webOnlyWindowName: '_self');
+                },
+                child: Text(
+                  'حریم خصوصی',
+                  style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white),
+                ))
+        ],
       ),
       body: SafeArea(
           child: Container(
