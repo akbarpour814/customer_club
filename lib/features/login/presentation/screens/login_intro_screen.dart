@@ -76,21 +76,24 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'توجه!',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      6.hsb(),
-                      Text(
-                        appConfig.appBuyCard ?? '',
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'توجه!',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        6.hsb(),
+                        Text(
+                          appConfig.appBuyCard ?? '',
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
+                      ],
+                    ),
                   ),
                   TextButton(
                       onPressed: () {
