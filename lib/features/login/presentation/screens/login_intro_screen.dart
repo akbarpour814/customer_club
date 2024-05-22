@@ -29,22 +29,6 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
         ),
         centerTitle: true,
         backgroundColor: ColorPalette.primaryColor,
-        actions: [
-          if (appConfig.privacyPolicyUrl.isNotNullOrEmpty)
-            TextButton(
-                onPressed: () {
-                  launchUrl(Uri.parse(appConfig.privacyPolicyUrl ?? ''),
-                      mode: LaunchMode.externalApplication,
-                      webOnlyWindowName: '_self');
-                },
-                child: Text(
-                  'حریم خصوصی',
-                  style: TextStyle(
-                      color: Colors.white,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.white),
-                ))
-        ],
       ),
       body: SafeArea(
           child: Container(
@@ -76,24 +60,21 @@ class _LoginIntroScreenState extends State<LoginIntroScreen> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'توجه!',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        6.hsb(),
-                        Text(
-                          appConfig.appBuyCard ?? '',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                      ],
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'توجه!',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      6.hsb(),
+                      Text(
+                        appConfig.appBuyCard ?? '',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+                    ],
                   ),
                   TextButton(
                       onPressed: () {

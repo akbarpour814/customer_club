@@ -14,6 +14,7 @@ import 'package:customer_club/features/home/presentation/widgets/shop_details_in
 import 'package:customer_club/features/home/presentation/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
@@ -36,10 +37,12 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
     with TickerProviderStateMixin {
   TabController? _tabController;
   final List<List<ShopGalleryModel>> _shopRowList = [];
+  MapController? _mapController;
   AnimationController? _bsController;
 
   @override
   void dispose() {
+    _mapController?.dispose();
     super.dispose();
   }
 

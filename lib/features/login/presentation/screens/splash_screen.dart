@@ -194,64 +194,60 @@ class _SplashScreenState extends State<SplashScreen> {
                   image: DecorationImage(
                       image: Assets.resources.splash.provider(),
                       fit: BoxFit.cover)),
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          80.hsb(),
-                          const Text(
-                            'خوش آمدید',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: Colors.white),
-                          ),
-                          10.h(context).hsb(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Assets.resources.logoWhite
-                                  .image(width: 50.w(context)),
-                            ],
-                          ),
-                          6.h(context).hsb(),
-                          SizedBox(
-                              width: 65.w(context),
-                              child: Text(
-                                'معرفی فروشگاه های تخفیف دهنده اپلیکیشن آریا کارت'
-                                    .toPersianDigit(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    height: 2),
-                              ))
-                        ],
-                      ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        80.hsb(),
+                        const Text(
+                          'خوش آمدید',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white),
+                        ),
+                        10.h(context).hsb(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Assets.resources.logoWhite
+                                .image(width: 50.w(context)),
+                          ],
+                        ),
+                        6.h(context).hsb(),
+                        SizedBox(
+                            width: 65.w(context),
+                            child: Text(
+                              'معرفی فروشگاه های تخفیف دهنده اپلیکیشن آریا کارت'
+                                  .toPersianDigit(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16, height: 2),
+                            ))
+                      ],
                     ),
-                    80.hsb(
-                        child: const MyLoading(
-                      color: Colors.white,
-                      withText: false,
-                    )),
-                    Padding(
-                      padding: EdgeInsets.all(12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'نسخه $_version'.toPersianDigit(),
-                            style: TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  80.hsb(
+                      child: const MyLoading(
+                    color: Colors.white,
+                    withText: false,
+                  )),
+                  Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'نسخه $_version'.toPersianDigit(),
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),

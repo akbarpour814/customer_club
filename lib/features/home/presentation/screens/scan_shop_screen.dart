@@ -94,7 +94,7 @@ class _ScanShopScreenState extends State<ScanShopScreen> {
                               if (DateTime.now().second.isOdd) {
                                 if (!_first) {
                                   _first = true;
-                                  widget.onScan(scanData.code ?? '');
+                                  widget.onScan(scanData.code);
                                 }
                               }
                             });

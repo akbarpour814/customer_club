@@ -19,12 +19,7 @@ Future<void> configureDependencies() async {
     createApiClient(),
   );
 
-  getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage(
-    iOptions: IOSOptions(),
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-    ),
-  ));
+  getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
 
   getIt.init();
 }

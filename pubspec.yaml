@@ -26,8 +26,7 @@ dependencies:
   url_launcher:
   cached_network_image: 
   maps_launcher: 
-  flutter_osm_plugin: 
-    path: ./osm_flutter
+  flutter_osm_plugin: 1.0.5
   full_screen_image:
   animations:
   qr_code_scanner:

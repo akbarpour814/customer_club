@@ -12,7 +12,6 @@ import 'package:customer_club/features/home/presentation/widgets/bottom_menu_ite
 import 'package:customer_club/features/login/presentation/screens/login_intro_screen.dart';
 import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainScreen extends StatefulWidget {
@@ -46,13 +45,6 @@ class MainScreenState extends State<MainScreen> {
     guildsIndex: _guildsKey,
     locationIndex: _locationKey,
   };
-
-  @override
-  void initState() {
-    super.initState();
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     SystemUiOverlayStyle(statusBarColor: ColorPalette.primaryColor));
-  }
 
   @override
   Widget build(BuildContext context) {

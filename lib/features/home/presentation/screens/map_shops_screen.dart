@@ -104,13 +104,10 @@ class _MapShopsScreenState extends State<MapShopsScreen>
                                       .map((e) => StaticPositionGeoPoint(
                                               e.id.toString(),
                                               MarkerIcon(
-                                                iconWidget: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          bottom: 60),
-                                                  child: Assets.resources.pin
-                                                      .image(height: 60),
-                                                ),
+                                                assetMarker: AssetMarker(
+                                                    scaleAssetImage: 2,
+                                                    image: AssetImage(Assets
+                                                        .resources.pin.path)),
                                               ),
                                               [
                                                 GeoPoint(

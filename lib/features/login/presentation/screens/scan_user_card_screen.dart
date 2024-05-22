@@ -117,7 +117,7 @@ class _ScanUserCardScreenState extends State<ScanUserCardScreen> {
                                               BlocProvider.of<ScanUserCardBloc>(
                                                       context)
                                                   .add(ScanUserCardStartEvent(
-                                                      qr: scanData.code!));
+                                                      qr: scanData.code));
                                             }
                                           }
                                         });

@@ -131,7 +131,7 @@ class _LoginWithQrScreenState extends State<LoginWithQrScreen> {
                                                     .add(
                                                         LoginWithQrRequestEvent(
                                                             qr: scanData
-                                                                .code!));
+                                                                .code));
                                               }
                                             }
                                           }

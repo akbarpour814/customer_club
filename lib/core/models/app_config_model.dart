@@ -18,7 +18,6 @@ class AppConfigModel {
   String? appDownloadAndroid;
   String? appAbout;
   String? website;
-  String? privacyPolicyUrl;
 
   AppConfigModel(
       {this.websitePathAddress,
@@ -39,8 +38,7 @@ class AppConfigModel {
       this.appAbout,
       this.website,
       this.appDownloadAndroid,
-      this.appFownloadIos,
-      this.privacyPolicyUrl});
+      this.appFownloadIos});
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
     return AppConfigModel(
@@ -63,7 +61,6 @@ class AppConfigModel {
       appAbout: json['app_about'] as String?,
       appDownloadAndroid: json['app_download_android'] as String?,
       appFownloadIos: json['app_download_ios'] as String?,
-      privacyPolicyUrl: json['privacy_policy_url'] as String?,
     );
   }
 
@@ -81,6 +78,5 @@ class AppConfigModel {
         'color_master_app': colorMasterApp,
         'color_client_app': colorClientApp,
         'app_bg_card': appBGCard,
-        'privacy_policy_url': privacyPolicyUrl,
       };
 }
