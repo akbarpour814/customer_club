@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Release-iphoneos/Alamofire/Alamofire.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Pods.build/Release-iphoneos/Alamofire.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Release-iphoneos/Alamofire/Alamofire.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "Alamofire-Swift.h",
+      'external-contents': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Pods.build/Release-iphoneos/Alamofire.build/unextended-interface-header.h",
+    }]
+    }]
+}

@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Release-iphoneos/Yams/Yams.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Pods.build/Release-iphoneos/Yams.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Release-iphoneos/Yams/Yams.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "Yams-Swift.h",
+      'external-contents': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Pods.build/Release-iphoneos/Yams.build/unextended-interface-header.h",
+    }]
+    }]
+}

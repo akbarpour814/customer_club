@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Release-iphoneos/flutter_osm_plugin/flutter_osm_plugin.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Pods.build/Release-iphoneos/flutter_osm_plugin.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Release-iphoneos/flutter_osm_plugin/flutter_osm_plugin.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "flutter_osm_plugin-Swift.h",
+      'external-contents': "/Users/k1smac/Documents/FlutterProjects/customer_club/ios/build/Pods.build/Release-iphoneos/flutter_osm_plugin.build/unextended-interface-header.h",
+    }]
+    }]
+}

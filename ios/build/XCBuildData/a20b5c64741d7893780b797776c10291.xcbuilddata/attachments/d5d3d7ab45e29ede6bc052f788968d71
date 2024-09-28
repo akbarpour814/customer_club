@@ -1,0 +1,10 @@
+framework module Yams {
+  umbrella header "Yams-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module Yams.__Swift {
+  exclude header "Yams-Swift.h"
+}

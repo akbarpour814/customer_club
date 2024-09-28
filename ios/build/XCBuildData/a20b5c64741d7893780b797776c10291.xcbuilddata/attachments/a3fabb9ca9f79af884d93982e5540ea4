@@ -1,0 +1,5 @@
+ extern const unsigned char flutter_osm_pluginVersionString[];
+ extern const double flutter_osm_pluginVersionNumber;
+
+ const unsigned char flutter_osm_pluginVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:flutter_osm_plugin  PROJECT:Pods-1" "\n";
+ const double flutter_osm_pluginVersionNumber __attribute__ ((used)) = (double)1.;
