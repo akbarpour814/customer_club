@@ -26,10 +26,10 @@ dependencies:
   url_launcher:
   cached_network_image: 
   maps_launcher: 
-  flutter_osm_plugin: 1.0.5
+  flutter_osm_plugin: 
   full_screen_image:
   animations:
-  qr_code_scanner:
+  qr_code_scanner_plus:
   image_picker:
   image_cropper:
   flutter_image_compress:

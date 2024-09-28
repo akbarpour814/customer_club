@@ -6,7 +6,7 @@ import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class ScanShopScreen extends StatefulWidget {
   final void Function(String qr) onScan;
@@ -94,7 +94,7 @@ class _ScanShopScreenState extends State<ScanShopScreen> {
                               if (DateTime.now().second.isOdd) {
                                 if (!_first) {
                                   _first = true;
-                                  widget.onScan(scanData.code);
+                                  widget.onScan(scanData.code ?? '');
                                 }
                               }
                             });

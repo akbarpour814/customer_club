@@ -83,12 +83,12 @@ extension FileUtil on File {
   Future<File> cropImage() async {
     var croppedFile = await ImageCropper().cropImage(
       sourcePath: path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-      ],
       uiSettings: [
         AndroidUiSettings(
             toolbarTitle: 'برش تصویر',
+            aspectRatioPresets: [
+              CropAspectRatioPreset.square,
+            ],
             toolbarColor: ColorPalette.primaryColor,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.square,

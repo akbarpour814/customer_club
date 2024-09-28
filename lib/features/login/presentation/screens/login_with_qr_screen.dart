@@ -13,7 +13,7 @@ import 'package:customer_club/features/login/presentation/screens/verify_login_s
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class LoginWithQrScreen extends StatefulWidget {
   const LoginWithQrScreen({super.key});
@@ -131,7 +131,7 @@ class _LoginWithQrScreenState extends State<LoginWithQrScreen> {
                                                     .add(
                                                         LoginWithQrRequestEvent(
                                                             qr: scanData
-                                                                .code));
+                                                                .code ?? ''));
                                               }
                                             }
                                           }

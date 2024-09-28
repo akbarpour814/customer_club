@@ -10,7 +10,7 @@ import 'package:customer_club/features/login/presentation/blocs/scan_user_card/s
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class ScanUserCardScreen extends StatefulWidget {
   final void Function() onScan;
@@ -117,7 +117,7 @@ class _ScanUserCardScreenState extends State<ScanUserCardScreen> {
                                               BlocProvider.of<ScanUserCardBloc>(
                                                       context)
                                                   .add(ScanUserCardStartEvent(
-                                                      qr: scanData.code));
+                                                      qr: scanData.code ?? ''));
                                             }
                                           }
                                         });

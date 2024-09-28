@@ -24,7 +24,7 @@ class _MapShopsScreenState extends State<MapShopsScreen>
   double _centerLng = 0;
   int _index = 0;
   late MapController _controller;
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController = CarouselSliderController();
 
   @override
   void dispose() {
