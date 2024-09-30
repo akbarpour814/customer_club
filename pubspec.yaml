@@ -35,6 +35,10 @@ dependencies:
   flutter_image_compress:
   path_provider:
   badges:
+  uuid:
+  receive_intent:
+  firebase_core: 
+  firebase_messaging: 
 
 dev_dependencies:
   flutter_test:

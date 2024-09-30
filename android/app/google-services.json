@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "793285819279",
+    "project_id": "royacard-ba745",
+    "storage_bucket": "royacard-ba745.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793285819279:android:534ad3220e55abc5a829fa",
+        "android_client_info": {
+          "package_name": "com.app.ariacard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5nAbZMRsqCSwV6OUtXytL42dmIP6eFlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

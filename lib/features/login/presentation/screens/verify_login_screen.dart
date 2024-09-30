@@ -334,7 +334,7 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                           24.hsb(),
                           ElevatedButton(
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor: WidgetStatePropertyAll(
                                       ColorPalette.primaryColor)),
                               onPressed: () {
                                 _enter(state, context);

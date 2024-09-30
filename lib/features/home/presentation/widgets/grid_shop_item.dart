@@ -57,13 +57,15 @@ class _GridShopItemState extends State<GridShopItem> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                widget.item.name ?? '',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 3.w(context),
-                                    overflow: TextOverflow.ellipsis),
+                              Expanded(
+                                child: Text(
+                                  widget.item.name ?? '',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 3.w(context),
+                                      overflow: TextOverflow.ellipsis),
+                                ),
                               ),
                             ],
                           ),
