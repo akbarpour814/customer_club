@@ -8,3 +8,9 @@ class LoginWithQrRequestEvent extends LoginWithQrEvent {
 
   LoginWithQrRequestEvent({required this.qr});
 }
+
+class InqueryVirtualCardTokenEvent extends LoginWithQrEvent {
+  final String token;
+
+  InqueryVirtualCardTokenEvent({required this.token});
+}

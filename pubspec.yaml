@@ -39,6 +39,7 @@ dependencies:
   receive_intent:
   firebase_core: 
   firebase_messaging: 
+  crypto:
 
 dev_dependencies:
   flutter_test:

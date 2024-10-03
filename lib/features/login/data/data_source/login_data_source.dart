@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 abstract class ILoginDataSource {
   Future<Response> getAppConfig();
   Future<Response> loginWithQR(String qr);
+  Future<Response> inqueryVirtualCardToken(String token);
   Future<Response> loginWithQRVerify(LoginWithQrRequestModel requestModel);
   Future<Response> registerWithQRVerify(LoginWithQrRequestModel requestModel);
   Future<Response> getAllCity();
@@ -73,4 +74,8 @@ class LoginDataSource implements ILoginDataSource {
   Future<Response> scanUserCard(String qr) =>
       getIt<Dio>().post('qr_manager_shop.php',
           data: {'qrcode': qr, 'token': tokenNotifire.value});
+
+  @override
+  Future<Response> inqueryVirtualCardToken(String token) =>
+      getIt<Dio>().post('register_step1_qr.php', data: {'token': token});
 }

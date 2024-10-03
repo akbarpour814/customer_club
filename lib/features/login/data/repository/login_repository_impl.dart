@@ -191,4 +191,25 @@ class LoginRepository implements ILoginRepository {
       return DataError(null.getErrorMessage);
     }
   }
+
+  @override
+  Future<DataState<LoginOrRegisterResponseModel>> inqueryVirtualCardToken(
+      String token) async {
+    try {
+      final res =
+          await getIt<ILoginDataSource>().inqueryVirtualCardToken(token);
+      if (_isLoginOk(res)) {
+        return DataSuccess(LoginOrRegisterResponseModel(
+            idCard: (((res.data as List).first as Map<String, dynamic>)['data']
+                    as Map<String, dynamic>)['idcard']
+                .toString(),
+            isLogin: false));
+      }
+      return DataError(
+          ((res.data as List).first as Map<String, dynamic>)['error'] ??
+              'خطا در برقراری ارتباط با سرور');
+    } catch (e) {
+      return DataError(null.getErrorMessage);
+    }
+  }
 }

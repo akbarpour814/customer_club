@@ -21,4 +21,5 @@ abstract class ILoginRepository {
   Future<DataState<String>> uploadAvatar(File file);
   Future<DataState> updateProfile(UserModel userModel);
   Future<DataState> scanUserCard(String qr);
+  Future<DataState<LoginOrRegisterResponseModel>> inqueryVirtualCardToken(String token);
 }

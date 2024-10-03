@@ -9,6 +9,7 @@ import 'package:customer_club/core/utils/value_notifires.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/login/data/models/login_with_qr_request_model.dart';
 import 'package:customer_club/features/login/presentation/blocs/verfiy_login/verify_login_bloc.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,8 +18,12 @@ import 'package:persian_number_utility/persian_number_utility.dart';
 class VerifyLoginScreen extends StatefulWidget {
   final String idCard;
   final bool isLogin;
+  final bool isVirtualCard;
   const VerifyLoginScreen(
-      {super.key, required this.idCard, required this.isLogin});
+      {super.key,
+      required this.idCard,
+      required this.isLogin,
+      this.isVirtualCard = false});
 
   @override
   State<VerifyLoginScreen> createState() => _VerifyLoginScreenState();
@@ -239,55 +244,57 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                                   mobileNumberValidator(value),
                             ),
                             16.hsb(),
-                            TextFormField(
-                              controller: _cvv2Controller,
-                              maxLines: 1,
-                              textDirection: TextDirection.ltr,
-                              textInputAction: TextInputAction.next,
-                              textAlign: TextAlign.right,
-                              onFieldSubmitted: (_) {
-                                _passNode.requestFocus();
-                              },
-                              obscureText: _obscureCvv2,
-                              keyboardType: textInputType(TypeEnum.cvv2),
-                              inputFormatters:
-                                  typeInputFormatters(TypeEnum.cvv2),
-                              decoration: InputDecoration(
-                                label: Text('CVV2'),
-                                prefixIconConstraints:
-                                    BoxConstraints(maxWidth: 30, minWidth: 30),
-                                prefixIcon: SizedBox(
-                                  width: 20,
-                                  child: Center(
-                                    child: SvgPicture.string(
-                                      MyIcons.passwordPrimary,
+                            if (!widget.isVirtualCard) ...[
+                              TextFormField(
+                                controller: _cvv2Controller,
+                                maxLines: 1,
+                                textDirection: TextDirection.ltr,
+                                textInputAction: TextInputAction.next,
+                                textAlign: TextAlign.right,
+                                onFieldSubmitted: (_) {
+                                  _passNode.requestFocus();
+                                },
+                                obscureText: _obscureCvv2,
+                                keyboardType: textInputType(TypeEnum.cvv2),
+                                inputFormatters:
+                                    typeInputFormatters(TypeEnum.cvv2),
+                                decoration: InputDecoration(
+                                  label: Text('CVV2'),
+                                  prefixIconConstraints: BoxConstraints(
+                                      maxWidth: 30, minWidth: 30),
+                                  prefixIcon: SizedBox(
+                                    width: 20,
+                                    child: Center(
+                                      child: SvgPicture.string(
+                                        MyIcons.passwordPrimary,
+                                        width: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureCvv2 = !_obscureCvv2;
+                                        _cvv2Icon = _obscureCvv2
+                                            ? MyIcons.eyeBlack
+                                            : MyIcons.removeEyeBlck;
+                                      });
+                                    },
+                                    icon: SvgPicture.string(
+                                      _cvv2Icon,
                                       width: 20,
                                     ),
                                   ),
                                 ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscureCvv2 = !_obscureCvv2;
-                                      _cvv2Icon = _obscureCvv2
-                                          ? MyIcons.eyeBlack
-                                          : MyIcons.removeEyeBlck;
-                                    });
-                                  },
-                                  icon: SvgPicture.string(
-                                    _cvv2Icon,
-                                    width: 20,
-                                  ),
-                                ),
+                                validator: (value) {
+                                  if (value == null || value.length != 4) {
+                                    return 'CVV2 را به درستی وارد نمایید';
+                                  }
+                                  return null;
+                                },
                               ),
-                              validator: (value) {
-                                if (value == null || value.length != 4) {
-                                  return 'CVV2 را به درستی وارد نمایید';
-                                }
-                                return null;
-                              },
-                            ),
-                            16.hsb(),
+                              16.hsb(),
+                            ]
                           ],
                           TextFormField(
                             focusNode: _passNode,
@@ -360,14 +367,17 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
     );
   }
 
-  void _enter(VerifyLoginState state, BuildContext context) {
+  Future<void> _enter(VerifyLoginState state, BuildContext context) async {
     if (state is! VerifyLoginLoading) {
       if (_formKey.currentState!.validate()) {
         if (!widget.isLogin) {
           BlocProvider.of<VerifyLoginBloc>(context).add(
               VerifyRegisterRequestEvent(
                   requestModel: LoginWithQrRequestModel(
-                      cvv2: _cvv2Controller.text.trim(),
+                      fcmToken: await FirebaseMessaging.instance.getToken(),
+                      cvv2: widget.isVirtualCard
+                          ? null
+                          : _cvv2Controller.text.trim(),
                       password: _passwordController.text.trim(),
                       fname: _nameController.text.trim(),
                       lname: _lastNameController.text.trim(),
@@ -377,6 +387,7 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
         } else {
           BlocProvider.of<VerifyLoginBloc>(context).add(VerifyLoginRequestEvent(
               requestModel: LoginWithQrRequestModel(
+                  fcmToken: await FirebaseMessaging.instance.getToken(),
                   password: _passwordController.text.trim(),
                   idcard: widget.idCard)));
         }
