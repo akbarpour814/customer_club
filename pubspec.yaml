@@ -36,7 +36,6 @@ dependencies:
   path_provider:
   badges:
   uuid:
-  receive_intent:
   firebase_core: 
   firebase_messaging: 
   crypto:

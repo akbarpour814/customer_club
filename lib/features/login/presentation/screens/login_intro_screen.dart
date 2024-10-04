@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:receive_intent/receive_intent.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
@@ -57,13 +56,6 @@ class _LoginIntroScreenState extends State<LoginIntroScreen>
       },
     );
     WidgetsBinding.instance.addObserver(this);
-    if (Platform.isAndroid) {
-      ReceiveIntent.receivedIntentStream.listen((event) async {
-        if (event?.extra != null &&
-            event!.extra!['msg_from_browser'] != null &&
-            event.extra!['msg_from_browser'].toString().contains(',')) {}
-      });
-    }
   }
 
   @override

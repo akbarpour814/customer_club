@@ -1,17 +1,21 @@
 import 'package:customer_club/configs/color_palette.dart';
+import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/core/utils/const.dart';
 import 'package:customer_club/core/utils/custom_modals.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
+import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/core/utils/utils.dart';
 import 'package:customer_club/core/utils/validators.dart';
 import 'package:customer_club/core/utils/value_notifires.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/login/data/models/login_with_qr_request_model.dart';
 import 'package:customer_club/features/login/presentation/blocs/verfiy_login/verify_login_bloc.dart';
+import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 
@@ -63,7 +67,10 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
             if (state is VerifyLoginSuccess) {
               // CustomModal.showSuccess(context, 'خوش آمدید');
               tokenNotifire.value = state.token;
-              Navigator.pop(context);
+              if (widget.isVirtualCard) {
+                getIt<FlutterSecureStorage>().delete(key: 'buyCardToken');
+              }
+              MyNavigator.pushReplacement(context, ProfileScreen());
             }
             if (state is VerifyLoginError) {
               CustomModal.showError(context, state.message);

@@ -22,6 +22,7 @@ Future<void> configureDependencies() async {
   getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
 
   getIt.init();
+  // getIt<FlutterSecureStorage>().deleteAll();
 }
 
 Dio createApiClient() {
