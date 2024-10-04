@@ -11,6 +11,7 @@ import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
 import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/login/presentation/blocs/login_with_qr/login_with_qr_bloc.dart';
+import 'package:customer_club/features/login/presentation/blocs/verfiy_login/verify_login_bloc.dart';
 import 'package:customer_club/features/login/presentation/screens/verify_login_screen.dart';
 import 'package:customer_club/features/login/presentation/widgets/login_with_mobile_widget.dart';
 import 'package:flutter/material.dart';
@@ -97,8 +98,15 @@ class _LoginScreenState extends State<LoginScreen>
               ]),
         ),
       ),
-      body: BlocProvider(
-        create: (context) => LoginWithQrBloc(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LoginWithQrBloc(),
+          ),
+          BlocProvider(
+            create: (context) => VerifyLoginBloc(),
+          ),
+        ],
         child: SafeArea(
             child: TabBarView(
           controller: _tabController,
@@ -113,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen>
                     padding: const EdgeInsets.all(16),
                     child: Text(
                       appConfig.appRegisterCard ?? appConfig.appBuyCard ?? '',
-                      textAlign: TextAlign.justify,
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ),

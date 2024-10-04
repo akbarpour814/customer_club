@@ -65,7 +65,6 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
         child: BlocConsumer<VerifyLoginBloc, VerifyLoginState>(
           listener: (context, state) {
             if (state is VerifyLoginSuccess) {
-              // CustomModal.showSuccess(context, 'خوش آمدید');
               tokenNotifire.value = state.token;
               if (widget.isVirtualCard) {
                 getIt<FlutterSecureStorage>().delete(key: 'buyCardToken');
@@ -306,7 +305,7 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
                           TextFormField(
                             focusNode: _passNode,
                             controller: _passwordController,
-                            textInputAction: TextInputAction.go,
+                            textInputAction: TextInputAction.done,
                             maxLines: 1,
                             onFieldSubmitted: (_) => _enter(state, context),
                             obscureText: _obscurePass,

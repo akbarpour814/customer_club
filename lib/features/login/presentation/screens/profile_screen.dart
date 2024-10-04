@@ -441,7 +441,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       TextFormField(
                         focusNode: _passNode,
                         controller: _passwordController,
-                        textInputAction: TextInputAction.go,
+                        textInputAction: TextInputAction.done,
                         maxLines: 1,
                         obscureText: _obscurePass,
                         textDirection: TextDirection.ltr,
