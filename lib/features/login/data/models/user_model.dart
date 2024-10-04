@@ -16,24 +16,27 @@ class UserModel {
   String? password;
   String? numNotify;
   String? expireDay;
+  String? typeCard;
+  String? idcardImg;
 
-  UserModel({
-    this.username,
-    this.fname,
-    this.lname,
-    this.email,
-    this.mobile,
-    this.image,
-    this.city,
-    this.cityId,
-    this.idcard,
-    this.qrscan,
-    this.shopId,
-    this.shopName,
-    this.password,
-    this.numNotify,
-    this.expireDay,
-  });
+  UserModel(
+      {this.username,
+      this.fname,
+      this.lname,
+      this.email,
+      this.mobile,
+      this.image,
+      this.city,
+      this.cityId,
+      this.idcard,
+      this.qrscan,
+      this.shopId,
+      this.shopName,
+      this.password,
+      this.numNotify,
+      this.expireDay,
+      this.idcardImg,
+      this.typeCard});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
       username: json['username'] as String?,
@@ -50,6 +53,8 @@ class UserModel {
       shopName: json['shop_name'] as String?,
       numNotify: json['num_notify'].toString(),
       expireDay: json['expire_day'].toString(),
+      typeCard: json['type_card'] as String?,
+      idcardImg: json['idcard_img'] as String?,
       password: json['password'] as String?);
 
   Map<String, dynamic> toJson() => {

@@ -22,6 +22,7 @@ import 'package:customer_club/features/login/presentation/blocs/update_profile/u
 import 'package:customer_club/features/login/presentation/blocs/upload_avatar/upload_avatar_bloc.dart';
 import 'package:customer_club/features/login/presentation/widgets/city/city_drobdown.dart';
 import 'package:customer_club/features/login/presentation/widgets/profile_store.dart';
+import 'package:customer_club/features/login/presentation/widgets/show_virtual_card_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -264,7 +265,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: ColorPalette.primaryColor),
-                              )
+                              ),
+                              if (state.user.typeCard == 'virtual')
+                                Container(
+                                  height: 36,
+                                  margin: EdgeInsets.fromLTRB(12, 8, 12, 0),
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              WidgetStatePropertyAll(
+                                                  ColorPalette.primaryColor)),
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              ShowVirtualCardAlert(
+                                                  data: state.user)),
+                                      child: Text('مشاهده کارت مجازی')),
+                                )
                             ],
                           ))
                         ],
@@ -481,7 +498,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         builder: (context, updateState) {
                           return ElevatedButton(
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor: WidgetStatePropertyAll(
                                       ColorPalette.primaryColor)),
                               onPressed: () {
                                 if (updateState is! UpdateProfileLoading) {
@@ -574,8 +591,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 InkWell(
                                   onTap: () {
                                     launchUrl(
-                                        Uri.parse(
-                                            appConfig.website ?? ''),
+                                        Uri.parse(appConfig.website ?? ''),
                                         mode: LaunchMode.externalApplication,
                                         webOnlyWindowName: '_self');
                                   },
