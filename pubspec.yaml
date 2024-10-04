@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   package_info_plus:
   cupertino_icons:
-  flutter_secure_storage:
+  flutter_secure_storage: 9.2.2
   top_snackbar_flutter:
   flutter_bloc:
   get_it:
