@@ -6,7 +6,6 @@ import 'package:customer_club/features/home/presentation/blocs/get_home_data/get
 import 'package:customer_club/features/login/presentation/screens/splash_screen.dart';
 import 'package:customer_club/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,7 +49,6 @@ class _MyAppState extends State<MyApp> {
       provisional: false,
       sound: true,
     );
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {});
   }
 
   @override

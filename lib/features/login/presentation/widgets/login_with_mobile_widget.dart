@@ -12,6 +12,7 @@ import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/login/data/models/login_with_qr_request_model.dart';
 import 'package:customer_club/features/login/presentation/blocs/verfiy_login/verify_login_bloc.dart';
 import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -148,11 +149,12 @@ class _LoginWithMobileWidgetState extends State<LoginWithMobileWidget> {
     );
   }
 
-  void _enter(VerifyLoginState state, BuildContext context) {
+  Future<void> _enter(VerifyLoginState state, BuildContext context) async {
     if (state is! VerifyLoginLoading) {
       if (_formKey.currentState!.validate()) {
         BlocProvider.of<VerifyLoginBloc>(context).add(VerifyLoginRequestEvent(
             requestModel: LoginWithQrRequestModel(
+                fcmToken: await FirebaseMessaging.instance.getToken(),
                 mobile: _mobileController.text.trim().toEnglishDigit(),
                 password: _passwordController.text.trim())));
       }
