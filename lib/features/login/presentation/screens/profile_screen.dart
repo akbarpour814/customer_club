@@ -20,6 +20,7 @@ import 'package:customer_club/features/login/data/models/user_model.dart';
 import 'package:customer_club/features/login/presentation/blocs/get_profile/get_profile_bloc.dart';
 import 'package:customer_club/features/login/presentation/blocs/update_profile/update_profile_bloc.dart';
 import 'package:customer_club/features/login/presentation/blocs/upload_avatar/upload_avatar_bloc.dart';
+import 'package:customer_club/features/login/presentation/screens/login_intro_screen.dart';
 import 'package:customer_club/features/login/presentation/widgets/city/city_drobdown.dart';
 import 'package:customer_club/features/login/presentation/widgets/profile_store.dart';
 import 'package:customer_club/features/login/presentation/widgets/show_virtual_card_alert.dart';
@@ -558,6 +559,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         itemBuilder: (context) => [
+          if (appConfig.requestReferral.isNotNullOrEmpty)
+            PopupMenuItem<int>(
+              onTap: () async {
+                launchUrl(
+                    Uri.parse(
+                        '${appConfig.requestReferral!}?token=${tokenNotifire.value}'),
+                    mode: LaunchMode.externalApplication,
+                    webOnlyWindowName: '_self');
+              },
+              value: 0,
+              height: 36,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SvgPicture.string(
+                    MyIcons.referral,
+                    width: 20,
+                  ),
+                  8.wsb(),
+                  Text(
+                    'درخواست کد معرف',
+                    style: TextStyle(color: Color(0xff292D32)),
+                  ),
+                ],
+              ),
+            ),
           if (appConfig.appAbout.isNotNullOrEmpty)
             PopupMenuItem<int>(
               onTap: () {
@@ -621,7 +648,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               },
-              value: 0,
+              value: 1,
               height: 36,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -642,8 +669,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onTap: () async {
               await getIt<FlutterSecureStorage>().deleteAll();
               tokenNotifire.value = null;
+              MyNavigator.pushReplacement(context, LoginIntroScreen());
             },
-            value: 1,
+            value: 2,
             height: 36,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

@@ -22,6 +22,7 @@ class AppConfigModel {
   String? appLoginCard;
   String? passwordCreateToken;
   String? requestCard;
+  String? requestReferral;
 
   AppConfigModel(
       {this.websitePathAddress,
@@ -46,7 +47,8 @@ class AppConfigModel {
       this.appLoginCard,
       this.appRegisterCard,
       this.passwordCreateToken,
-      this.requestCard});
+      this.requestCard,
+      this.requestReferral});
 
   factory AppConfigModel.fromJson(Map<String, dynamic> json) {
     return AppConfigModel(
@@ -72,6 +74,7 @@ class AppConfigModel {
         appRegisterCard: json['app_register_card'] as String?,
         appLoginCard: json['app_login_card'] as String?,
         requestCard: json['request_card'] as String?,
+        requestReferral: json['request_referral'] as String?,
         passwordCreateToken: json['password_create_token'] as String?);
   }
 
