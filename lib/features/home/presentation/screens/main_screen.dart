@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/custom_page_route.dart';
@@ -14,7 +16,10 @@ import 'package:customer_club/features/login/presentation/screens/login_intro_sc
 import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
+import 'package:uni_links3/uni_links.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -47,10 +52,12 @@ class MainScreenState extends State<MainScreen> {
     guildsIndex: _guildsKey,
     locationIndex: _locationKey,
   };
+  StreamSubscription? _uniLinkSub;
 
   @override
   void initState() {
     super.initState();
+    _initUniLink();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final initialMessage =
           await FirebaseMessaging.instance.getInitialMessage();
@@ -71,6 +78,37 @@ class MainScreenState extends State<MainScreen> {
     });
   }
 
+  Future<void> _initUniLink() async {
+    final initialLink = await getInitialLink();
+    _handleUnilink(initialLink);
+    _uniLinkSub = linkStream.listen((String? link) {
+      _handleUnilink(link);
+    }, onError: (err) {});
+  }
+
+  void _handleUnilink(String? initialLink) {
+    if (initialLink.isNotNullOrEmpty &&
+        initialLink!.toLowerCase().contains('/shop/') &&
+        initialLink.toLowerCase().split('/shop/').last.isNumeric()) {
+      Navigator.push(
+          context,
+          CustomPageRoute2(
+              builder: (_) => Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ShopDetailsScreen(
+                        shopId: int.parse(
+                            initialLink.toLowerCase().split('/shop/').last),
+                        imageUrl: ''),
+                  )));
+    }
+  }
+
+  @override
+  void dispose() {
+    _uniLinkSub?.cancel();
+    super.dispose();
+  }
+
   void _handleNotif(RemoteMessage message) {
     if (message.data['page'] == 'profile') {
       onChangeTab(0);
@@ -80,9 +118,12 @@ class MainScreenState extends State<MainScreen> {
       Navigator.push(
           context,
           CustomPageRoute2(
-              builder: (_) => ShopDetailsScreen(
-                  shopId: int.parse(message.data['id']),
-                  imageUrl: message.data['img_url'])));
+              builder: (_) => Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ShopDetailsScreen(
+                        shopId: int.parse(message.data['id']),
+                        imageUrl: message.data['img_url']),
+                  )));
     }
   }
 
@@ -104,121 +145,126 @@ class MainScreenState extends State<MainScreen> {
           }
         }
       },
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          key: MainScreen.scaffoldKey,
-          appBar: AppBar(
-            toolbarHeight: 0,
-            backgroundColor: ColorPalette.primaryColor,
-          ),
-          body: Stack(
-            children: [
-              SizedBox(
-                width: 100.w(context),
-                height: 100.h(context),
-                child: IndexedStack(
-                  index: selectedScreenIndex,
-                  children: [
-                    _navigator(
-                        _profileKey,
-                        profileIndex,
-                        ValueListenableBuilder(
-                            valueListenable: tokenNotifire,
-                            builder: (context, token, _) {
-                              return token.isNotNullOrEmpty
-                                  ? const ProfileScreen()
-                                  : const LoginIntroScreen();
-                            })),
-                    _navigator(
-                      _searchKey,
-                      searchIndex,
-                      const SearchScreen(),
-                    ),
-                    _navigator(_homeKey, homeIndex, const HomeScreen()),
-                    _navigator(
-                        _locationKey, locationIndex, const MapShopsScreen()),
-                    _navigator(
-                        _guildsKey, guildsIndex, const GuildListScreen()),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
+      child: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            key: MainScreen.scaffoldKey,
+            appBar: AppBar(
+              toolbarHeight: 0,
+              backgroundColor: ColorPalette.primaryColor,
+            ),
+            body: Stack(
+              children: [
+                SizedBox(
                   width: 100.w(context),
-                  height: 80,
-                  padding: const EdgeInsets.only(top: 16),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image:
-                              AssetImage(Assets.resources.bottomBarBg1.path))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  height: 100.h(context),
+                  child: IndexedStack(
+                    index: selectedScreenIndex,
                     children: [
-                      InkWell(
-                        onTap: () => onChangeTab(profileIndex),
-                        child: BottomMenuItem(
-                            selectedIcon:
-                                SvgPicture.string(MyIcons.profileSelected),
-                            unSelectedIcon: SvgPicture.string(MyIcons.profile),
-                            isSelected: selectedScreenIndex == profileIndex),
+                      _navigator(
+                          _profileKey,
+                          profileIndex,
+                          ValueListenableBuilder(
+                              valueListenable: tokenNotifire,
+                              builder: (context, token, _) {
+                                return token.isNotNullOrEmpty
+                                    ? const ProfileScreen()
+                                    : const LoginIntroScreen();
+                              })),
+                      _navigator(
+                        _searchKey,
+                        searchIndex,
+                        const SearchScreen(),
                       ),
-                      InkWell(
-                        onTap: () => onChangeTab(searchIndex),
-                        child: BottomMenuItem(
-                            selectedIcon:
-                                SvgPicture.string(MyIcons.searchSelected),
-                            unSelectedIcon: SvgPicture.string(MyIcons.search),
-                            isSelected: selectedScreenIndex == searchIndex),
-                      ),
-                      Container(
-                        width: 14.w(context),
-                        height: 14.w(context),
-                        margin: EdgeInsets.fromLTRB(
-                            3.w(context), 0, 3.w(context), 8),
-                        decoration: BoxDecoration(
-                            color: ColorPalette.primaryColor,
-                            shape: BoxShape.circle),
-                        child: Card(
-                          elevation: 0,
-                          color: Colors.transparent,
-                          surfaceTintColor: Colors.transparent,
-                          margin: EdgeInsets.zero,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(24),
-                            onTap: () => onChangeTab(2),
-                            child: Center(
-                              child: SvgPicture.string(MyIcons.home),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => onChangeTab(locationIndex),
-                        child: BottomMenuItem(
-                            selectedIcon:
-                                SvgPicture.string(MyIcons.locationSelected),
-                            unSelectedIcon: SvgPicture.string(MyIcons.location),
-                            isSelected: selectedScreenIndex == locationIndex),
-                      ),
-                      InkWell(
-                        onTap: () => onChangeTab(guildsIndex),
-                        child: BottomMenuItem(
-                            selectedIcon:
-                                SvgPicture.string(MyIcons.categorySelected),
-                            unSelectedIcon: SvgPicture.string(MyIcons.category),
-                            isSelected: selectedScreenIndex == guildsIndex),
-                      ),
+                      _navigator(_homeKey, homeIndex, const HomeScreen()),
+                      _navigator(
+                          _locationKey, locationIndex, const MapShopsScreen()),
+                      _navigator(
+                          _guildsKey, guildsIndex, const GuildListScreen()),
                     ],
                   ),
                 ),
-              ),
-            ],
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    width: 100.w(context),
+                    height: 80,
+                    padding: const EdgeInsets.only(top: 16),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage(
+                                Assets.resources.bottomBarBg1.path))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () => onChangeTab(profileIndex),
+                          child: BottomMenuItem(
+                              selectedIcon:
+                                  SvgPicture.string(MyIcons.profileSelected),
+                              unSelectedIcon:
+                                  SvgPicture.string(MyIcons.profile),
+                              isSelected: selectedScreenIndex == profileIndex),
+                        ),
+                        InkWell(
+                          onTap: () => onChangeTab(searchIndex),
+                          child: BottomMenuItem(
+                              selectedIcon:
+                                  SvgPicture.string(MyIcons.searchSelected),
+                              unSelectedIcon: SvgPicture.string(MyIcons.search),
+                              isSelected: selectedScreenIndex == searchIndex),
+                        ),
+                        Container(
+                          width: 14.w(context),
+                          height: 14.w(context),
+                          margin: EdgeInsets.fromLTRB(
+                              3.w(context), 0, 3.w(context), 8),
+                          decoration: BoxDecoration(
+                              color: ColorPalette.primaryColor,
+                              shape: BoxShape.circle),
+                          child: Card(
+                            elevation: 0,
+                            color: Colors.transparent,
+                            surfaceTintColor: Colors.transparent,
+                            margin: EdgeInsets.zero,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(24),
+                              onTap: () => onChangeTab(2),
+                              child: Center(
+                                child: SvgPicture.string(MyIcons.home),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => onChangeTab(locationIndex),
+                          child: BottomMenuItem(
+                              selectedIcon:
+                                  SvgPicture.string(MyIcons.locationSelected),
+                              unSelectedIcon:
+                                  SvgPicture.string(MyIcons.location),
+                              isSelected: selectedScreenIndex == locationIndex),
+                        ),
+                        InkWell(
+                          onTap: () => onChangeTab(guildsIndex),
+                          child: BottomMenuItem(
+                              selectedIcon:
+                                  SvgPicture.string(MyIcons.categorySelected),
+                              unSelectedIcon:
+                                  SvgPicture.string(MyIcons.category),
+                              isSelected: selectedScreenIndex == guildsIndex),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

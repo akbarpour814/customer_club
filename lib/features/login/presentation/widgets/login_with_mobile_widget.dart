@@ -50,7 +50,7 @@ class _LoginWithMobileWidgetState extends State<LoginWithMobileWidget> {
           key: _formKey,
           child: ListView(
             physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 100),
             children: [
               Text(
                 appConfig.appLoginCard ?? appConfig.appBuyCard ?? '',

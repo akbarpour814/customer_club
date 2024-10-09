@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.app.ariacard",  
+      "sha256_cert_fingerprints": [
+        "53:A0:44:C9:F9:FA:AF:B5:C8:34:FB:F4:26:5B:62:E0:9E:19:F4:CA:07:0E:34:17:15:A5:87:26:CC:48:F0:E5",
+        "EB:77:CA:3C:17:F2:30:10:02:8A:6F:84:FB:70:BD:45:2B:40:AD:E0:EF:BD:5D:83:76:B0:E0:32:AE:D7:52:B1"
+      ]
+    }
+  }
+]

@@ -3,6 +3,7 @@ import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/models/shop_details_model/shop_gallery_model.dart';
+import 'package:customer_club/core/widgets/my_loading.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_discount_list/get_discount_list_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_details/get_shop_details_bloc.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_shop_location/get_shop_location_bloc.dart';
@@ -109,15 +110,38 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
                 children: [
                   Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: CachedNetworkImage(
+                      if (widget.imageUrl.isNotNullOrEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: CachedNetworkImage(
+                            width: 100.w(context),
+                            height: 30.h(context),
+                            imageUrl: widget.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      else if (widget.imageUrl.isEmpty &&
+                          state is GetShopDetailsLoaded)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: CachedNetworkImage(
+                              width: 100.w(context),
+                              height: 30.h(context),
+                              imageUrl:
+                                  state.shopAllDetailsModel.shop?.shopImg ?? '',
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, error) => SizedBox(
+                                    width: 100.w(context),
+                                    height: 30.h(context),
+                                    child: MyLoading(),
+                                  )),
+                        )
+                      else
+                        SizedBox(
                           width: 100.w(context),
                           height: 30.h(context),
-                          imageUrl: widget.imageUrl,
-                          fit: BoxFit.cover,
+                          child: MyLoading(),
                         ),
-                      ),
                       Positioned(
                         bottom: 0,
                         left: 0,

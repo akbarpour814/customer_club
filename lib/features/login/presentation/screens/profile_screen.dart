@@ -267,22 +267,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: ColorPalette.primaryColor),
                               ),
-                              if (state.user.typeCard == 'virtual')
-                                Container(
-                                  height: 36,
-                                  margin: EdgeInsets.fromLTRB(12, 8, 12, 0),
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              WidgetStatePropertyAll(
-                                                  ColorPalette.primaryColor)),
-                                      onPressed: () => showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              ShowVirtualCardAlert(
-                                                  data: state.user)),
-                                      child: Text('مشاهده کارت مجازی')),
-                                )
+                              Container(
+                                height: 36,
+                                margin: EdgeInsets.fromLTRB(12, 8, 12, 0),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor: WidgetStatePropertyAll(
+                                            ColorPalette.primaryColor)),
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            ShowVirtualCardAlert(
+                                                data: state.user)),
+                                    child: Text(
+                                        'مشاهده کارت ${state.user.typeCard == 'virtual' ? 'مجازی' : 'فیزیکی'}')),
+                              )
                             ],
                           ))
                         ],
