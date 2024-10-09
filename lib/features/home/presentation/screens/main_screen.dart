@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:customer_club/configs/gen/assets.gen.dart';
 import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/core/utils/custom_page_route.dart';
@@ -16,10 +17,8 @@ import 'package:customer_club/features/login/presentation/screens/login_intro_sc
 import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
-import 'package:uni_links3/uni_links.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -79,10 +78,10 @@ class MainScreenState extends State<MainScreen> {
   }
 
   Future<void> _initUniLink() async {
-    final initialLink = await getInitialLink();
+    final initialLink = await AppLinks().getInitialAppLinkString();
     _handleUnilink(initialLink);
-    _uniLinkSub = linkStream.listen((String? link) {
-      _handleUnilink(link);
+    _uniLinkSub = AppLinks().uriLinkStream.listen((uri) {
+      _handleUnilink(uri.toString());
     }, onError: (err) {});
   }
 

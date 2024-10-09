@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   package_info_plus:
   cupertino_icons:
-  flutter_secure_storage:
+  flutter_secure_storage: 9.2.2
   top_snackbar_flutter:
   flutter_bloc:
   get_it:
@@ -39,7 +39,7 @@ dependencies:
   firebase_core: 
   firebase_messaging: 
   crypto:
-  uni_links3:
+  app_links: 3.4.4
 
 dev_dependencies:
   flutter_test:
