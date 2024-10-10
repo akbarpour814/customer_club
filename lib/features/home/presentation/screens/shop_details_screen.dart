@@ -128,7 +128,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
                               width: 100.w(context),
                               height: 30.h(context),
                               imageUrl:
-                                  state.shopAllDetailsModel.shop?.shopImg ?? '',
+                                  state.shopAllDetailsModel.shop?.shopBg ?? '',
                               fit: BoxFit.cover,
                               errorWidget: (context, url, error) => SizedBox(
                                     width: 100.w(context),

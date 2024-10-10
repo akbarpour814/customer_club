@@ -272,8 +272,13 @@ class MainScreenState extends State<MainScreen> {
 
   void onChangeTab(int index) {
     if (selectedScreenIndex == index) {
-      Navigator.popUntil(
-          _map[index]!.currentContext!, (route) => route.isFirst);
+      if (selectedScreenIndex == profileIndex) {
+        Navigator.popUntil(_map[index]!.currentContext!,
+            (route) => route.navigator == _profileKey.currentState);
+      } else {
+        Navigator.popUntil(
+            _map[index]!.currentContext!, (route) => route.isFirst);
+      }
     } else {
       setState(() {
         _history.remove(selectedScreenIndex);
