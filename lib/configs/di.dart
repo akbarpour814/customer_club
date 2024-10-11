@@ -27,7 +27,7 @@ Future<void> configureDependencies() async {
 
 Dio createApiClient() {
   Dio dio = Dio(BaseOptions(
-      baseUrl: 'https://royacard.royaweb.com/app_data_2/',
+      baseUrl: 'https://royacard.royaweb.com/app_data_1.5.0/',
       validateStatus: (status) => true,
       connectTimeout: const Duration(seconds: 60),
       sendTimeout: const Duration(seconds: 60),
